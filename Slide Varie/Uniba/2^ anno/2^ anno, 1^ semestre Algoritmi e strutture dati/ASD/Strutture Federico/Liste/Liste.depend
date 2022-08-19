@@ -1,0 +1,38 @@
+# depslib dependency file v1.0
+1562581138 source:c:\users\amminitratore\codeblocks\federicoliste\main.cpp
+	<iostream>
+	<stdlib.h>
+	".\LibreriaListe.h"
+	".\LibreriaCella.h"
+
+1562576669 source:c:\users\amminitratore\codeblocks\federicoliste\libreriacella.cpp
+	<iostream>
+	<stdlib.h>
+	"LibreriaCella.h"
+
+1562579044 c:\users\amminitratore\codeblocks\federicoliste\libreriacella.h
+
+1562581138 source:c:\users\amminitratore\codeblocks\federicoliste\librerialiste.cpp
+	".\LibreriaListe.h"
+	<iostream>
+	<stdlib.h>
+
+1562578476 c:\users\amminitratore\codeblocks\federicoliste\librerialiste.h
+	"LibreriaCella.h"
+
+1562576669 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\liste\libreriacella.cpp
+	<iostream>
+	<stdlib.h>
+	"LibreriaCella.h"
+
+1562579044 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\liste\libreriacella.h
+
+1562586217 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\liste\main.cpp
+	<iostream>
+	<stdlib.h>
+	".\LibreriaListe.h"
+	".\LibreriaCella.h"
+
+1562585242 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\liste\librerialiste.h
+	"LibreriaCella.h"
+

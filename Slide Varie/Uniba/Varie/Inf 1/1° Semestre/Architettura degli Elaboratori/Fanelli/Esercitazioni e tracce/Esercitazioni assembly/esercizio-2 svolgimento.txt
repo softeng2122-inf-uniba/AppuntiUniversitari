@@ -1,0 +1,95 @@
+#make_COM#
+ORG 100h
+
+;---- Definizione di macro
+
+;PUNTO 7
+StampaStringa MACRO stringa
+mov dx,offset stringa 
+mov ah, 09h
+INT 21h
+ENDM
+
+;PUNTO 8
+StampaCarattere MACRO carattere
+MOV AH, 2
+MOV DL, carattere
+INT 21h
+ENDM
+
+
+
+;----INIZIO PROGRAMMA
+
+;PUNTO 2: trovare il min e il max dell'array
+MOV SI,0 ;inizializza il registro usato per indicizzare gli elementi dell'array
+MOV CX,N ;inizializza il registro contatore a N
+MOV AH,A[0] ;inizializza AH (massimo) con il primo elemento di A
+MOV AL,AH ;inizializza AL (minimo) con il primo elemento di A
+
+;INIZIO CICLO 
+ciclo:  CMP A[SI],AL ;confronta l'elemento corrente con il minimo corrente (AL)
+        JL aggiorna_minimo ; se A[SI] < AL
+        CMP A[SI],AH ;confronta l'elemento corrente con il massimo corrente (AH)
+        JG aggiorna_massimo ; se A[SI] > AH
+        JMP continua_ciclo
+        aggiorna_minimo: MOV AL,A[SI] 
+        JMP continua_ciclo
+        aggiorna_massimo:MOV AH,A[SI]   
+        continua_ciclo: INC SI ;incrementa l'indice dell'elemento corrente
+LOOP ciclo ;FINE CICLO 
+
+;PUNTO 3: memorizzare nelle variabili min e max risp. il minimo e il massimo trovati 
+mov min, AL ;memorizza il minimo nella variabile min
+mov max, AH ;memorizza il massimo nella variabile max
+
+
+;PUNTO 5: 
+;conversione del min nel codice ASCII corrispondente mediante procedura Converti
+mov bl, min ;copia il valore da convertire in BL
+call converti ;chiamata della procedura CONVERTI
+mov cl, bl ;memorizza il risultato della conversione in CL
+
+;PUNTO 6: 
+;conversione del max nel codice ASCII corrispondente mediante procedura Converti
+mov bl, max ;copia il valore da convertire in BL
+call converti ;chiamata della procedura CONVERTI
+mov ch, bl ;memorizza il risultato della conversione in CH
+
+;PUNTO 9: stampa a video
+stampastringa msg1
+StampaCarattere cl ;visualizzazione del minimo
+
+stampastringa ACAPO
+
+stampastringa msg2    
+StampaCarattere ch ;visualizzazione del massimo
+
+;----FINE PROGRAMMA
+mov ah, 4Ch
+int 21h 
+
+
+; ----- definizione di variabili
+
+;PUNTO 1: 
+N EQU 10 ;costante: rappresenta il numero di elementi dell'array
+A DB 1,3,2,8,3,5,4,3,8,2 ;variabile array
+min db ?
+max db ?
+ACAPO DB 13,10,'$' 
+ 
+msg1 DB "Il valore minimo e': $"
+msg2 DB "Il valore massimo e': $"
+
+
+;------------------- procedure ---------------------
+
+;PUNTO 4
+Converti proc
+add bl, '0' ;calcola il codice ASCII del parametro
+ret
+Converti endp
+
+
+

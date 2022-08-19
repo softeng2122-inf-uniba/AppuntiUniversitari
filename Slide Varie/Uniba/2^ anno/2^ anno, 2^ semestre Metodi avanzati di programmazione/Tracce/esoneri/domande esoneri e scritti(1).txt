@@ -1,0 +1,80 @@
+Descrivere esaustivamente l’uso della astrazione generica in ADA in riferimento ai package.
+
+Descrivere in maniera esaustiva tutte le relazioni definite tra classi nel paradigma OO fornendo anche esempi  in UML.
+
+Definire i paradigmi operazionali, il loro rapporto con il binomio cosa-come e fornire la loro classificazione nota. [X]
+
+Commentare i limiti delle specifiche assiomatiche e come questi sono superati dalle specifiche algebriche
+
+Commentare le principali differenze tra tipi astratti e classi.
+
+Spiegare il polimorfismo di inclusione nel paradigma OO e il suo rapporto col legame statico/dinamico (esempi c++ e java)
+
+Descrivere le principali differenze tra Java e C++
+
+Descrivere differenze tra aggregazione e composizione. Riportare un esempio di entrambe in UML.
+
+Descrivere l'uso delle parole chiave final e abstract in Java . Esemplificare la risposta
+
+Fornire il concetto di paradigma di programmazione e specificare quali sono gli approcci adottati dai paradigmi rispetto al problem solving. Descrivere brevemente tali approcci
+
+Definire l'astrazione di dati. Spiegare il rapporto tra astrazione di dati e incapsulamento
+
+Descrivere differenze tra tipi astratti e classi con riferimento alla astrazione in programmazione
+
+Descrivere le proprietà che contribuiscono a definire i cittadini di prima classe, seconda classe e terza classe in un linguaggio di programmazione.
+Commentare la classificazione degli oggetti in cittadini di prima/seconda/terza classe e le implicazioni di tale classificazione con riferimento a linguaggi di programmazione noti.
+
+Definire la astrazione generica in programmazione. Con riferimento ad ADA spiegare se e come la astrazione generica può essere usata nella definizione di tipi astratti(o classi).
+
+Descrivere in maniera esaustiva le relazioni di ereditarietà, aggregazione e composizione nel paradigma OO (esempi UML)
+
+Descrivere le diverse forme di ereditarietà note nel paradigma OO. Commentare la loro relazione col principio di sostituibilità. (esempi UML)
+
+Descrivere i modificatori di visibilità in Java con riferimento a classi, attributi, metodi e interfacce.
+
+Fornire una definizione di oggetto e una definizione di classe in ADA.
+
+Descrivere l'astrazione di funzione e mostrare il diverso comportamento dei linguaggi in presenza di funzioni che siano cittadini di prima, seconda o terza classe. [X]
+
+Descrivere l'ereditarietà per implementazione. Qual è l'alternativa progettuale all'ereditarietà per implementazione? Modellare in UML e commentare tali alternative.
+
+Spiegare in che cosa consistono le specifiche sintattiche, semantiche e di restrizione nell'ambito delle specifiche assiomatiche e algebriche
+
+Riportare e commentare la classificazione di Wegner descrivendo le diverse forme di polimorfismo nel paradigma OO. (esempi)
+
+Spiegare il concetto di classe astratta, classe finale e interfaccia nel paradigma OO.
+
+Descrivere in maniera esaustiva il polimorfismo nel paradigma OO. (esempi)
+
+Definire e spiegare l'astrazione funzionale. Commentarne i limiti.
+
+Commentare vantaggi e svantaggi della definizione di tipi astratti. Esemplificare la risposta.
+
+Commentare la astrazione generica con rigerimento a funzioni e procedure. Mostrare e commentare un esempio di questa in Ada e uno in C++
+
+Descrivere i problemi legati all'ereditarietà multipla. Descrivere tramite un esempio UML come modellare alternativamente la ereditarietà multipla. Commentare l'esempio
+
+Commentare la astrazione di selettore. Mostrare e commentare un esempio di questa in C++
+
+Definire in maniera esaustiva classi astratte, classi foglia, interfacce (anche in rapporto alle classi) e metaclassi nel paradigma OO fornendo esempi in UML
+
+Fornire una classificazione di paradigmi, motivare l'esistenza di diversi paradigmi e spiegare vantaggi e svantaggi degli approcci multi-paradigmatici.
+
+Descrivere in maniera esaustiva la astrazione di funzione, commentare la anomalia della stessa in alcuni linguaggi di programmazione, descrivere come questa si rapporta alle forme di astrazione definite in progettazione.
+
+Descrivere in maniera esaustiva classi astratte e interfacce nel paradigma OO. Spiegare quando è appropriato usare entrambe.
+
+Descrivere il rapporto tra linguaggio e paradigma e fornire una tassonomia ragionevole di paradigmatici
+
+Spiegare l'astrazione generica. Esemplificare in Ada
+
+Spiegare il concetto i metaclasse e mostrare la sua relazione con i concetti di variabile/metodo di classe. Esistono Metaclassi in Java?
+
+Definire e commentare il concetto di package stateless.
+
+Definire e commentare il concetto di package oggetto.
+
+Definire la astrazione di controllo. Elencare tutte le forme di astrazione di controllo in java
+
+Descrivere la astrazione di funzione. Illustrare la anomalia con cui alcuni linguaggi di programmazione realizzano tale astrazione. Riportare esempi a supporto dei concetti esposti.

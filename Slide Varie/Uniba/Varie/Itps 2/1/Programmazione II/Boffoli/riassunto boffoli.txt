@@ -1,0 +1,1387 @@
+appunti zizza vincenzo
+
+classi di applicazioni software
+	-appl. orientate alla realizzazione di funzioni
+	-appl. orientate alla gestione dei dati
+	-appl. orientate al controllo
+
+rispetto al flusso di esecuzione:
+	-sequenziali
+	-appl. concorrenti -> multi thread
+	-dipendenti dal tempo
+
+paradigmi operazionali:
+	-sequenze computazionali passo passo
+		-side effecting -> modificano ripetutamente la rappresentazione dei dati
+			-imperativi
+			-object oriented
+		-non side effecting -> solo passaggi per valore -> funzionale
+
+astrazione sottointende:
+	-un processo -> scelta delle informazioni essenziali
+	-un entita -> descrizione semplificata di un sistema
+		-nel caso di un sistema-> descrizione semplificata del sistema che enfatizza alcuni dettagli e ne trascura altri
+
+astrazione nella progettazione -> astrazione = riformulare un concetto concentrando l'attenzione su idee generali piuttosto che con manifestazioni specifiche di quelle idee
+	-astr. funzionale:
+		-progettazione del software
+		-possibilità di specificare un modulo software che:
+			-trasforma dati in input in dati in output
+			-nasconde i dettagli della trasformazione
+		-i dettagli dei moduli non sono visibili
+		-il fruitore conosce le corrette convenzioni di chiamata e cosa fa
+
+		-specifica sintattica
+			-nome modulo
+			-tipo dato input
+			-tipo risultato
+		-specifica semantica
+			-trasformazione operata
+				-precondizione -> assiomatiche
+				-postcondizione -> assiomatiche
+					-se la precondizione è vera sull'input e il programma termina su quei dati allora la postcondizione è vera sui dati di uscita
+				es. fattoriale:
+				-precondizione -> n appartenente a N
+				-postcondizione -> if n >= 1
+								   	- n * (n-1) * (n-2)....
+								   if n = 0
+								   	- 1
+		-stepwise refiniment -> partire da un concetto generale e rifinirlo man mano
+			-astrazione funzionale -> supporta lo stepwise refiniment
+
+	-astr. dei dati
+		-non si accede direttamente al dato ma solo tramite op. lecite
+		-information hiding
+			-un principio di astrazione che suggerisce di occultare l'informazione
+		-incapsulamento
+			-impacchettare una collezione di entita, creando una barriera concettuale
+				-sottointende
+					-processo -> inpacchettamento
+					-entita -> pacchetto ottenuto
+						-es:
+						-procedura -> impacchetta comandi
+						-libreria -> incapsula funzioni
+						-oggetto -> incapsula dati e op sui dati
+		-pareti:
+			-trasparenti -> tutto visibile all'interno
+			-traslucide -> visibilità parziale del contenuto
+			-opache -> contenuto nascosto
+
+		astr.dati + stessa classe per informazioni e op. lecite -> astr.dati con incapsulamento
+		incapsulamento + pareti opache -> incapsulamento con astr. dati
+			-dati nascosti
+			-accesso solo tramite op. lecite
+			-op. lecite e dati nella stessa capsula
+
+			un astrazione si realizza piu efficacemente con l'ausilio del passaggio di parametri
+
+il linguaggio formale per la specifica di un tipo di dato:
+	-sp. sintattica
+		-elenco dei nomi dei domini e delle op. specifiche
+		-domini di partenza e destinazione
+	-sp. semantica
+		-un insieme ad ogni nome di tipo della specifica sintattica
+		-una funzione ad ogni nome di op, specificando
+			-precondizione
+			-postcondizione
+	esempio: vettore
+		-sp. sintattica
+			tipi -> vettore, intero, tipoElemento
+
+			operatori -> creaVettore() -> vettore
+						 leggiVettore(vettore, intero) -> tipoElemento
+						 scriviVettore(vettore, intero, tipoElemento) -> vettore
+		-sp. semantica
+			tipi -> intero -> insieme dei numeri interi
+					vettore -> sequenza di n elementi di tipo tipoElemento
+
+			operatori -> creaVettore() = v
+							-pre -> non ci sono
+							-post -> per ogni i appartenente all'insieme degli indici, v[i] = tipoElemento
+						 leggiVettore(v, i) = e
+						 	-pre -> i >= 0 && i <= n-1
+						 	-post -> e = v[i]
+						 scriviVettore(v, i, e) = v'
+						 	-pre -> i >= 0 && i <= n-1;
+						 	-post -> per ogni j appartenente all'insieme degli indici, v'[j] == v[j], v'[i] == e
+dato astratto Pila (stack)
+	-LIFO -> inserimento e estrazione elementi da un solo estremo
+
+astrazione dati : specifiche assiomatiche
+	-specifica sintattica
+		-nomi
+		-dominio di partenza e arrivo
+	-specifica semantica
+		-associa un insieme ad ogni nome di tipo
+		-una funzione ad ogni nome (specificando pre e post condizioni)
+
+	dato astratto definito come un algebra etereogenea divisa in tre parti:
+		-sintattica
+			-nomi, op, tipo argomenti
+		-semantica
+			-insieme di equazioni algebriche
+		-di restrizione
+			-pre e post condizioni
+
+	-operatori di un dato astratto
+		-costruttori -> creano o istanziano un dato astratto
+		-osservartori -> ritrovano informazioni sul dato astratto
+			-per osservare il comportamento di un astrazione si applicano a ogni costruttore tutte le osservazioni
+
+	-distringuere costruttori e operazioni
+		- il piu piccolo insieme di operatori necessario a costruire tutti i possibili valori per un dato astratto
+
+Astrazione sul controllo
+	-specifica di un modulo software che esegue delle op. in un ordine, nascondendo il modo in cui l'ordine è mantenuto
+		-modulo software parametrizzato rispetto alle op. da eseguire
+		-modulo software associato a un controllo di sequenza
+		-dettagli sul controllo di sequenza non visibili
+
+	-nella programmazione sequenziale -> ordine totale
+	-nella programmazione concorrente -> ordine parziale
+
+principio di astrazione -> applicato a 6 classi generiche
+
+	-espressione -> astrazione di funzione -> funzione i (p1, p2...) is E
+		-i -> Identificatore
+		-p1, p2... -> par.formali
+		-e -> espressione da valutare
+
+		-utente -> i(arg) = risultato
+		-implementatore -> vincoli tra par.formali e argomenti con algoritmo codificato in E
+
+		-le funzioni possono essere:
+			-terza classe -> solo chiamate
+			-seconda classe -> anche come parametri
+			-prima classe -> anche come risultato
+
+		-i valori possono essere
+			-denotabili -> associati a un nome
+			-esprimibili -> risultato di un espressione
+			-memorizzabili -> memorizzabili in una variabile
+
+	-comando -> astrazione di procedura -> procedura I(p1, p2...) is C
+		-i -> Identificatore
+		p1, p2... -> parametri
+		c -> blocco di comandi da eseguire
+
+		-utente -> aggiornamento dello stato in base ai parametri
+		-implementatore -> esecuzione del corpo in base agli argomenti e algoritmo codificato in c
+
+		astrazione funzionale:
+			-ha effetti collaterali -> astrazione procedura
+			-non ha effetti collaterali -> astrazione di funzione
+
+	-controllo di sequenza -> astrazione di controllo -> definisce l'ordine di esecuzione delle istruzioni
+		-linguaggio macchina
+			-sequenza
+			-salto
+		-linguaggi assemblativi
+			-sequenza
+			-salto -> jump -> jump to <label>
+		-linguaggi di alto livello
+			-strutture di selezione -> if/switch
+			-iterazione -> while/for
+			-chiamate ricorsive
+
+			situazioni eccezionali -> eccezioni 
+				-errori aritmetici
+				-fallimento di precondizioni
+				-condizioni impredicibili
+
+				-quando sollevata un eccezione va catturata e gestita
+					-si cerca il gestore prima nel blocco corrente e poi in quelli superiori
+						-se si trova -> viene gestita
+							-terminazione -> si riparte dal punto in cui si trova il gestore
+							-ripresa -> si ricomincia da dove è stata sollevata;
+ 
+
+	-accesso ad un area -> astrazione di selettore -> costrutti per accedere alla locazione di una var.
+		-identificatore -> nome di un valore -> legame valore - identificatore
+						   indirizzo -> legame identificatore - locazione di memoria
+
+	-definizione di un tipo -> astrazione di tipo -> type I(p1, p2...) is T
+		-i -> identificatore
+		p1, p2... -> parametri formali
+		T -> espressione di tipo -> meccanismo che permette la definizione di un nuovo tipo
+			-limiti
+				-non è possibile definire op. specifiche da associare al nuovo tipo
+				-manipolazione diretta dei dati
+				-non parametrizzata -> comunicazione con il contesto esterno non ammessa
+
+				-per definire op si utilizzano i moduli
+					-modulo -> gruppo di componenti dichiarate -> compilabile singolarmente -> necessità di definire parti pubbliche e parti private
+						-vita variabile
+						-modulo con stato locale = oggetto -> procedure e funzioni = metodi
+							-oggetto -> insieme di var. interne a un modulo manipolabili solo tramite op. contenute nel modulo stesso;
+
+	-dichiarazione -> astrazione generica  
+
+espressivita di un linguaggio:
+	-meccanismi di composizione
+	-controllo di sequenza 
+	-valori rappresentabili e manipolabili
+
+i linguaggi che supportano:
+	- astrazione funzionale -> flessibili nella composizione
+	- astrazione di controllo -> flessibili nel controllo di sequenza
+	- astrazione dati -> flessibili nei meccanismi di definizione e manipolazione dati
+		-tecniche a supporto dell'astrazione dati:
+			-definizione tipi astratti -> valori associati a variabili dichiarate di tipo T
+			-definizioni di classi di oggetti -> valori associati a oggetti ottenuti tramite istanziazione della classe 
+
+Identificatore di oggetto
+
+Oggetto -> Identita -> riconoscibile indipendentemente dal suo stato corrente e dotato di OID 
+
+OID -> Identificatore di Oggetto -> Immutabile, cambiarlo significa distruggere un oggetto e crearne uno nuovo con lo stesso stato
+	-assegnati in automatico
+	-astratti (non hanno significato nel mondo reale)
+	-indirizzo dell'oggetto nell'heap
+	-non utilizzabili
+	-legati a delle variabili (riferimento all'oggetto)
+	-se var. distinte hanno lo stesso OID puntano lo stesso oggetto (aliasing)
+	-un oggetto puo puntare un altro oggetto 
+
+
+UML:
+
+unified modelling language
+	linguaggio usato per:
+	-definire
+	-progettare
+	-realizzare
+	-documentare
+
+è un linguaggio universale di supporto alla progettazione e alla documentazione
+
+modellazione object oriented:
+	- classe -> insieme di oggetti omogenei
+	- oggetto -> ha:
+				   -Identita
+				   -stato
+				   -comportamento
+
+scopo UML -> visualizzare, specificare, costruire e documentare sistemi object oriented
+
+obiettivi UML:
+			  -fornire un linguaggio di specifica espressione, visuale e di facile utilizzo
+			  -offrire meccanismi di estendibilità e specializzazione del linguaggio
+			  -essere indipendente dai linguaggi di programmazione
+
+produrre un sw migliore significa:
+
+	-astrarre e semplificare i progetti piu complessi
+	-visualizzare un sistema
+	-specificare struttura e comportamento del sistema 
+	-definire le linee guida per la costruzione del sistema
+	-documentare le decisioni
+
+Notazione UML:
+
+Oggetti -> rettangolo con bordo continuo
+	è possibile indicare:
+	-nome(o Identificatore)
+	-nome istanza e classe
+	-nome astrazione
+	-istanza orfana
+
+Le Classi:
+	-descrive una famiglia di oggetti che condividono la stessa struttura o medesimo comportamento
+	-nella programmazione object oriented:
+		-oggetto -> istanza di una classe, ottenuto istanziando una classe
+	-ogni classe ha una doppia componente
+		componente statica:
+			-campi dotati di nome e che contengono un valore -> attributi
+			-caratterizzano lo stato degli oggetti durante l'esecuzione
+			-gli attributi si distinguono in base al loro ambito d'azione:
+				-di istanza -> associato ad un oggetto e hanno la stessa vita dell'oggetto
+				-di classe -> condivisi da tutte le istanze e hanno la vita della classe
+		compotenente dinamica:
+			-metodi (o operazioni)
+				-manipolano gli attributi
+				-rappresentano il comportamento comuni
+			-si classificano come:
+				-costruttori -> istanziano gli oggetti
+				-di accesso -> restituiscono astrazioni dallo stato
+				-di trasformazione -> modificano lo stato
+				-distruttori -> rimuovono gli oggetti  della memoria
+
+				possono essere:
+					-metodi di istanza:
+						-operano almeno su un attributo di istanza 
+						-bisogna specificare l'istanza
+						-non si possono invocare sulla classe
+					-metodi di classe:
+						-si possono invocare specificando la classe
+						-possono essere invocati senza instanziare un oggetto
+
+Notazione UML:
+
+Classe -> rettangolo -> rappresentabile solo con nome o con nome, attributi e metodi
+	-ogni classe deve avere un nome univoco
+	-attributi sotto il nome della classe
+		possibile specificare:
+		-insieme di valori
+		-inizializzazione
+	-attributi di classe -> sottolineati
+	-attributi derivati -> indicati con /
+	-metodi:
+		-si puo specificare la firma 
+
+STEREOTIPI -> meccanismi di estendibilità di UML
+	- racchiusi tra <<...>>
+	-estendono il vocabolario di UML
+	-permettono di creare nuovi blocchi derivandoli da quelli esistenti
+	-permettono di rendere specifici i blocchi per un particolare dominio
+	-permettere di distinguere diverse tipologie di attributi/operazioni
+
+visibilità attributi/metodi
+	-pubblica -> visibili da altre classi -> public +
+	-privata -> visibile solo alla classe di appartenenza -> private -
+	-protetta -> visibile nel package e alle classi discendenti -> protected #
+	-package -> visibile solo all interno del package -> package ~
+
+molteplicità di classe -> numero di istanze che una classe puo avere
+	-indicata in UML con un quadratino in alto a destra
+
+molteplicità di attributo -> subito dopo il nome
+
+
+schema di definizione attributo-> [visibilità] nome [molteplicità][:tipo][=valore iniziale][{proprietà}]
+	-proprietà:
+		-changeable -> senza restrizioni
+		-addOnly -> i valori possono solo essere aggiunti, mai rimossi o modificati
+		-frozen -> valore non modificabile dopo inizializzazione 
+
+schema di definizione operazione -> [visibilita] nome [(lista parametri)][:valore di ritorno][{proprietà}]
+	-proprietà:
+		-isQuery -> priva di side-effect
+		-leaf -> non concesso overriding (specializzare un operazione)
+		-sequential -> i chiamanti devono essere coordinati per chiudere il servizio uno alla volta
+		-guarded -> simile alla precedente, ma sequenzialità gestita dalla classe
+		-concurrent -> semantica e integrità garantite anche in caso di chiamate multiple
+
+UML distingue metodi e operazioni:
+	-operazione -> servizio che puo essere richiesto dalla classe
+	-metodo -> implementazione dell operazione
+
+	un operazione -> piu metodi;
+
+schema di definizione signature -> [direzione] nome : tipo [=valore iniziale]
+	-direzione:
+		-in -> parametri di input
+		-out -> parametri di output
+		-inout -> parametro di input che puo essere modificato
+
+Classe attiva -> ha come istanze oggetti attivi -> ha un Thread e puo far partire un thread concorrente
+	- in UML -> bordi raddopiati
+
+Classe template -> classi parametrizzate
+	-in java = classi generiche
+	-in UML -> parametro di tipo in alta a destra (in un rettangolo sovrapposto)
+
+Specifica della responsabilità
+	-definisce lo scopo di una classe, viene definita all'interno della classe o come una Nota
+
+identificazione classi
+	-identificare gli elementi usati dagli utenti per descrivere un problema
+	-per ogni astrazione individuata:
+		-identificare un insieme di responsabilità
+		-bilanciare il carico di responsabilità tra le classi
+	-fornire ad ogni classe gli attributi e le operazioni per eseguire le responsabilità
+
+gruppi di classi:
+	-classi entita -> modellano entita astratte o concrete necessarie per eseguire i compiti -> in UML = cerchio con linea sotto
+		-indipendenti dal contesto -> non sensibili alle modalità di comunicazione tra contesto e sistema
+		-indipendenti dall'applicazione -> possibilità di usarle su diverse applicazioni dello stesso dominio
+	-classi di confine -> coordinano la comunicazione tra esterno e interno del sistema -> in UML = cerchio con T ruotata di 90 gradi a sinistra
+		-dipendenti dal contesto
+	-classi di controllo -> coordinano gli eventi necessari a supportare la dinamica prevista in uno o piu scenari di utilizzo del sistema -> in UML = cerchio con una punta di una freccia sulla circonferenza
+		-dipendenti dall'applicazione
+
+instanceOf -> oggetto istanza di una classe
+
+EREDITARIETA:
+
+classe -> repertorio di conoscenza
+	sottoclasse -> specializzazione di una superclasse (per un ambito piu specifico rispetto a una superclasse es Auto -> sottoclasse Fiat)
+
+ereditarieta per estensione -> sottoclasse introduce caratteristiche non presenti nella classe madre -> permette codice estendibile e riutilizzabile
+ereditarieta per variazione funzionale -> ridefinisce i metodi della superclasse se inadeguati(overriding) -> se modificati i metodi della classe madre necessario ridefinire anche quelli ridefiniti
+ereditarieta per restrizione -> sottoclassi rispettano vincoli non per forza rispettati dalle superclassi -> es. rettangolo -> quadrato rispetta il vincolo di 4 lati uguali
+
+	principio di sostituibilità -> se X sottoclasse di Y può essere usato in ogni contesto in cui è richiesto Y
+		-una sottoclasse non puo cancellare o rinunciare a metodi della classe madre
+		-relazione is_a -> in UML freccia dalla classe figlia alla classe madre;
+ereditarieta di implementazione -> la sottoclasse utilizza il codice della superclasse per implementare l'astrazione associata
+	-non è valido il principio di sostituibilità dato che in questo tipo di ereditarieta si puo variare la visibilita di metodi e attributi
+	- rappresentata in UML con una freccia affiancata da <<implementation>>
+ereditarieta multipla -> una classe figlia puo avere piu classi madre
+
+ereditarieta -> nuovo livello di visibilità -> protected -> visibile in tutte le classi del package e nelle classi figlie(anche esterne al package)
+
+classi astratte -> classi non completamente specificata
+	-non puo essere instanziata
+	-puo fare uso di ereditarieta
+	-permettere di fattorizzare proprietà comuni e organizzare una gerarchia
+	-va rifinita nelle classi figlie
+	-dando una radice comune alle classi è possibile sfruttare polimorfismo di inclusione e binding dinamico
+
+classi final
+	-non possono essere specificate e modificate
+
+interfaccia
+	-descrive il comportamento degli oggetti
+	-non specifica la loro implementazione
+	-collezione di operazioni non specificate
+	-simile alla classe astratta ma con metodi tutti astratti e nessun attributo
+	-le op devono essere implementare da una classe che implementa l'interfaccia
+	-in UML -> cerchio con freccia trattegiata che parte dalla classe e punta l'interfaccia
+
+metaclassi -> classi che definiscono la struttura di altre classi
+	-in java ogni classe eredita da Object
+	-ogni classe ha un metodo getClass() che restituisce per ogni oggetto un'istanza della classe Class
+	-Class descrive la classe di appartenenza di un oggetto
+	-Class è una metaclasse
+
+aggregazione di oggetti
+	-non sempre la scelta migliore è estendere una classe madre
+	-aggregazione -> variabili di istanza che puntano ad altri oggetti di altre classi
+		-relazione has_a
+		-una classe A è in relazione di aggregazionecon una classe B se alcune istanze di B contribuiscono a formare una parte delle istanze di A
+			-in UML -> Rombo equilatero vuoto con una linea uscente
+		-Grady Booch suggerisce l'uso dell'aggregazione quando:
+			-contenimento fisico -> pagine in un libro
+			-appartenenza -> giocatori di una squadra
+			-composizione funzionale -> ruote di un auto 
+		-vita delle classi aggregate separata dalla vita della classe intera 
+
+composizione
+	-comporta una dipendenza esistenziale -> in UML -> Rombo equilatero pieno con una linea uscente
+		-una sola istanza non può essere condivisa
+		-una classe può essere componente di molte classi, ma un istanza puo essere componente di un solo oggetto
+
+raggruppare classi
+	-package -> organizzazione di classi in gruppi
+		-piu facilmente individuabili e accesibili
+		-in UML -> rettangolo con specificato in alto a sinistra (all'esterno) la dicitura package
+		-un package definisce un namespace per i suoi elementi
+			-ogni classe -> nome distinto
+			-nome completo classi -> package::classe
+				-stesso nome -> elementi di tipo differente
+			-possono essere nidificati
+				-possono essere legati da relazioni di generalizzazione
+
+classi interne
+	-dichiarate in una classe ospite
+	-identificate da un nome 
+	-puo essere privata (non visibile fuori dalla classe ospite)
+	-puo accedere a metodi e campi della classe ospite
+	-una sua istanza puo esistere solo se esiste un istanza della classe ospite
+
+polimorfismo
+	-un operazione -> diverse implementazioni
+		-parametrico -> uniforme su una gamma di tipi
+		-ad hoc -> lavora su tipi differenti
+
+		-gerarchia
+			-universale -> opera su un numero potenzialmente illimitato di tipi -> morfismi generati automaticamente su una base comune
+				-parametrico
+				-di inclusione
+			-ad hoc -> numero finito di tipi -> morfismi generati manualmente senza una base comune
+				-overloading -> stesso identificatore ma metodi differenti, necessario disambiguare tramite argomenti o classe dell'oggetto
+				-coercizione
+
+		-polimorfismo universale parametrico e di inclusione
+			-numero infinito di tipi solitamente soggetto a vincoli
+			-parametrico
+				-parametro implicito o esplicito su una funzione generica
+			di inclusione
+				-applicabile a x e tutte le sue sottoclassi
+
+legame statico o dinamico
+	-statico -> legame identificatori-dichiarazioni operato a compile-time -> vincolato alla struttura del codice
+	-dinamico -> legame identificatori-dichiarazioni operato a run-time -> vincolato al flusso di esecuzione
+
+java -> linguaggio puramente orientato a oggetti
+	-supporta:
+		-incapsulamento
+		-ereditarieta
+		-polimorfismo
+		-binding dinamico
+	-caratteristiche
+		-fortemente tipizzato
+		-gestione automatica della memoria
+		-gestione delle eccezioni
+
+	-multi-threading
+		-task -> insieme di thread
+		-thread -> unita di base di utilizzo della cpu
+			-un program counter
+			-un insieme di registri
+			-uno stack
+			-dotati di priorità
+		java permette la gestione della cpu
+
+	-codice java:
+		-tradotto in bytecode (codice intermedio) ed eseguito su Java Virtual Machine, permettendo cosi la portabilità del codice
+			-la macchina deve implementare una JVM, che si occupera di eseguire un codice universale
+
+	-gestione della memoria
+		-memoria gestita dal Garbage Collector
+			-compaction -> simile alla deframmentazione
+			-mark and sweep
+				-avviene su un thread a bassa priorità, divenendo impercettibile;
+
+	-JDK
+		-javac -> compilatore
+		-java -> interprete
+		-javadoc -> produce documentazione di supporto al codice in HTML
+		-appletviewer -> esegue e debugga gli applet
+		-jar -> gestisce i file jar
+		-jdb -> debugger
+		-javah -> genera file header
+		-javap -> disassemblatore file .class
+
+	-Oggetti
+		-tutto trattato come un oggetto
+			-identificatore -> riferimento ad un oggetto
+				-avere un riferimento non significa che l'oggetto esiste
+			-l'operatore new crea il legame riferimento - oggetto e invoca il metodo costruttore
+			-variabili -> stack
+			-oggetti -> heap
+
+	-tipi primitivi
+		-tutti i tipi primitivi hanno il segno
+		-tutti i tipi primitivi possono avere classi wrap -> classi che permettono di trattare un primitivo come un oggetto
+		-la loro dichiarazione è come segue:
+			-Integer n = new Integer(valore);
+
+			-per ottenere il valore in int si usa il metodo:
+
+			-n.intValue(); che ha valore di ritorno di tipo int 
+
+			-long -> Long -> longValue();
+			-float -> Float -> floatValue();
+			-double -> Double -> doubleValue();
+			-int -> Integer -> intvalue();
+			-char -> Character -> charValue();
+
+			-inoltre contengono i metodi statici
+				-parse(string) -> leggono una stringa e restituiscono un numero
+				-toString -> convertono un numero in un int
+
+			-esistono 2 classi per aritmetica ad alta precisione
+				-BigInteger -> interi senza nessuna perdita di dati
+				-BigDecimal -> decimali in fixed-point a arbitrary-precision
+
+	-tipi di variabili
+		-di istanza -> attributi di un oggetto
+		-di classe -> attributi di una classe
+		-locali -> interne ai metodi
+			-dichiarazione -> tipo nome = inizializzazione(facoltativa ma consigliata)
+				-tipo puo essere:
+					-primitivo
+					-classe/interfaccia
+					-array 
+
+	-classi
+		-oggetti con medesime caratteristiche e comportamenti accomunati dalla stessa classe
+			-class nome_classe
+
+			-classe -> stampo
+			-oggetto -> prodotto dello stampo
+
+			-this -> usata in un metodo è una parola chiave che permette di riferirsi all'oggetto nel quale il metodo è contenuto
+
+			-istanziazione
+				-classe A = new classe();
+					-classe() -> metodo costruttore che istanzia l'oggetto
+
+			-in una classe è possibile specificare:
+				-dati -> variabili -> variabili di tipo primitivo o riferimenti ad altri oggetti
+					-una variabile puo essere sostituita da una variabile piu piccola
+					-per sostituire una variabile piccola da una piu grande occorre un cast esplicito -> (tipo necessario)variabile
+				-metodi -> funzioni
+					-passaggio dei parametri
+						-oggetto -> riferimento
+						-primitivi -> valore
+					-return restituisce un risultato
+					-identificato univocamente
+					-chiamato tramite il suo oggetto
+					-se di tipo void, return termina l'esecuzione
+					-overloading -> metodi con stesso nome e argomenti differenti
+
+				-metodi costruttori
+					-istanziano un oggetto
+					-chiamati con new;
+					-stesso nome della classe
+					-se non specificato, viene generato automaticamente
+					-puo avere argomenti (utili a inizializzare un dato)
+
+	-stampa a schermo
+		-per stampare a schermo utilizziamo la classe di sistema System.out
+			-println() -> permette di stampare a schermo stringhe e variabili seguite da una newline-> arg = "testo"/var +(concatenazione) "testo"/var
+			-printt() -> stessa sintassi di println() ma senza newline
+			-printf() -> riprende la sintassi di C (per i nostalgici)
+
+	-per leggere da tastiera
+		-per leggere da tastiera utilizziamo la classe Scanner di java.util -> Scanner nome = new Scanner(System.in) -> System.in rappresenta lo standard input della tastiera
+			-metodi Scanner:
+				-nome.next() -> legge fino al primo spazio
+				-nome.nextLine() -> legge tutta la linea fino alla newline (letto ma scartato)
+				-nome.nextInt() -> legge il valore come int
+				-nome.nextDouble() -> legge il valore come double
+				-nome.nextFloat() -> legge il valore come float
+				-nome.nextLong() -> legge il valore come long
+				-nome.nextByte() -> legge il valore come byte
+				-nome.nextShort()-> legge il valore come short
+				-nome.nextBoolean() -> legge i valori booleani true e false
+				-nome.useDelimiter() -> imposta un nuovo delimitatore di stringhe per l'oggetto nome_scanner
+
+	-istruzioni di controllo
+		-selezione
+			-if-then-else -> if(condizione booleana)
+							 {
+							 	//codice in caso di true
+							 }
+							 else -> superfluo
+							 {
+							 	//codice in caso di false
+							 }
+			-if annidati -> if(condizione booleana) -> solo un ramo viene eseguito, finita l'esecuzione si esce dall'if
+							{
+								//codice
+							}
+							else if(condizione booleana)
+							{
+								//codice
+}
+			-switch -> switch(variabile discreta (no float/double)) -> a, b e c valori numerici, default viene eseguito se nessun caso viene eseguito prima
+							case a:
+								//codice
+								break;
+							case b:
+								//codice
+								break;
+							case c:
+								//codice
+								break;
+							default:
+		-iterazione
+			-while -> while (condizione booleana) -> iterazione indeterminata
+					  {
+					  	//codice
+					  }
+			-do while -> do -> uguale al while ma il codice viene eseguito almeno per una volta
+						 {
+						 	//codice
+						 } while (condizione booleana)
+			-for -> for(inizializzazione; condizione; passo) -> iterazione determinata
+					{
+						//codice
+					}
+		-salto
+			-break -> esce dal ciclo
+			-continue -> salta l'iterazione corrente
+
+	-operatori
+		-usati per manipolare oggetti e dati -> prende uno o piu argomenti e produce un valore
+			-aritmetici
+			-bit a bit
+			-relazionali
+			-logici 
+
+			= -> assegnazione -> prende il valore di destra e lo copia nella var.di sinistra
+				-destra -> var./costante/espressione
+				-sinistra -> var.
+					-tra oggetti viene copiato il riferimento -> entrambi punteranno lo stesso oggetto -> aliasing
+
+			-aritmetici di base -> +, -, *, - unario, /, %
+
+			-incremento/decremento
+				-prefissi -> prima calcolato e poi assegnato -> ++x/--x
+				-postfissi -> prima assegnato poi calcolato -> x++/x--
+
+			-relazionali -> generano un boolean
+				- == -> uguale
+				- != -> diverso
+				- > -> maggiore
+				- < -> minore 
+				- >= -> maggiore uguale
+				- <= -> minore uguale
+
+			-booleani 
+				- ! -> not logico 
+				- & -> and logico
+				- | -> or logico
+				- ^ -> xor logico
+				- || -> or short circuit 
+				- && -> and short circuit
+				- &= -> assegnazione and
+				- |= -> assegnazione or
+				- ^= -> assegnazione xor
+				- != -> diverso da 
+
+			-operatore ternario '?' -> simile a if 
+				- boolean ? expr1 : expr2
+					-se boolean true
+						-esegue expr1
+					-se boolean false
+						-esegue expr2
+
+			-operatori bit a bit
+				- ~ -> not binario unario -> inverte tutti i bit
+				- & -> and binario -> 1 se entrambi gli op. sono 1
+				- | -> or binario -> 1 se almeno un op. è 1
+				- ^ -> xor binario ->se include solo un bit 1 da 1
+				- >> -> scorrimento a destra
+				- << -> scorrimento a sinistra
+				- >>> -> scorrimento a destra con riempimento con zero
+				- &= -> assegnazione and binario
+				- |= -> assegnazione or binario
+				- ^= -> assegnazione xor binario
+				- >>= -> assegnazione scorrimento a destra
+				- >>>= -> assegnazione scorrimento a destra con riempimento con zero
+				- <<= -> assegnazione scorrimento a sinistra
+
+			- + per le stringhe -> concatena -> se il primo membro di un'espressione è una string tutti i + saranno concatenazioni
+
+			-cast
+				-fra primitivi -> (tipo)variabile/numero
+				-fra oggetti -> superclasse al posto di sottoclasse -> y = (sottoclasse)oggetto
+				-da primitivo a oggetto -> classi wrapper
+
+	-contenitori
+		-array
+			-solo lenght è accessibile
+			-[i] per accedere all'elemento i dell'array
+			-non è possibile superare il limite dell'array
+			-non è possibile restituire un array intero ma un array di riferimenti
+			-Arrays -> java.util;
+				-metodi statici
+					-equals() -> confronta 2 array
+					-fill() -> riempie l'array
+					-sort() -> ordina l'array
+						-codice variabile -> contenuto nella classe degli elementi
+						-codice invariabile -> chiama il codice variabile
+					-binarySearch() -> cerca un elemento (da utilizzare su un vettore ordinato)
+						- >= 0 se trova un elemento
+						- < 0 se non lo trova
+					-asList() -> copia l'array in un contenitore detto List 
+
+					-metodo di System -> System.arrayCopy(a, addr1, b, addr2, int)
+						-copia un array a partendo da addr1 e per int elementi in b che parte da addr2
+						-funzionalità di confronto
+						-implementazione di comparable (interfaccia)
+							-necessità di implementare compareTo();
+								-result < 0 -> argomento piu piccolo dell'oggetto corrente
+								-result = 0 -> argomento e oggetto uguali
+								-result > 0 -> argomento piu grande dell'oggetto corrente
+						-implementazione di Comparator (interfaccia)
+							-implementare
+								-public int compare(Object o1, Object o2)
+								-public boolean equals(Object obj)
+
+		-classi contenitore
+		-contengono solo riferimenti a oggetti -> risolvibile con classi wrapper
+			-collection -> gruppo di singoli elementi con dei vincoli
+			-List -> elementi in una determinata sequenza
+				-ArrayList
+				-LinkedList
+				-Vector
+					-Stack
+			-Set -> non contiene elementi duplicati
+				-HashSet
+				-LinkedHashSet
+				-SortedSet
+					-TreeSet 
+
+				-un elemento in ogni locazione
+
+			-add() -> aggiunge un elemento
+			-fill() -> riempie la collection
+			-get(i) -> return elemento alla posizione i 
+					
+			-Map -> coppie "chiave - oggetti" 
+				-HashMap
+				-TreeMap
+				-LinkedHashMap
+
+				-accesso -> simile a un array indicizzato
+				-put() -> aggiunge un elemento
+
+				-puo restituire
+					-Set per le chiavi
+					-Collection per i valori
+					-set di coppie
+
+			-Queue -> coda di elementi con politica FIFO (inserimento da un estremo e lettura dall'altro)
+				-PriorityQueue
+
+			-Deque -> simile alla Queue ma con possibilita di inserire e rimuovere da entrambi i lati
+				-ArrayDeque
+
+		-visualizzazione contenitori
+			-istanza di collection -> visualizzata con le quadre
+			-istanza di map -> visualizzata con le graffe e formattazione chiave = valore
+
+		-svantaggi
+			-si perde il tipo di oggetto
+				-rischio di contenitori eterogenei
+				-necessario un cast
+
+		-iteratori
+			-si muove attraverso una sequenza di oggetti
+			-nasconde la struttura al programmatore
+			-ogni contenitore puo generarlo tramite iterator() e implementa
+				-next()
+					-prima chiamata -> primo elemento
+					-successive -> elemento successivo al corrente
+				-hasNext() -> true se ci sono elementi successivi
+				-remove() -> rimuove l'ultimo elemento restituito
+
+		-interfaccia collection
+			-boolean add(Object) -> true se l'elemento è stato aggiunto alla collezione
+			-boolean addAll(collection) -> true se tutti gli elementi vengono aggiunti
+			-void clear() -> rimuove tutti gli elementi
+			-boolean contains(Object) -> true se il contenitore contiene l'argomento
+			-boolean containsAll(collection) -> true se contiene tutti gli elementi dell'argomento
+			-boolean isEmpty() -> true se non contiene elementi
+			-Iterator iterator() -> restituisce un iteratore
+			-boolean remove(Object) -> se l'argomento è nel contenitore lo rimuove e restituisce true
+			-boolean removeAll(collection) -> rimuove tutti gli elementi dell'argomento e restituisce true
+			-boolean retainAll(collection) -> mantiene solo gli elementi presenti nell'argomento e restituisce true
+			-int size() -> numero elementi contenitore
+			-Object[] toArray() -> restituisce un array con tutti gli elementi
+			-Object[] toArray(Object a) -> restituisce un array con elementi di tipo a contenente tutti gli elementi
+
+		-metodi classe collection
+			-max(collection) e min(collection) -> massimo e minimo elemento di collection
+			-max(collection, comparator) e min(collection, comparator) -> massimo e minimo usando comparator
+			-reverse() -> inverte gli elementi
+			-copy(list dest, list source) -> copia gli elementi di source in dest
+			-fill(list, object) -> sostituisce tutti gli elementi di list con source
+			-nCopies(int n, object o) -> restituisce una lista di n elementi i cui riferimenti puntano a o
+
+		-funzionalità list
+			-mantiene gli elementi in ordine 
+			-fornisce metodi per inserire o eliminare elementi
+			-list -> ListIterator per spostarsi nella lista
+				-per specializzare list
+					-ArrayList -> lista implementato con un array
+					-LinkedList -> collegata sia al precedente che al successivo
+						-supporta addFirst()/Last(), getFirst()/Last(), removeFirst()/Last()
+		-funzionalita set
+			-una sola istanza per ogni oggetto(no duplicati)
+			-univocita tramite equals()
+			-non garantisce un ordine
+				per specializzare set
+					-HashSet -> tempo di accesso piu breve (implementa gli hashcode)
+					-TreeSet -> set ordinato tramite albero
+						-first() -> elemento piu basso
+						-last() -> elemento piu alto
+						-sortedSet subSet(from, to) -> restituisce un set che parte da from e finisce a to
+						-sortedSet headSet(element) -> un set con tutti gli elementi prima di element
+						-sortedSet tailSet(element) -> un set con tutti gli elemento dopo element
+
+		-funzionalita interfaccia Map
+			-accedere a un oggetto tramite un oggetto
+				-put(key, value) -> aggiunge value e lo lega a key
+				-get(key) -> restituisce l'oggetto collegato a key
+				-containsKey(Object key) -> verifica se è presente una chiave
+				-containsValue(Object value) -> verifica se è presente value
+
+				-specializzazione map
+					-hashMap -> key basato sulla tabella hash -> hashcode basato su indirizzo e non valori -> possibile ridefinirlo
+					-treeMap -> coppie chiave-valoree ordinate con Comparable
+
+		-conviene impostare collection e map in sola lettura
+			-inserimento valori
+			-chiamata unmodifiableCollection();
+
+		-bitSet -> set di valori binari
+			-efficiente per le dimensioni
+			-piu lento di un array
+			-dim.minima -> 64 bit
+
+	-Java Generics
+		-implementare codice che lavora su un tipo non specificato
+		-con i java generics è possibile:
+			-specificare il tipo di contenitori omogenei
+			-chiedere al compilatore di effettuare una parte dei controlli a compile time 
+		-possibile utilizzare i generics nella generazione di interfacce
+			-public interface Generator<T> -> T = tipo generico
+			{
+				T next();
+			}
+		-possibile utilizzare i generics nei metodi -> si utilizzano dei placeHolder alla definizione -> non per forza contenuti in classi generiche
+			-public class esempio <T>
+			{
+				private T ogg; -> oggetto del tipo inserito all'istanziazione
+
+				public T get(T g); argomento e valore di ritorno saranno definiti all'istanziazione della classe
+			}
+		-istanziazione
+			-esempio<String> pippo = new esempio<String>;
+			-implementata tramite erasure, cioe tutti i parametri di tipo vengono sostituiti da un oggetto limite come 
+
+		-wildcards
+			-ai generics si aggiunge <?>, wildcard per indicare qualunque tipo
+				-avendo comunque la possibilita di estenderlo ponendo dei vincoli -> class <? extends Number> -> tipi numerici
+					-es pratico, con apple che estende fruit
+						- List <fruit> list = new ArrayList <apple>; //errore, list<apple> != list<fruit>
+							-soluzione -> List <? extends fruit>
+
+	-classi interne
+		-classi interne ad altre classi 
+		-di tipo a.innerclass -> a = classe esterna
+		-istanziazione -> a.innerclass b -> new a.innerclass();
+		-non possono essere private
+		-la classe esterna non puo essere privata
+		-puo accedere a tutti i metodi e i campi della classe ospitante
+		-la classe ospitante puo vedere solo la parte pubblica della inner class
+		-se non esiste la classe esterna non puo esistere la innerclass
+
+	-eccezioni
+		-condizioni anormali a run-time che impediscono il normale flusso di esecuzione possono sollevare eccezioni -> potrebbero necessitare l'uscita dal contesto corrente
+			-sollevamento di un eccezione
+				-creato oggetto eccezione
+				-interruzione dell'esecuzione
+				-viene cercato un gestore di eccezioni
+					-deve recuperare la situazione eseguendo codice alternativo o interrompendo l'esecuzione
+
+			-zona protetta -> blocco di codice che potrebbe generare eccezioni
+			-throw new classe_eccezione() -> lancia un eccezione
+				-esistono 2 costruttori standard
+					-con argomento vuoto o con argomento una stringa
+			-blocco try {...} -> blocco protetto
+			-blocco catch(eccezione){...} -> gestore delle eccezioni che deve seguire il blocco try e deve avere come argomento l'eccezione lanciata
+				-al lancio di un eccezione
+					-il programma cerca un gestore con argomento l'eccezione sollevata
+					-viene catturata e gestita
+					-viene passato il controllo alla prima istruzione dopo il blocco catch
+					-se non viene trovato un gestore verra cercato nei blocchi chiamanti
+				-è possibile scrivere un gestore universale utilizzando la classe madre Exception
+			-blocco finally{...} -> eseguito a prescindere
+				-se viene lanciata un eccezione -> dopo averla gestita il controllo passa a finally
+				-se non viene lanciata -> dal blocco try si passa direttamente al blocco finally
+				-deve essere scritta dopo il catch
+			-se un metodo puo lanciare eccezioni che non puo gestire deve specificare la clausola throws nella definizione del metodo
+				-tipo nome (arg) throws eccezione
+
+		-Classe Throwable -> classe madre delle eccezioni
+
+			-Object
+				-Throwable
+					-Error
+					-Exception
+
+		-è possibile definire eccezioni personalizzate
+			-class aException extends Exception;
+				//java definisce automaticamente il costruttore
+
+	-riuso del codice
+		-una delle principali caratteristiche di java è il riuso di codice
+			-composizione -> istanze di classi esistenti in nuove classi
+				-tipi primitivi -> inizializzati a 0;
+				-oggetti -> riferimenti inizializzati a null;
+					-inizializzazione
+						-alla definizione
+						-in un costruttore
+						-prima del loro utilizzo 
+
+			-ereditarieta -> poter utilizzare metodi e dati definiti nella classe madre
+				-concetto fondamentale del modello Object-oriented
+					-ogni classe eredita da Object
+					-per indicare da quale classe ereditare -> parola chiave extends
+						-una classe figlia puo
+							-ridefinire i metodi -> Override
+							-utilizzare il metodo della classe madre tramite super.metodo();
+							-definire nuovi metodi
+						-all'istanziazione viene allocata la classe figlia e un sottooggetto della classe madre
+						-se il costruttore della classe madre necessita argomenti va invocato tramite super(arg), altrimenti java lo invoca in automatico
+
+			-composizione vs ereditarieta
+				-composizione -> relazione di appartenenza has_a
+					-caratteristiche di una classe esistente senza utilizzare la sua interfaccia
+					-consigliabile creare oggetti public in determinate situazioni
+				-ereditarieta -> relazione di specializzazion is_a
+					-specializza una classe esistente
+					-alcuni casi rendono necessario che alcuni metodi private siano visibili alle classi figlie
+						-protected ->visibili al package e alle sottoclassi
+	-modificatore final
+		-dato -> lo rende costante
+			-inizializzato e modificato una sola volta -> final tipo nome_dato;
+			-costante gia a compile-time -> final tipo nome_dato = valore;
+			-tipi primitivi static final -> scritti in MAIUSCOLO
+		-metodi -> bloccano il cambiamento di significato di un  metodo -> banalmente, non permette l'Override
+		-classi -> non derivabili
+
+	-nascondere le implementazioni
+		-un file che contiene il sorgente
+			-chiamato unita di compilazione
+			-estensione del file -> .java
+			-puo contenere piu classi
+			-una sola classe public
+				-questo permette al programmatore di modificare senza vincoli le classi di supporto alla public senza che quest'ultima cambi comportamento
+				-separare cio che muta da cio che resta invariato
+			-compilazione file java -> file .class per ogni classe
+
+		-librerie 
+			-l'utente deve potersi fidare delle librerie
+			-il creatore della libreria deve poterla modificare senza obbligare l'utente a cambiare codice
+				-libreria -> raccolta di classi -> package -> specificare all'inizio del file package nome
+			-librerie standard di java
+				-java.applet -> creare applet
+				-javax.swing -> interfacce grafiche
+				-java.io -> input/output
+				-java.lang -> funzioni generiche
+				-java.math -> calcoli matematici
+				-java.net -> comunicazione tramite rete 
+				-java.rmi -> applicazioni distribuite
+				-java.security -> impone restrizioni di sicurezza
+				-java.sql -> interagisce con le basi di dati in sql
+				-java.text -> formatta il testo per la visualizzazione 
+				-java.util -> servizi generali
+
+			-per importare una libreria
+				-import java.util.* -> intera libreria
+				-import java.util.ArrayList -> solo classe
+				- se non vengono importati, per accedere a un metodo è necessario specificare tutto il percorso della classe
+			-package e import permettono una gestione ottimizzata dei nomi
+				-evitano conflitti
+				-preferibile organizzare tutti i file .class in una cartella
+			-risoluzione delle dipendenze
+				-l'interprete
+					-prende la var. d'ambiente CLASSPATH
+					-prende il nome del package e sostituisce ogni punto con uno slash per ottenere un percorso
+					-concatena CLASSPATH + risultato
+					-in caso di archivi jar è necessario specificare anche il nome
+		-modificatori di accesso
+			-dati, metodi e classi
+				-public -> chiunque puo accedervi
+				-private -> metodi e attributi di supporto alla classe
+				-friendly -> standard di java
+				-protected -> sottoclassi e stesso package
+				-final -> non possono essere ridefiniti (metodi), costanti (dati), non possono essere estese(classi)
+				-synchronized -> oggetto bloccato quando è usato (programmazione multi-thread)
+
+				-una classe non puo essere private o protected
+		-interfacce
+			-simili alle classi ma senza var.di istanza e metodi privi di corpo 
+				-implementare un interfaccia -> scrivere il corpo dei metodi
+			-accesso
+				-public
+				-default
+			-metodi
+				-public e devono essere implementati come public
+			-variabili
+				-final e static inizializzate a un valore costante
+
+	-Passaggio e ritorno di oggetti
+		-java non manipola direttamente i puntatori
+		-gli oggetti usati come argomento vengono passati per riferimento
+			-questo provoca il fenomeno dell'aliasing -> piu variabili puntano lo stesso oggetto
+				-effetti collaterali -> se modifichi un oggetto in un metodo il cambiamento sara per tutte le variabili che puntano l'oggetto
+		-i tipi primitivi vengono passati per valore
+
+	-clonazione
+		-Object contiene il metodo clone() -> crea un istanza di Object uguale all'oggetto corrente sul quale è necessario fare un cast
+			-tipo t = (tipo)i.clone();
+		-se clone() viene invocato su ArrayList copierà solo la struttura con i puntatori agli oggetti membri -> shallow copy 
+			-converrebbe ridefinirlo per permette la copia di ogni oggetto -> deep copy
+		-non tutti gli oggetti sono clonabili
+			-per rendere un oggetto clonabile implementare l'interfaccia Cloneable -> interfaccia senza metodi
+				-se non viene implementata Cloneable clone() solleva una CloneNotSupportedException
+			-conviene inoltre ridefinire il metodo clone() rendendolo public e ottimizzando il processo
+
+	-classi a sola lettura
+		-oggetti immutabili
+		-prive di metodi capaci di variare i dati
+		-tutti i dati private
+		-conviene affiancarle con classi parallele in grado di permettere modifiche
+
+	-array
+		-sequenza di elementi omogenei impacchettati sotto un unico nome
+			-lenght() -> lunghezza dell'array -> numero elementi dell'array
+			-ultimo elemento -> lenght() - 1 -> dato che il contatore parte da 0
+		-array multidimensionali
+			-inizializzazione
+				-int [][] a = {{1,2,3}, {4, 5, 6}};
+				-int [][][] a = new int[2][2][3];
+
+	-input / output da file
+		-classe File 
+			-nome di un file
+			-insieme di file -> metodo list() restituisce un array di stringhe contenenti i nomi dei file
+				-possibile impostare un filtro tramite l'interfaccia FilenameFilter
+					-bisogna definire accept(File directory, String name) che verrà chiamato da list per permettere di filtrare i file
+				-è inoltre possibile
+					-creare cartelle 
+					-creare percorsi
+					-accedere a caratteristiche del file
+					-verificare se un file è in una directory
+					-eliminare un file 
+				-metodi
+					-boolean canRead() -> verifica se è possibile leggere da file
+					-boolean canWrite() -> verifica se è possibile scrivere su file
+					-boolean delete() -> elimina il file
+					-boolean exists() -> verifica se esiste il file passato al costruttore
+					-String getName() -> restituisce il nome del file 
+					-String getPath() -> restituisce l'indirizzo del file
+					-long lenght() -> restituisce la lunghezza del file
+
+		-stream -> entita logica che produce e consuma informazioni
+
+		-ogni classe di input 
+			-figlia di inputStream o Reader
+		-ogni classe di output
+			-figlia di outputStream o Writer
+
+		-inputStream e outputStream descrivono metodi per gestire (tramite sottoclassi dedicate)
+			-array di byte
+			-oggetti String
+			-un file 
+			-un pipe 
+			-altre sorgenti
+
+		-inputStream e outputStream -> gestione di file binari
+		-Reader e Writer -> gestione di file testuali 
+
+		-file testuali
+			-classe Scanner -> Scanner lettura = new Scanner(File/new File ("nome_file.txt"));
+				-stessi metodi di lettura della dichiarazione con System.in
+				-close() -> termina l'esecuzione di Scanner
+			-classe BufferedReader -> java.io.BufferedReader -> BufferedReader in = new BufferedReader(new FileReader("file.txt"))
+				-close() -> chiude lo stream e rilascia ogni risorsa e file coinvolti
+				-read() -> legge un singolo carattere 
+				-read(char[] buff, int off, int leng) -> salva in buff un numero di caratteri pari a leng partendo dall'indice dell'array off
+				-readLine() -> restituisce un oggetto di string contenente la linea letta 
+				-ready() -> restituisce un boolean in base se lo stream è pronto alla lettura o meno 
+			-classe BufferedWriter -> java.io.BufferedWriter -> BufferedWriter out = new BufferedWriter(new FileWriter("nome_file.txt"))
+				-close() -> chiude lo stream (invocare prima flush)
+				-flush() -> scrive tutto cio che è in sospeso sul buffer
+				-newLine() -> stampa sul file un carattere per andare a capo
+				-write(char[] buff, int off, int leng) -> buff è l'array da leggere, off è l'indice dell'array e leng è il numero di caratteri da scrivere
+				-write(int c) -> scrive un solo carattere
+				-write(String s, int off, int leng) -> scrive la stringa s partendo dal carattere off e leggendo leng caratteri
+				-write(String str) -> scrive str sul file
+				-write(char[] buff) -> scrive un array di caratteri
+				-append(CharSequence csq) -> scrive csq in coda a cio che è gia scritto nel file (CharSequence classe madre di String)
+				-append(char c) -> aggiunge in coda al file il carattere c
+		-file binari
+			-classe DataInputStream -> DataInputStream read = new DataInputStream(FileInputStream(nome_file));
+				-writeInt(int x) -> scrive un intero
+				-writeLong(long x) -> scrive un long
+				-writeDouble(double x) -> scrive un double
+				-writeFloat(float x) -> scrive un float
+				-writeChar(int x) -> scrive un char (Java esegue automaticamente il casting)
+				-writeBoolean(boolean x) -> scrive un boolean
+				-writeUTF(String x) -> scrive una stringa
+				-close() -> chiude lo stream
+			-classe DataOutputStream -> DataOutputStream write = new DataOutputStream(FileOutputStream(nome_file))
+				-readInt() -> legge un intero
+				-readLong() -> legge un long
+				-readDouble() -> legge un double
+				-readFloat() -> legge un float
+				-readChar() -> legge un char (Java esegue automaticamente il casting)
+				-readBoolean() -> legge un boolean
+				-readUTF() -> legge una stringa
+				-close() -> chiude lo stream
+
+		-le precedenti classi possono lanciare FileNotFoundException, EOFException e IOException che vanno gestite
+
+		-la classe RandomAccesFile
+			-usata per file che contengono array di dimensione nota
+			-possibile utilizzare il metodo seek(offset) -> permette di spostare il puntatore di offset posizioni nel file
+			-lavora come un DataInputStream e un DataOutputStream insieme 
+				-costruttore -> RandomAccesFile(File file, String modalita) -> modalita = "r" -> lettura / "rw" -> lettura-scrittura
+					-close() -> chiude un file
+					-getFilePointer() -> offset corrente nel file 
+					-lenght() -> lunghezza del file 
+					-read() -> legge un byte dal file
+					-read(byte[] b) -> legge b.lenght byte dal file
+					-readBoolean() -> legge un boolean
+					-readByte() -> legge un byte
+					-readChar() -> legge un char
+					-readDouble() -> legge un double
+					-readFloat() -> legge un float
+					-readInt() -> legge un int
+					-readLine() -> legge una linea fino alla newLine
+					-readUTF() -> legge una stringa
+					-write(byte[] b) -> scrive b.lenght byte nel file
+					-writeBoolean(boolean s) -> scrive un boolean
+					-writeByte(int / String) -> scrive un byte
+					-writeChar(int v) -> scrive un char
+					-writeDouble(double v) -> scrive un double
+					-writeFloat(float v) -> scrive un float
+					-writeInt(int v) -> scrive un int
+					-writeUTF(String str) -> scrive una stringa
+
+		-salvataggio oggetti su file -> permette di preservare in memoria gli oggetti -> devono implementare Serializable (priva di metodi)
+			-ObjectOutputStream 
+				-FileOutputStream a = new FileOutputStream("file");
+				 ObjectOutputStream b = new ObjectOutputStream(a);
+
+				-writeObject(oggetto) -> scrive un oggetto su un file
+					-il modificatore transient affiancato a un attributo permette di non serializzarlo
+
+			-ObjectInputStream
+				-FileInputStream a = new FileInputStream("file");
+				 ObjectInputStream b = new ObjectInputStream(a);
+
+				-readObject() -> necessita di un cast
+
+		-possibile scrivere e leggere flussi in formato compresso (ZIP/GZIP)
+			-DeflaterOutputStream -> classe base di compressione
+				-ZipOutputStream -> comprime in zip
+				-GzipOutputStream -> comprime in gzip
+			-InflaterInputStream -> classe base di cecompressione
+				-ZipInputStream ->  decomprime da formato zip
+				-GzipInputStream ->  decomprime da formato gzip
+
+		-file jar
+			-file zippato contente vari file
+				-incluso manifest -> contiene informazioni sulla sicurezza e configurazione del jar e informazioni sugli attributi di package e file
+				
+
+
+		-standard input/output di java
+			-input -> System.in
+				-possibile leggere System.in tramite BufferedReader
+					-necessario wrappare System.in in BufferedReader -> BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in))
+			-output -> System.out
+			-errore -> System.err 
+
+			-possibile rimappare gli standard input/output
+				-setIn(inputStream)
+				-setOut(printStream)
+				-setErr(printStream)
+
+	-programmazione multi-thread (concorrente)
+		-un programma è suddivisibile in subtask chiamati Thread -> diversi percorsi di esecuzione che possono essere eseguiti in contemporanea
+
+		-multitasking
+			-processi -> un S.O. puo avere piu processi in esecuzione
+			-thread -> un programma puo avere piu thread in esecuzione
+
+		-Thread -> classe da derivare per creare un thread -> ogni istanza di una sottoclasse che estende Thread o implementa Runnable è fisicamente un thread a se stante 
+			
+			-run() -> punto di entrata e avvio di un thread
+			-getName() -> nome del thread
+			-getPriority() -> priorità del thread
+			-isAlive() -> determina se un thread è in esecuzione
+			-join() -> attende che un thread termini 
+			-sleep() -> sospende un thread
+			-start() -> avvia un thread
+			-suspend() -> sospende un thread
+			
+			-la classe derivata da thread deve
+				-sovrascrivere run()
+				-chiamare start()
+			-la classe che implementa Runnable
+				-deve implementare run()
+				-run() puo comportarsi come un main 
+				-quando run() restituisce il controllo -> thread termina
+				-run() stabilisce il punto di entrata direttamente nel programma
+
+		-main -> thread principale
+			-generera gli altri thread
+			-puo essere gestito come un qualsiasi altro thread risolvendo il suo indirizzo tramite currentThread() e assegnandolo a un oggetto Thread
+
+		-daemon 
+			-esecuzione in background mentre il programma è in esecuzione
+			-setDaemon() -> trasforma un thread in un deamon
+			-isDaemon() -> verifica se un thread è un daemon
+
+		-synchronized -> parola chiave per rendere un metodo sincrono
+			-può essere chiamato da un solo Thread
+				-oggetto bloccato durante l'esecuzione del metono (nessun altro puo accedere all'oggetto)
+			-non è possibile chiamare altri metodi sincroni
+			-problemi
+				-potrebbero verificarsi colli di bottiglia
+				-condivisione non corretta -> eventi disastrosi
+
+		-stati di un thread
+			-new -> thread creato ma non avviato
+			-runnable -> potrebbe essere o non essere in esecuzione
+			-dead -> terminato tramite stop() o destroy()
+			-blocked -> qualcosa impedisce l'esecuzione
+				-volontariamente sospeso -> sleep(millisecondi)
+				-suspend() -> necessario invocare resume()
+				-wait() -> necessaria l'invocazione di notify() o notifyAll()
+				-yeld() -> cede volontariamente cpu ad altri thread
+		-DeadLock
+			- i thread possono essere bloccati
+			- oggetti possono essere sincronizzati
+			- se tutti i thread aspettano un altro thread
+				-deadlock!
+		-priorità
+		 	-setPriority(level) -> da 1 a 10, default 5
+		 	-getPriority() -> restituisce la priorità
+
+	-Swing -> javax.swing -> package dedicato alle interfacce grafiche
+		-JComponent -> classe astratta da cui si derivano la maggior parte delle classi del package
+			-componenti principali
+				-bottoni -> JButton
+				-icone -> ImageIcon
+				-campi di testo -> JTextField
+				-bordi -> BorderFactori
+				-pannelli scrolling -> JPanel
+				-piccoli editor
+				-bottoni radio -> JRadioButton
+				-combo box 
+				-list box
+				-message box
+				-menu 
+				-menu pop up 
+				-disegni 
+				-finestre di dialogo
+			-container
+				-permettono di strutturare un interfaccia etereogenea
+					-JFrame -> finestra di sistema
+					-JDialog -> finestra di dialogo
+					-JWindows -> finestra priva di pulsanti di controllo
+					-JApplet -> implementazione di swing nell'applet di AWT
+			-elementi
+				-JButton
+				-JCheckBox
+				-JToggleBox
+				-JComboBox
+				-JEditorPanel
+				-JLabel
+				-JList
+				-JPasswordField -> carattere placeholder -> setEchoChar('*')
+				-JProgressBar
+				-JRadioButton
+				-JScrollBar
+				-JSeparator
+				-JSlider
+				-JTextArea
+				-JTextPanel
+				-JTree 
+				-JTable 
+				-JPanel
+			-eventi e listener
+				-permettono di intercettare e rispondere alle interazioni dell'utente
+				-evento -> oggetto che rappresenta il verificarsi di qualcosa
+				-Listener -> attende che si verifica un evento e da una risposta
+					-definire una classe che implementa EventListener 
+						-es. MouseListener
+							-mousePressed(MouseEvent event)
+							-mouseReleased(MouseEvent event)
+							-mouseClicked(MouseEvent event)
+							-mouseEntered(MouseEvent event)
+							-mouseExited(MouseEvent event)
+								-metodi MouseEvent 
+									-point getPoint() -> posizione 
+									-int getx() -> ascissa
+									-int gety() -> ordinata
+									-int getClickCount() -> numero di click veloci
+							-associazione listener - componente
+								-addNomeListener(oggetto interagibile)
+									-Nome -> tipo di evento es. Mouse 
+
+

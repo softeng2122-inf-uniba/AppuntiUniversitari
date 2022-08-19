@@ -1,0 +1,628 @@
+Java sintax
+
+appunti zizza vincenzo
+
+tipi primitivi:
+
+boolean -> true/false
+char -> caratteri di 16 bit
+byte -> interi a 8 bit con segno
+short -> interi a 16 bit con segno
+int -> interi a 32 bit con segno
+long -> interi a 64 bit con segno
+float -> reali a 32 bit in virgola mobile 
+double -> reali a 64 bit in virgola mobile
+
+CASTING
+
+casting => b=(float)a;
+
+priorita casting:
+
+se uno dei due operandi e' double, l'altro operando sara` castato come double
+se il piu` ampio e' un float, l'altro operando sara' castato come float
+se il piu' ampio e' un long, 'altro operando sara' castato come float
+in ogni altro caso entrambi gli operandi saranno convertiti in int
+
+CONVENZIONI 
+
+classi -> un identificatore di una classe deve sempre iniziare per lettera Maiuscola
+variabili -> un identificatore di una variabile deve sempre iniziare per lettera minuscola 
+metodi -> come variabili
+costanti(metodi) -> come variabili
+costanti statiche -> TUTTO_MAIUSCOLO_SENZA_SPAZI
+
+importare una classe:
+
+import file.classe
+
+Costanti:
+
+final type name = value; -> modificatore final = vieta modifiche sulla var.
+
+Metodi string:
+
+nome_stringa.charAt(index) -> restituisce il carattere presente alla posizione index
+nome_stringa.compareTo(string) -> compara le due stringhe e dice quale viene prima in ordine alfabetico (case sensitive)
+nome_stringa.concat(string) -> concatena le due stringhe restituendo la nuova stringa
+nome_stringa.equals(string) -> true se le due stringhe sono uguali, false altrimenti (case sensitive)
+nome_stringa.equalsIgnoreCase(string) -> uguale a equals ma non case sensitive
+nome_stringa.indexOf(string) -> restituisce l'indice dell'occorrenza di string, altrimenti -1
+nome_stringa.lastIndexOf(string) -> restituisce l'indice dell'ultima occorrenza di string
+nome_stringa.lenght() -> restituisce la lunghezza della stringa
+nome_stringa.toLowerCase() -> restituisce tutta la stringa minuscola
+nome_stringa.toUpperCase() -> restituisce tutta la stringa maiuscola
+nome_stringa.replace(old_char, new_char) -> restituisce una stringa con new_char al posto di old_char
+nome_stringa.substring(inizio/inizio, fine) -> restituisce una sottostringa da inizio / da inizio a fine
+nome_stringa.trim() -> restituisce una stringa senza spaziature avanti e dietro 
+
+Metodi scanner:
+
+Scanner nome_scanner = new Scanner(System.in); 
+
+nome_scanner.next() -> legge fino al primo spazio
+nome_scanner.nextLine() -> legge tutta la linea fino alla newline (letto ma scartato)
+nome_scanner.nextInt() -> legge il valore come int
+nome_scanner.nextDouble() -> legge il valore come double
+nome_scanner.nextFloat() -> legge il valore come float
+nome_scanner.nextLong() -> legge il valore come long
+nome_scanner.nextByte() -> legge il valore come byte
+nome_scanner.nextShort()-> legge il valore come short
+nome_scanner.nextBoolean() -> legge i valori booleani true e false
+nome_scanner.useDelimiter() -> imposta un nuovo delimitatore di stringhe per l'oggetto nome_scanner
+
+
+utilizzare una classe:
+
+nome_classe nome = new nome_classe();		//costruttore
+
+
+utilizzare metodi di una classe:
+
+nome.metodo();
+
+
+
+metodi per stampare a schermo:
+
+System.out.println(...); 		//stampa e va a capo
+System.out.print(...);			//stampa 
+System.out.printf(...);			//stessa sintassi del C
+
+
+
+while(condizione_booleana)
+{
+	...
+}
+
+
+
+
+do
+{
+	...
+} while(condizione booleana);
+
+
+
+
+for(inizializzazione; condizione_booleana; aggiornamento)
+{
+	...
+}
+
+for(tipo nome : array)		//per ogni
+{
+	...
+}
+
+
+
+switch(variabile)
+{
+	case etichetta:
+		...
+		break;
+	default:
+		...
+		break;
+}
+
+
+
+Dichiarazione di array:
+
+tipo[] nome_array = new tipo[dimensione];
+
+tipo nome_array[dimensione];
+
+Lunghezza array
+
+nome_array.lenght
+
+
+definire i metodi get e set utili per leggere/scrivere i valori contenuti in variabili di istanza private
+
+definendo una classe conviene definire un metodo eguals che permette il confronto fra 2 oggetti
+insieme a equals() bisogna ridefinire anche hashCode(), metodo che restituisce un codice numerico univoco per ogni oggetto
+se viene ridefinito equals() potremmo avere due oggetti con equals()=false e hashCode uguali.
+
+modificatori d'accesso: permette di modificare la visibilità di una variabile.
+
+- private -> la variabile non è visualizzabile ne modificabile chiamando l'oggetto
+- public -> la variabile è accessibile in ogni punto del programma.
+- protected -> la variabile è accessibile per nome da qualsiasi classe figlia o appartenente allo stesso package
+
+la parola chiave this indica l'oggetto corrente e permette di accedere tramite "." a metodi e attributi dell'oggetto corrente.
+in ambiente statico non è possibile utilizzarlo. 
+
+final -> indica una costante non modificabile
+static -> crea un metodo o una variabile comune a tutti gli oggetti (o istanze) e quindi uguale in tutti.
+
+per convertire un tipo primitivo in un oggetto si usano le classi wrapper:
+
+la loro dichiarazione è come segue:
+
+Integer n = new Integer(valore);
+
+per ottenere il valore in int si usa il metodo:
+
+n.intValue(); che ha valore di ritorno di tipo int 
+
+long -> Long -> longValue();
+float -> Float -> floatValue();
+double -> Double -> doubleValue();
+int -> Integer -> intvalue();
+char -> Character -> charValue();
+
+queste vengono utilizzate quando un metodo o una situazione chiedono un oggetto (cioe un indirizzo) al posto di un tipo primitivo
+
+inoltre contengono una serie di metodi utili.
+
+nome_wrap.MIN_VALUE/MAX_VALUE -> valore minimo e massimo di quel tipo
+
+i metodi statici parse invece restituiscono un numero leggendo come argomento una stringa
+
+es.
+
+Double.parseDouble(stringa)
+Integer.parseInt(stringa)
+Long.parseLong(stringa)
+Float.parseFloat(stringa)
+
+inoltre contengono anche i metodi statici toString
+
+
+Double.toString(numero)
+Integer.toString(numero)
+Long.toString(numero)
+Float.toString(numero)
+
+importare una classe da un package
+
+
+import nome_package.nome_classe
+
+creare una sottoclasse(classe figlia) di una superclasse
+
+public class nome_figlia extends nome_madre
+
+overriding
+
+ridefinizione di un metodo della classe madre in una classe figlia
+
+funziona solo se si ha lo stesso valore di ritorno e gli stessi argomenti
+
+il valore di ritorno puo variare solo nel caso nella classe madre è una classe e nella classe figlia è una classe figlia 
+
+per inizializzare una classe figlia si usa il suo costruttore in quanto quelli della classe madre non sono accessibili, cio nonostante nel costruttore della figlia
+è buona norma invocare il costruttore della madre tramite l'istruzione super, cioè il costruttore della classe madre.
+
+questo però è sottoposto a delle regole:
+
+1) puo essere invocato solo come prima istruzione di un costruttore;
+2) se non viene specificato viene usato il costruttore di default;
+
+super si usa anche per invocare un metodo che è stato ridefinito, infatti con la sintassi super.metodo() viene chiamato il metodo della classe madre;
+
+ogni oggetto di un tipo classe_figlia è anche di tipo classe_madre e può essere utilizzata negli stessi contesti
+
+ogni classe è figlia di una classe Object, dalla quale eredita alcuni metodi che pero vanno ridefiniti:
+
+-equals
+-toString
+-clone
+
+per verificare se un ogetto è di un determinato tipo si usa il metodo instanceof con la seguente sintassi:
+
+oggetto instanceof nome_classe
+
+restituisce true se oggetto appartiene a classe
+
+grazie al binding dinamico è possibile mettere in pratica il polimorfismo, cioè eseguire funzioni con lo stesso nome in classi figlie diverse tramite un unico metodo
+della classe padre che sceglie dinamicamente la funzione da usare.
+
+polimorfismo difatti significa associare più significati diversi grazie al binding dinamico.
+
+attraverso il modificatore final è possibile imperdire l'overriding di un metodo, inoltre usandolo su una classe viene bloccata anche la possibilità di renderla una classe
+madre.
+
+java non utilizza binding dinamico per metodi privati, final e statici
+
+upcast -> conversione da una classe figlia a una classe madre
+downcast -> conversione da una classe madre a una classe figlia
+
+un metodo da ridefinire in una classe figlia può essere dichiarato astratto usando il modificatore abstract, e in presenza anche di un solo metodo abstract anche l'intera 
+classe deve essere dichiarata abstract, questo significa che non si possono instanziare oggetto di quella classe.
+
+quando un metodo viene dichiarato astratto la definizione viene seguita da un ";" (in stile prototipo di funzione in C)
+
+istanziando una variabile di tipo classe madre astratta e usando l'istruzione 
+classe_madre x = y
+dove y è la classe figlia, i metodi chiamati saranno sempre quelli della classe figlia 
+
+Un interfaccia java è una componente nella quale possiamo specificare le intestazioni dei metodi e alcune costanti pubbliche
+
+la sua definizione avviene con la seguente sintassi:
+
+public interface nome_classe
+
+vengono definiti i metodi pubblici e non hanno corpo
+
+per implementare un'interfaccia in una classe si usa il costrutto:
+
+implements nome_interfaccia
+
+all'interno della definizione della classe e ogni metodo specificato nell'interfacccia deve essere definito, altrimenti si definisce una classe astratta
+
+es.
+
+public class nome implements interfaccia
+
+un interfaccia può essere usata come parametro, facendolo è possibile passare come parametro qualsiasi classe implementi l'interfaccia.
+
+anche le interfacce possono essere estese mettendo in pratica una ereditarietà.
+
+eccezioni:
+
+permettono di gestire comportamenti inaspettati del programma.
+
+sono composte da tre istruzione:
+
+try
+{
+	corpo del programma;
+	throw new Exception(argomento)
+}
+
+catch(Exception nome)
+{
+	codice da eseguire dopo il lancio dell'eccezzione.
+}
+
+try delimita un blocco nel quale viene inserito il codice normalmente eseguito
+throw lancia l'eccezione con l'argomento inserito (questo viene poi salvato in una variabile di istanza per poter essere riutilizzato)
+catch intercetta l'eccezione e indica le operazioni da effettuare se si verifica
+all'interno dell'oggetto Exception è presente il metodo getMessage che stampa l'argomento fornito (se non viene effettuato l'overriding)
+
+esistono anche delle classi di eccezioni predefinite
+
+queste possono essere catturate da catch
+
+se in un metodo è possibile lanciare un eccezione ma non è presente un catch, il metodo va sollevato dal catturarla usando la clausola throws nell'intestazione.
+
+public void prova throws provaException
+
+qualunque metodo chiami prova deve:
+
+1) o dichiarare un catch
+2) o sollevare se stesso dal throws
+
+esiste anche la keyword finally dove viene viene indicato eventualmente il codice da eseguire dopo il blocco try o dopo il catch
+
+Clonazione degli oggetti:
+
+esistono 2 modalità per la copia degli oggetti:
+
+-deep copy
+-shallow copy
+
+la prima si ha quando viene copiato ogni variabile e ogni metodo in un nuovo oggetto diverso dal primo
+la seconda invece è solo la copia dell'indirizzo all'interno di una variabile oggetto (2 puntatori puntano lo stesso oggetto)
+
+per clonare un oggetto (deep copy) si puo chiamare il metodo clone(), metodo della classe Object
+
+per poter clonare una classe con clone() dobbiamo implementare l'interfaccia Cloneable.
+
+clone() ritorna un oggetto di tipo Object che deve essere quindi castato
+
+nuovoOggetto=(type)oggetto.clone();
+
+Gestione dei file 
+
+per aprire un file si utilizza la classe PrintWriter, il costruttore va inserito in un blocco try in quanto potrebbe generare un eccezione
+
+sintassi:
+
+PrintWriter output = null;
+try
+{
+	output = new PrintWriter("Nome_file.txt")
+}
+
+in caso di eccezione viene sollevata di tipo FileNotFoundException
+
+aprire un file in questo modo cancellera il contenuto, per aggiugere basta usare la seguente sintassi
+
+PrintWriter output = null;
+try
+{
+	output = new PrintWriter(new FileOutputStream("nome_file.txt", true))
+}
+
+PrintWriter ha gli stessi metodi di System.out 
+
+per leggere un file possiamo utilizzare 2 classi diverse:
+
+1) Scanner
+
+per aprire un file usiamo la seguente sintassi:
+
+Scanner nome_oggetto = new Scanner(new File("nome_file.txt"))
+
+dove File è una classe che verrà analizzata in seguito.
+
+se nome_file.txt non esiste verrà sollevata un'eccezione.
+
+*bufferredader*
+
+Classe file
+
+consente al programmatore di astrarre un file all'interno di un programma java.
+
+alcuni costrutti, non accettando una stringa come argomento, necessitano della classe File per identificare un file.
+
+Metodi Classe File
+
+boolean canRead() -> verifica se è possibile leggere da file
+boolean canWrite() -> verifica se è possibile scrivere su file
+boolean delete() -> elimina il file
+boolean exists() -> verifica se esiste il file passato al costruttore
+String getName() -> restituisce il nome del file 
+String getPath() -> restituisce l'indirizzo del file
+long lenght() -> restituisce la lunghezza del file
+
+FILE BINARI:
+
+per manipolare file binari utilizziamo 2 classi principali (tipi primitivi):
+
+-DataOutputStream
+-DataInputStream
+
+istanziazione di un oggetto precedente
+
+DataOutputStream/DataInputStream nome_oggetto = new DataOutputStream(FileOutputStream(nome_file))/DataInputStream(FileInputStream(nome_file));
+
+metodi DataOutputStream:
+
+writeInt(int x) -> scrive un intero
+writeLong(long x) -> scrive un long
+writeDouble(double x) -> scrive un double
+writeFloat(float x) -> scrive un float
+writeChar(int x) -> scrive un char (Java esegue automaticamente il casting)
+writeBoolean(boolean x) -> scrive un boolean
+writeUTF(String x) -> scrive una stringa
+close() -> chiude lo stream
+
+utilizzando la sintassi DataOutputStream nome_oggetto = new DataOutputStream(FileOutputStream(nome_file, true)) si apre il file in modalità append
+
+metodi DataInputStream:
+
+readInt() -> legge un intero
+readLong() -> legge un long
+readDouble() -> legge un double
+readFloat() -> legge un float
+readChar() -> legge un char (Java esegue automaticamente il casting)
+readBoolean() -> legge un boolean
+readUTF() -> legge una stringa
+close() -> chiude lo stream
+
+è necessario inserire dei blocchi catch per FileNotFoundException, EOFException e IOException 
+
+La classe EOFException viene sollevata quando un file binario arriva al termine.
+
+Per poter scrivere una classe su un file questa deve essere necessariamente serializzata, operazione possibile tramite l'interfaccia Serializable con la seguente sintassi:
+
+public class nome implements Serializable;
+
+Per scrivere/leggere oggetti serializzati utilizziamo le classi ObjectInputStream e ObjectOutputStream
+
+per poterlo fare bisogna importarla con l'istruzione:
+
+import java.io.Serializable
+
+per leggere un oggetto da file invece utilizziamo la seguente sintassi:
+
+letta=(nome_classe)ObjectInputStream.readObject();
+
+readObject() e writeObject() si utilizzano anche in caso di array.
+
+per la lettura la sintassi è la seguente:
+
+tipo_array[] nome = (tipo_array[])filedaleggere.readObject();
+
+Grazie alla classe enum è possibile scrivere una lista di nomi, numeri o costanti simboliche che ci permette di definire un intervallo limitato di valori.
+
+Utilizziamo la seguente sintassi:
+
+public enum { valore1, valore2 ...}
+
+per assegnare un valore a un oggetto istanziato utilizziamo il nome della classe.valore
+
+Questa specifica classe contiene alcuni metodi statici come:
+
+values() -> restituisce tutti i valori della enumerazione.
+valueOf(ValoreContenutoNellEnum) -> ci permette di modificare un valore salvato
+	
+queste classi possono essere estese includendo al loro interno metodi o variabili di tipi primitivi supplementari
+
+collegamenti ricorsivi:
+
+un oggetto contiene una variabile d'istanza che, a sua volta, puo riferirsi ad un oggetto dello stesso tipo(Definizione di classe ricorsiva)
+
+es:	Ogni impiegato (classe Employee) ha un supervisore (classe Employee) contenuto nella classe
+
+bisogna implementare inserimento, cancellazione, ricerca
+
+si parte dalla testa, che permette l'accesso al primo elemento, proseguendo a passi singoli attraverso ogni elemento.
+
+CLASSE StringList:
+
+lista collegata di stringhe con variabile privata d'istanza head di tipo Node.
+
+
+
+Algoritmi di ordinamento:
+
+selection sort (n^2) -> si identifica il valore piu piccolo scansionando tutto l'array e si posiziona all'indice piu piccolo al momento
+insertion sort (n/n^2) -> ordina creando un avanzamento dei valori maggiori di una coppia
+bubble sort (n/n^2) -> dato un array vengo effettuati confronti a coppia facendo salire il maggiore
+quick sort (n log2 n/n^2) -> algoritmo che nasce ricorsivo, simile alla ricerca dicotomica, sceglie un pivot e posiziona i minori a sinistra e i maggiori a destra
+fatto questo sceglie un pivot dai sottoarray e fa la stessa operazione ricorsivamente.
+merge sort (n log2 n) -> sempre con approccio divide et impera, viene diviso l'array per poi lavorare sui due sottoarray, che verranno a loro volta divisi e quando saranno
+abbastanza piccoli potranno essere ordinati e riuniti.
+
+Strutture dati dinamiche:
+
+la prima che vediamo è la linked list, una lista di blocchi di dati chiamati nodi collegati tra di loro con dei collegamenti (link)
+
+l'idea è di avere un oggetto dentro il quale viene dichiarata una variabile con l'indirizzo all'oggetto successivo, questo è possibile perchè il nome di un oggetto non è 
+altro che un riferimento alla zona di memoria dove è stato istanziato.
+
+all'interno di questo oggetto troviamo obbligatoriamente:
+
+una variabile tipo Oggetto che contiene l'oggetto successivo
+un costruttore che fa l'associazione Variabile-oggetto
+un oggetto testa, che non fa parte della lista ma che ne permette l'accesso
+
+con l'accesso a metodo.successivo si prosegue nella lista
+
+utili ma non obbligatori:
+
+accesso al precedente 
+metodo di aggiunta
+metodo di rimozione
+variabile corrente che indica l'oggetto attuale
+
+l'ultimo nodo ha come valore di successivo null e indica la fine della lista
+
+per visualizzare una lista possiamo usare i metodi di print e un metodo get tipo
+
+getCollegamento() che puo restituire il nodo successivo
+
+se impostiamo una variabile posizione che indica il nodo attuale, l'assegnamento posizione = posizione.getCollegamento() ci permettere di accedere al nodo
+successivo con il nome posizione
+
+per aggiungere un nodo in testa:
+
+creiamo un nuovo nodo
+lo assegniamo a testa
+colleghiamo il nuovo testa al vecchio testa
+il vecchio testa ora è il nuovo primo nodo accessibile della lista.
+
+conviene utilizzare metodi e costruttori per le suddette operazioni.
+
+avere variabili come corrente e precedente permette di muoversi liberamente all'interno della lista.
+
+la cancellazione avviene collegando il precedente a quello da eliminare al successivo da quello da eliminare, il recupero dello spazio avverrà grazie al garbage collector
+
+ADT 
+
+costituito da l'insieme dei valori possibili e l'insieme delle operazioni su quei valori
+
+ADT comuni:
+-Pile
+-Code
+
+PILA
+
+sequenza di elementi disposti idealmente uno sull'altro
+
+solo l'elemento in cima è accessibile
+
+pop -> rimozione e lettura dell'ultimo elemento
+push -> aggiunta di un elemento
+
+
+
+Iteratore
+
+grazie alle variabili precedente e corrente abbiamo costruito un iteratore che ci permette di navigare all'interno della lista
+
+Java fornisce un'interfaccia chiamata Iterator che permette di costruire efficacemente un iteratore, questa contiene:
+
+-hasNext() se l'iterazione può restituire un altro elemento
+-next() restituisce il nodo successivo
+-remove() rimuove l'ultimo elemento restituito da next();
+
+varianti:
+
+1) Liste doppie -> Liste che possono essere percorse sia avanti che indietro (contiene precedente e succcessivo)
+2) Pile -> struttura dati di tipo LIFO, dove l'ultimo elemento inserito è il primo ad essere letto.
+3) Queue -> struttura dati di tipo FIFO dove il primo elemento inserito è anche il primo ad essere letto,  e per poterla realizzare serve tenere conto sia della testa che
+della coda.
+
+Tabelle di Hash:
+
+possiamo immaginare la tabella di hash come un array di liste concatenate, dove ogni elemento dell'array non è altro che la testa della lista concatenata.
+
+per aggiungere un nuovo nodo all'interno della lista che ci interessa non facciamo altro se non risolvere il riferimento alla lista tramite l'indice dell'array
+e, partendo da questo che è la testa,visitiamo la lista che ci interessa.
+
+un modo di calcolare il valore di hash(cioe l'indice dell'array) , nel caso delle stringhe, è quello di sommare il valore ascii dei caratteri e poi calcolare il modulo
+di questo numero con la lunghezza dell'array.
+
+Insiemi:
+
+operazioni su insiemi:
+
+-aggiunta elemento
+-verifica di appartenenza
+
+Arraylist -> Array dinamico con dichiarazione ArrayList<Type> nome = new ArrayList<Type> ()
+
+inserimento -> nome.add();
+rimozione -> nome.remove();
+grandezza -> nome.size(); ritorna int
+accedere a un solo elemento -> nome.get(index) ritorna Type
+cancellazione -> nome.clear()
+check valore -> nome.contains(elemento da cercare) ritorna boolean
+
+visualizzazione -> println(nome);
+
+LinkedList -> Linkedlist <Type> nome = new LinkedList<Type> ()
+
+stessi metodi di ArrayList
+
+Map -> Coppie di valori composte da value e key, che associate permettono un accesso rapido agli oggetti
+
+HashMap -> HashMap<type, Integer> nome = new HashMap <type, Integer> ()
+
+nome.put(key, value) -> key identifica il valore nella hash table e value il valore
+nome.get(key) -> restituisce il valore associato alla key
+nome.remove(key) -> rimuove il valore associato alla key
+
+Hashset -> permette di associare a un Set (insieme) un array di identificativi calcolati
+grazie a hashCode();
+
+ogni oggetto è unico e ha un suo hashCode univoco
+
+Comparable va implementato nella classe degli oggetti da comparare
+Questa interfaccia consente di fornire ad una classe l'ordine naturale
+
+Comparator va implementato in classi esterne e pertanto ne puoi avere quante ne vuoi per definire qualunque altro criterio particolare
+Una classe che implementa l'interfaccia Comparator è una classe che non ha in sé dati, ma ha il
+preciso compito di specificare in che modo ordinare oggetti.
+
+Math.random() genera un numero casuale da 0.0 a 1.0, moltiplicando per 10, 100 ecc otteniamo come massimo 10.0, 100.0 ecc 

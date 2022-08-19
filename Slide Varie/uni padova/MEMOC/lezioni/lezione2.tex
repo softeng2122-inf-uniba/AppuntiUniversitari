@@ -1,0 +1,51 @@
+% !TEX encoding = UTF-8
+% !TEX program = pdflatex
+% !TEX root = MEMOC.tex
+% !TEX spellcheck = it-IT
+
+% 7 Ottobre 2016
+
+%chapter introduzione
+%section informazioni pratiche
+
+\chapter{Programmazione lineare}
+
+\section{Modellazione di un problema}
+
+Un \textbf{modello di programmazione matematico} descrive le caratteristiche della soluzione ottima di un problema di ottimizzazione sotto forma di relazione matematiche:
+
+\begin{itemize}
+	\item \textbf{Insiemi}: raggruppano gli elementi del sistema
+	\item \textbf{Parametri}: i dati del problema, che rappresentano le quantità note che influiscono sul sistema.
+	\item \textbf{Variabili decisionali}: le variabili per le quali si vuole trovare il valore per determinare la soluzione del problema.
+	\item \textbf{Vincoli}: le relazioni matematiche che determinano se la soluzione è feasible o meno.
+	\item \textbf{Funzione obiettivo}: la funzione che deve essere ottimizzata (massimizzata o minimizzata).
+\end{itemize}
+
+I modelli matematici nei quali la funzione obiettivo è \textbf{lineare} e anche i vincoli (constraints) sono un sistema di equazioni o disequazioni \textbf{lineari}, vengono detti lineari.
+I modelli vengono poi classificati come:
+
+\begin{itemize}
+	\item \textbf{Linear programming model}: tutte le variabili possono assumere valori reali.
+	\item \textbf{Integer Linear Programming model}: tutte le variabili possono assumere solo valori interi.
+	\item \textbf{Mixed Integer Linear Programming}: le variabili possono assumere sia valori interi che reali.
+\end{itemize}
+
+La linearità limita l'espressività ma permette di utilizzare delle tecniche di soluzioni più veloci.
+
+\subsubsection{Esempio di modellazione: I profumi}
+
+Una fabbrica che produce profumi può produrre due nuove tipologie di profumi mescolando tre essente: rose, lilly e violet. Per ogni profumo 1 è necessario utilizzare 1.5 litri di lilly e 0.3 litri di violet. Per ogni profumo 2 è necessario utilizzare 1 litro di rose, 1 litro di lilly e 0.5 litri di viole.
+Si hanno in magazzino 27 litri di rose, 21 litri di lilly e 9 litri di rose. La fabbrica ottiene un profitto di 130 euro per i profumi di tipo 1 e 100 per il tipo 2.
+Si vuole determinare la quantità ottima di profumi da produrre per massimizzare i guadagni.
+
+\begin{align*}
+&\max 130 x_{one} + 100 x_{two} & & \quad\text{funzione obiettivo} \\
+\text{s.t. } &1.5 x_{one} + x_{two} &\leq 27 &\\
+					&x_{one} + x_{two} &\leq 21 &\\
+					&0.3 x_{one} + 0.5 x_{two} &\leq 9 &\\
+					&x_{one}, x_{two} &\geq 0 & \quad\text{dominio}
+\end{align*}
+
+
+% Gli altri modelli sono stati spostati in appendice

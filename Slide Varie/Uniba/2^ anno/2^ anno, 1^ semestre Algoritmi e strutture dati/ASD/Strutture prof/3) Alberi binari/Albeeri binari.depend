@@ -1,0 +1,77 @@
+# depslib dependency file v1.0
+1562854611 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\albeeri binari\alberobinario.cpp
+	"./AlberoBinario.h"
+	<iostream>
+	<stdlib.h>
+	"./Coda.h"
+
+1562854357 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\albeeri binari\alberobinario.h
+	"./NodoBinario.h"
+
+1562841238 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\albeeri binari\nodobinario.h
+
+1562854374 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\albeeri binari\coda.h
+	"./NodoCoda.h"
+
+1562854437 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\albeeri binari\nodocoda.h
+	"./NodoBinario.h"
+
+1562854772 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\albeeri binari\coda.cpp
+	<stdlib.h>
+	<iostream>
+	"./Coda.h"
+
+1562854796 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\albeeri binari\main.cpp
+	<iostream>
+	<stdlib.h>
+	"./NodoBinario.h"
+	"./AlberoBinario.h"
+
+1562854860 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\albeeri binari\nodobinario.cpp
+	"./NodoBinario.h"
+	<iostream>
+	<stdlib.h>
+
+1562854904 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\albeeri binari\nodocoda.cpp
+	"./NodoCoda.h"
+	<iostream>
+	<stdlib.h>
+
+1564829096 source:c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\3) alberi binari\coda.cpp
+	<stdlib.h>
+	<iostream>
+	"./Coda.h"
+
+1564656076 c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\3) alberi binari\coda.h
+	"./NodoCoda.h"
+
+1562854437 c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\3) alberi binari\nodocoda.h
+	"./NodoBinario.h"
+
+1562841238 c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\3) alberi binari\nodobinario.h
+
+1564828791 source:c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\3) alberi binari\main.cpp
+	<iostream>
+	<stdlib.h>
+	"./NodoBinario.h"
+	"./AlberoBinario.h"
+
+1562854357 c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\3) alberi binari\alberobinario.h
+	"./NodoBinario.h"
+
+1562854860 source:c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\3) alberi binari\nodobinario.cpp
+	"./NodoBinario.h"
+	<iostream>
+	<stdlib.h>
+
+1562854904 source:c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\3) alberi binari\nodocoda.cpp
+	"./NodoCoda.h"
+	<iostream>
+	<stdlib.h>
+
+1564829112 source:c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\3) alberi binari\alberobinario.cpp
+	"./AlberoBinario.h"
+	<iostream>
+	<stdlib.h>
+	"./Coda.h"
+

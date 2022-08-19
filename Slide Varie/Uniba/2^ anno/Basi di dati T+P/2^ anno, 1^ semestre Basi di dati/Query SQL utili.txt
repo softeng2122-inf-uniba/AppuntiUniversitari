@@ -1,0 +1,46 @@
+--Seleziona nome, cognome, città, da impiegati e dipendenti dove il nome del dipartimento coincide.
+
+select impiegato.Nome,impiegato.cognome, dipartimento.citta 
+from impiegato,Dipartimento 
+where impiegato.dipartimento =dipartimento.nome
+
+
+--Estrarre i nomi propri degli impiegati di cognome Rossi che lavorano nei dipartimenti Amministrazione o Produzione
+
+select Nome 
+from impiegato 
+where cognome='Rossi' and(dipart='Amministrazione' or Dipart='Produzione')
+
+--Estrarre i guidatori con le automobili loro associate, mantenendo nel risultato anche i guidatori senza automobile
+
+select Nome, Cognome, Guidatore.NroPatente, targa, marca, modello 
+from Guidatore left join Automobile
+on (Guidatore.NroPatente=Automobile.NroPatente)
+
+--Estrarre gli impiegati che hanno lo stesso cognome, ma diverso nome di impiegati del dipartimento Produzione.
+
+select I1.Cognome, I1.Nome
+from Impiegato I1, Impiegato I2
+where (I1.Cognome=I2.Cognome and I1.nome<>I2.nome and I2.dipartimento='Produzione')
+
+--Restituire i dipartimenti, i numeri di impiegati di ciascun dipartimento e la città in cui ha sede
+
+select dipart, count(*),D.citta
+from impiegato join dipartimento 
+on(Impiegato.Dipart=Dipartimento.Nome)
+group by Dipart
+
+--Estrarre i dipartimenti che spendono più di 100 in stipendio
+
+Select Dipart,sum(Stipendio) as SommaStipendio
+from Impiegato 
+group by Dipart
+having sum(Stipendio)>100
+
+--Estrarre i dipartimenti per cui la media degli stipendi degli impiegati che lavorano nell'ufficio 20 è superiore a 25
+
+select Dipart 
+from Impiegato where ufficio='20'
+having avg(stipendio)>25
+
+

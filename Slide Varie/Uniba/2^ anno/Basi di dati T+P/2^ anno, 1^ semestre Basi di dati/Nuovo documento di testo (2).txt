@@ -1,0 +1,499 @@
+CINEMA
+#crea database
+create database if not exists cinema;
+use cinema;
+
+#creazione tabelle
+create table regista(
+	id_regista char(5) primary key,
+	nome varchar(30), 
+	cognome varchar(30) not null
+	);
+	
+create table film(
+	id_film char(3) primary key,
+	titolo varchar(30),
+	genere varchar(30) not null,
+	regista char(5),
+	anno_produzione int,
+	unique(titolo, regista),
+	
+	constraint v_regista foreign key(regista) references regista(id_regista)
+	);
+	
+create table attore(
+	id_attore char(5) primary key,
+	nome varchar(30),
+	cognome varchar(30) not null
+	);
+	
+create table partecipazione(
+	film char(3),
+	attore char(5),
+	primary key(film, attore),
+	
+	constraint v_film foreign key(film) references film(id_film),
+
+	constraint v_attore foreign key(attore) references attore(id_attore)
+	);
+
+	
+#inserimento valori nelle tabelle
+insert into regista values("0000A", "Steven", "Spielberg"),
+							("0000B", "Stanley", "Kubrick"),
+							("0000C", "Ridley", "Scott");
+							
+insert into attore values("000AA", "Sylvester", "Stallone"),
+							("000AB", "Brad", "Pitt"),
+							("000AC", "George", "Clooney"),
+							("000AD", "Demi", "Moore"),
+							("000AE", "Bruce", "Willis"),
+							("000AF", "Monica", "Bellucci");
+							
+insert into film values("00A", "Jurassic Park", "Avventura", "0000A", 2000),
+						("00B", "Matrix", "Fantascienza", "0000B", 2001),
+						("00C", "Star Wars", "Fantascienza", "0000A", 2000),
+						("00D", "Indiana Jones", "Avventura", "0000B", 2002),
+						("00E", "Rambo", "Avventura", "0000A", 2002),
+						("00F", "RockyI", "Sportivo", "0000A", 2001),
+						("00G", "RockyII", "Sportivo", "0000B", 2004);
+						
+insert into partecipazione values("00A", "000AA"),
+								("00B", "000AB"),
+								("00C", "000AC"),
+								("00D", "000AD"),
+								("00E", "000AA"), 
+								("00F", "000AA"),
+								("00G", "000AB"),
+								("00A", "000AC"), 
+								("00B", "000AA"), 
+								("00C", "000AB"), 
+								("00D", "000AB");
+
+
+#punto 3;
+alter table attore add column dataNascita int;
+update attore set dataNascita=1950 where id_attore="000AA";
+update attore set dataNascita=1953 where id_attore="000AB";
+update attore set dataNascita=1954 where id_attore="000AC";
+update attore set dataNascita=1956 where id_attore="000AD";
+update attore set dataNascita=1957 where id_attore="000AE";
+update attore set dataNascita=1958 where id_attore="000AF";
+
+
+#Interrogazioni
+
+
+#q1
+select titolo from film 
+	where genere="Fantascienza" and (anno_produzione="2000" or anno_produzione="2001");
+	
+#q2
+create view vista_Ordinata as
+	select distinct cognome,film from 
+	attore inner join partecipazione on id_attore=attore order by cognome asc;
+	
+create view vista_Ordinata2 as
+	select distinct cognome,titolo,anno_produzione from
+	vista_Ordinata inner join film on film=id_film;
+	
+create view vista_OrdinataFinale as
+	select distinct vista_Ordinata2.cognome, titolo, (anno_produzione)-(dataNascita) as anni_durante_riprese from
+	vista_Ordinata2 inner join attore on vista_Ordinata2.cognome=attore.cognome;
+	
+
+#q3
+create view vista_NroAttori as
+	select count(attore) as NroAttori,film from partecipazione group by film;
+ 
+select titolo from (film inner join vista_NroAttori on id_film=film)
+	where NroAttori>=2;
+	
+#q4
+select nome, cognome from regista 
+	where id_regista not in
+	(select regista from film);
+	
+select nome, cognome from attore 
+	where id_attore not in
+	(select attore from partecipazione);
+	
+#q5
+create view vista_NroFilm as
+	select count(film) as NroFilm,attore from partecipazione group by attore;
+	
+select cognome,nome from 
+	attore inner join vista_NroFilm on id_attore=attore
+	where NroFilm=(select max(NroFilm) from vista_NroFilm);
+
+
+ESAMI
+
+#1.Creazione database
+
+create database if not exists esami;
+use esami;
+
+create table docente(
+	IDdoc int,
+	nome varchar(20),
+	cognome varchar(20) not null,
+	primary key(IDdoc)
+);
+
+create table studente(
+	matricola int(5) zerofill,
+	nome varchar(20),
+	cognome varchar(20) not null,
+	primary key(matricola)
+);
+
+create table esame(
+	codice char(2),
+	denominazione varchar(20),
+	docente int not null,
+	primary key(codice),
+	
+	constraint v_docente foreign key (docente) references docente(IDdoc)
+);
+
+create table verbale(
+	studente int(5) zerofill,
+	esame char(2),
+	voto tinyint,
+	lode bit,
+	dataEsame date,
+	primary key(studente,esame),
+	
+	constraint v_studente foreign key (studente) references studente(matricola),
+	constraint v_esame foreign key (esame) references esame(codice)
+);
+
+#2.Inserimento dati
+
+insert into docente values(1,"Francesca","Mazoni"),
+							(2,"Beppe","Garibaldi"),
+							(3,"Filippo","Baudo"),
+							(4,"Marco","Scotti"),
+							(5,"Antonella","Rossi");
+							
+insert into studente values(00001,"Maria","Verdi"),
+							(00002,"Giuseppe","Rossi"),
+							(00003,"Andrea","Neri"),
+							(00004,"Marco","Bruni"),
+							(00005,"Stefania","Bianchi");
+							
+insert into esame values("0A","Programmazione",1),
+							("1B","Matematica",2),
+							("0B","Architettura",3),
+							("2B","Statistica",3),
+							("3Q","Basi Di Dati",4);
+							
+insert into verbale values(00001,"0A",29,0,"2016-11-10"),
+							(00002,"0A",30,1,"2016-11-10"),
+							(00003,"0A",19,0,"2016-11-10"),
+							(00001,"0B",25,0,"2016-09-05"),
+							(00002,"0B",30,1,"2016-09-05"),
+							(00004,"0B",18,0,"2016-09-05"),
+							(00001,"1B",30,0,"2016-03-07"),
+							(00002,"1B",20,0,"2016-03-07"),
+							(00002,"2B",30,1,"2016-01-10");
+							
+							
+							
+#3.Interrogazioni
+
+#q1
+create view vista_verbale as
+	select * from verbale 
+		where (esame="0A" and lode=1 and (dataEsame between 2016-01-01 and 2016-08-01)) or (voto=30 and dataEsame="2016-12%");
+		
+select matricola from
+	studente inner join vista_verbale on matricola=studente;
+	
+
+#q2
+create view vista_giusepperossi as
+	select matricola from studente
+		where nome="Giuseppe" and cognome="Rossi";
+		
+create view vista_giusepperossi2 as
+	select esame from 
+	verbale inner join vista_giusepperossi on studente=matricola;
+	
+select denominazione as Esami_mat00002 from
+esame inner join vista_giusepperossi2 on codice=esame;
+
+
+#q3
+create view vista_professori as
+	select count(codice) as NroCorsi,docente from esame group by docente;
+ 
+select nome,upper(cognome) from
+	docente inner join vista_professori on IDdoc=docente
+	where NroCorsi>=2;
+
+#q4
+create view vista_p as
+	select codice from esame where denominazione like "P%";
+	
+
+create view vista_studenteNP as 
+	select distinct studente from verbale where studente not in 
+		(select distinct studente from 
+		verbale inner join vista_p on esame=codice);
+	
+	
+select distinct nome,cognome from 
+	studente inner join vista_studenteNP on matricola=studente;
+
+#q5
+create view vista_esame_meno as
+	select count(esame) as NroEsSup,esame from verbale;
+create view vista_esame_min as
+	select min(NroEsSup),esame from vista_esame_meno;
+select denominazione from
+esame inner join vista_esame_min on codice=esame;
+
+#4.Aggiunta colonna(ERRATO)
+
+alter table studente add column dataNascita date;
+
+create view vista_calcola_eta as
+	select min(dataEsame) as minData from verbale where studente=000001;
+create view vista_calcola_data as
+	select (mindata-200000) as dataN from vista_calcola_eta;
+update studente set dataNascita=(20160307-200000);
+
+GRUPPI
+
+#1.Creazione database
+drop database if exists gruppi;
+create database gruppi;
+use gruppi;
+
+create table comune(
+	codComune int primary key,
+	comune varchar(20)
+);
+
+create table persona(
+	CF char(2) primary key,
+	nome varchar(20),
+	cognome varchar(20),
+	dataNascita date,
+	comune int,
+	
+	constraint v_comune foreign key (comune) references comune(codComune)
+);
+
+create table gruppo(
+	ID int,
+	proprietario char(2),
+	nome varchar(20) not null,
+	primary key(ID,proprietario),
+	
+	constraint v_proprietario foreign key (proprietario) references persona(CF)
+);
+
+create table iscrizione(
+	membro char(2),
+	idGruppo int,
+	proprietario char(2),
+	dataIscrizione date,
+	primary key(membro,idGruppo,proprietario),
+	
+	
+	constraint v_idGruppo foreign key (idGruppo) references gruppo(ID)
+	
+);
+
+#2.Inserimento Dati
+
+insert into comune values (1,"Bari"),
+						(2,"Lecce"),
+						(3,"Foggia");
+						
+insert into persona values("A1","Marco","Bruni","1980-11-10",1),
+						("B2","Gianna","Verdi","1981-7-15",3),
+						("A5","Marco","Bruni","1975-8-9",2);
+						
+insert into gruppo values(1,"A1","Salviamo_la_foca"),
+						(2,"A1","Cinofili_vs_cinefili"),
+						(1,"B2","Forza_Mudu");
+						
+insert into iscrizione values("B2",1,"A1","2010-10-10"),
+						("A5",1,"A1","2010-10-12"),
+						("A5",2,"A1","2010-10-15");
+						
+						
+#3.Modifiche al db
+
+alter table gruppo add column maxPartecipanti int;
+update gruppo set maxPartecipanti=100 where ID=1 and proprietario="A1";
+
+#4.Interrogazioni
+
+#q1
+create view vista_omonimi as
+	select CF as O_CF,nome as O_nome,cognome as O_cognome from persona;
+	
+select distinct nome,cognome from 
+persona inner join vista_omonimi on ((nome,cognome)=(O_nome,O_cognome) and not(CF=O_CF));
+
+
+#q2
+create view vista_persone7079 as
+	select CF from persona where dataNascita="1970%" or dataNascita="1979%";
+	
+create view vista_gruppo7079 as
+	select idGruppo from 
+		iscrizione inner join vista_persone7079 on membro=CF; 
+
+select nome from 
+	gruppo inner join vista_gruppo7079 on ID=idGruppo; 
+	
+#q3
+create view vista_gruppi3 as
+	select count(membro) as NroIscr,idGruppo,proprietario from iscrizione group by idGruppo;
+
+select nome from 
+	gruppo inner join vista_gruppi3 on (ID,gruppo.proprietario)=(idGruppo,vista_gruppi3.proprietario) where NroIscr>=3;
+	
+#q4
+select nome from gruppo where nome not in (select distinct nome from gruppo inner join iscrizione on (ID,gruppo.proprietario)=(idGruppo,iscrizione.proprietario));
+
+#q5
+
+create view vista_corsoMax as
+	select max(NroIscr),idGruppo,proprietario from vista_gruppi3;
+	
+select nome from gruppo inner join vista_corsoMax on (ID,gruppo.proprietario)=(idGruppo,vista_corsoMax.proprietario);
+
+NEGOZI
+
+#Creazione DATABASE
+
+create database if not exists negozio;
+use negozio;
+
+#Schema principale del database negozi
+
+create table prodotto(
+	id_prodotto int,
+	nome varchar(20),
+	categoria varchar(20),
+	prezzo decimal(5,2),
+	primary key(id_prodotto)
+	);
+
+create table negozio(
+	id_negozio int,
+	nome varchar(20),
+	primary key(id_negozio)
+
+);
+
+create table vendita(
+	prodotto int,
+	negozio int,
+	data date,
+	quantita int,
+	primary key(prodotto,negozio,data),
+	
+	CONSTRAINT v_prodotto
+	FOREIGN KEY(prodotto)
+	REFERENCES prodotto(id_prodotto),
+	
+	CONSTRAINT v_negozio
+	FOREIGN KEY(negozio)
+	REFERENCES negozio(id_negozio)
+);
+
+
+
+#Inserimento dati nelle tabelle
+
+
+insert into prodotto values(1,"Magione","Abbigliamento",22.99),
+							(2,"Scarpe","Abbigliamento",50.40),
+							(3,"Cintura","Abbigliamento",10.00),
+							(4,"Decoder","Elettronica",100.00),
+							(5,"Stampante","Elettronica",80.50),
+							(6,"Monitor","Elettronica",208.50);
+
+insert into negozio values(1,"Gigastore"),
+							(2,"Fitness Boutique"),
+							(3,"MediaWorld");
+
+insert into vendita values (1, 1, "2016-1-1", 1), (1, 2, "2016-1-1", 2), (2, 1, "2016-1-1", 5), (2, 2, "2016-2-05", 1), (2, 2, "2016-2-4", 10), (3, 1, "2016-2-6", 5), (3, 2, "2016-3-6", 1), (3, 1, "2016-4-10", 10), (4, 2, "2016-10-4", 20), (4, 2, "2016-11-10", 50), (4, 2, "2016-12-11", 1), (2, 1, "2017-7-10", 25), (5, 2, "2017-10-10", 10);
+
+
+
+#3.Modifiche alle tabelle
+
+
+alter table negozio add column 
+	Citta varchar(20);
+alter table negozio add column 
+	NroAddetti int default 10;
+	
+update negozio set Citta="Milano" where id_negozio=1;
+update negozio set Citta="Roma" where id_negozio=2;
+
+update negozio set NroAddetti=20 where Citta="Milano" OR Citta="Roma";
+
+
+alter table negozio add constraint vUnique unique (nome,Citta);
+
+
+
+#4.Interrogazioni 
+
+#q1
+select nome,prezzo from prodotto where categoria="Abbigliamento" ORDER BY LENGTH(nome) asc;
+
+
+#q2
+select prodotto.nome,negozio.nome from
+	(vendita inner join prodotto on prodotto=id_prodotto)
+	inner join negozio on negozio=id_negozio; 
+	
+	
+	
+	
+	
+#q3	
+create view vista_prodotto as
+	select * from vendita 
+	inner join prodotto on prodotto=id_prodotto
+	where vendita.data like '2016%';
+	
+create view vista_negozio as
+	select negozio,quantita*prezzo as rendita from vista_prodotto;
+	
+create view vista_rendita as 
+	select sum(rendita) as rendita,negozio from vista_negozio group by negozio;
+	
+select rendita,nome from
+	vista_rendita inner join negozio on negozio=id_negozio;
+	
+	
+	
+#q4
+select nome from prodotto where id_prodotto not in 
+	(select prodotto from vendita);
+	
+	
+#q5
+create view vista_vendita_febbraio as
+	select * from vendita 
+	where data like "2016-02%";
+
+create view vista_vendita_febbraio_nome as
+	select prodotto,sum(quantita) as quantita from vista_vendita_febbraio group by negozio;
+	
+create view prodotto_venduto_febbraio as
+	select max(quantita),prodotto from vista_vendita_febbraio_nome; 
+	
+select nome from prodotto inner join prodotto_venduto_febbraio on id_prodotto=prodotto;

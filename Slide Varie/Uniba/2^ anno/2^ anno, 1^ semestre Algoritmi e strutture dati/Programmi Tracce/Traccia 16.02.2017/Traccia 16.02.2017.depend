@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1563961516 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\traccia 16.02.2017\amicizia.cpp
+	<iostream>
+	<stdio.h>
+	<string.h>
+
+1563961516 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\traccia 16.02.2017\amicizialista.cpp
+	<iostream>
+	<stdio.h>
+	"Amicizialista.h"
+
+1563961516 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\traccia 16.02.2017\amicizialista.h
+

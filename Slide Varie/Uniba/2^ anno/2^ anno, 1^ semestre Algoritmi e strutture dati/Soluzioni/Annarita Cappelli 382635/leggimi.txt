@@ -1,0 +1,5 @@
+Devo ringraziare gli autori del materiale presente sul sito di laureateci, in particolare genius, chilavert e ainaf. il mio lavoro infatti è stato essenzialmente quello di raccogliere il meglio da loro e di fonderlo insieme, cercando di migliorare le strutture. In questo archivio trovate due cartelle, una si chiama strutture e contiene gli header delle varie strutture dati e i main per verificare la loro correttezza. Nella cartella esercizi vari, troverete gli appelli svolti da me. Ovviamente per farli funzionare, i file inclusi devono trovarsi nella stessa directory del file che contiene il main. In un paio di esercizi si può trovare l'algoritmo dei cammini minimi. Non ho inserito la cartella sulle tecniche algoritmiche perché in effetti su quella parte non ho molto lavorato, mi sono affidata alle tecniche algoritmiche sviluppate da genius e chilavert.
+Ancora grazie a tutti quelli che mi hanno aiutata per sostenere questo esame. 
+Spero che il mio lavoro sia utile a qualcuno, così come sono stata aiutata io.
+In bocca al lupo a tutti
+Rei

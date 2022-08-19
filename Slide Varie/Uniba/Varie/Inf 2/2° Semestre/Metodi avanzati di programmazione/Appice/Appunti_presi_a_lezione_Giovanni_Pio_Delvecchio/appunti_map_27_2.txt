@@ -1,0 +1,305 @@
+ASTRAZIONE:
+
+astrazione nella progettazione: qualcosa di già visto perché riprende
+l'astrazione funzionale e l'astrazione dati, ma si va oltre per 
+introdurre un linguaggio di specifica propedeutico per la comprensione
+del paradigma ad oggetti. L'astrazione si fa continuamente, in base 
+a quello che vogliamo programmare, come risultato si vuole sempre 
+ottenere le entità astratte, a seconda dei punti di vista si hanno
+entià diverse, nel nostro caso i punti di vista sono 2: 
+Cosa e Come
+(punto di vista dell'utente = cosa,
+punto di vista dell'implementatore = come).
+
+PROGETTAZIONE:
+
+Nella fase di progettazione si pensa a cosa il software fa, non si
+progetta mai scrivendo linee di codice, il progettista dovrebbe essere
+completamente slegato dall'implementatore, e l'implementatore non 
+dovrebbe essere in grado di progettare. Nel nostro caso 
+ciò non accade perché si fanno, talvolta, delle correzioni al volo.
+Un paragone calzante è l'ingegnere ed il muratore, se l'implementatore
+trova degli errori dovrebbe mandare indietro il progetto, perché 
+non è il suo ruolo quello di modificarlo.
+
+Perché è importante astrarre: i sistemi software modellano realtà 
+complicate, e problemi più complessi rispetto ad ordinamenti e altri 
+piccoli progetti di questo genere.
+Inoltre alla progettazione lavorano più persone che potrebbero essere
+anche distaccati sul territorio.
+Bisogna scomporre il problema in modo da renderlo gestibile dal team.
+
+ASRTAZIONE FUNZIONALE:
+
+L'astrazione funzionale nasce negli anni '70, quando si programmava 
+con linguaggi che implementavano il paradigma imperativo (cobol, 
+fortran), quello che si faceva era descrivere cosa faceva ogni modulo 
+software, visto come una scatola nera di ciò che prende in input 
+e restituisce in output (questa è l'essenza dell'astrazione funzionale).
+Le descrizioni dei moduli non richiedono, dunque, la scrittura di linee
+di codice.
+
+Esempio: astrazione funzionale di un modulo software per il calcolo del
+fattoriale, si dice al programmatore che il modulo deve prendere
+in input un intero N e restituire un intero fatt(N).
+Il programmatore può dunque scegliere in che modo implementare tale 
+modulo, ciò che rimane costante è il concetto della funzione matematica
+che verrà implementata nel modulo.
+L'astrazione dice, in sintesi: 
+-nome del modulo software;
+-funzione matematica da implementare;
+-dominio di input;
+-dominio di output;
+Questa è la specifica sintattica da implementare (nome, dominio input,
+dominio output);
+La seconda parte (specifica semantica), è la descrizione della funzione
+matematica da implementale, nasce al livello di progetto l'uso dei 
+parametri, altrimenti si sarebbe adottato un approccio dimostrazionale,
+ma qui si usa un approccio generale.
+In fatt(N), N è il parametro, cosa fa fatt è descritto dalla specifica
+semantica, che è fatt(N) = {n(n*n-1)*...*2*1 per n>=1 , 1 per  n = 0}.
+
+Il programmatore sceglierà un linguaggio di programmazione, con cui 
+sceglierà di scrivere tramite un costrutto 
+linguistico (un modulo-funzione-metodo-ecc.) che realizzerà la funzione
+descritta.
+
+Per scrivere l'astrazione funzionale si deve scrivere:
+specifica sintattica,
+specifica semantica,
+nella specifica sintattica si scrive il nome della funzione, il tipo
+dell'input
+e ciò che è associato alla funzione in base al parametro (il tipo 
+dell'immagine della funzione);
+nella specifica semantica si utilizza un linguaggio logico e matematico
+per quanto possibile, talvolta si potrebbe anche scrivere in linguaggio
+naturale; si basa sull'idea che ogni specifica si possa esprimere 
+tramite:
+-precondizione: esprime i vincoli sull'input
+-postcondizione: regola che lega l'output all'input, può
+		introdurre le variabili (il cosa)
+
+È meglio utilizzare un'astrazione funzionale che un paragrafo in
+linguaggio naturale che di per se è ambiguo.
+Per descrivere cosa fa un software bisogna essere più chiari possibile
+evitando l'ambiguità. 
+
+esempio di specifica sintattica:
+	topolino : Intero x Vettore -> Intero x Vettore
+			dominio     ->	codominio
+
+esempio di specifica semantica:
+	topolino(x, A) = p,B
+	(x di tipo intero A di tipo vettore)
+	(p di tipo intero, B di tipo vettore)
+	precondizione: n>0 (vincolo sulla dimensione del vettore)
+			vettore di numeri interi,
+	postcondizione: b è una permutazione di
+			A, esiste un indice p tale 
+			a sinistra ci siano gli 
+			elementi più piccoli di
+			x e a destra i più
+			grandi.
+	topolino è l'x partition del quick sort.
+			
+Nella programmazione si inventarono lo stepwise 
+refinement, ovvero programmazione top-down:
+non sbrodolare tutto nel main, ma scomponi il problema in problemi 
+elementari per cui esiste già un'implementazione.
+Si scorre il set di moduli già implementati (senza guardare 
+l'implementazione) al fine di poter comprendere come poter avere per 
+ogni sottoproblema il modulo software che lo risolve.
+
+I PROBLEMI DELL'ASTRAZIONE FUNZIONALE:
+
+Il problema principale dell'astrazione 
+funzionale è che non fa alcuna 
+astrazione sull'input, ovvero si astrae su cosa deve fare,
+ma non si astrae sui dati che il modulo deve sfruttare,
+per esempio se si hanno due moduli software che prendono in 
+input lo stesso dominio di dati, sebbene quei domini rappresentino
+qualcosa di diverso, entrambi i moduli software possono essere 
+utilizzati (solo perché il dominio coincide). 
+
+Nell'astrazione funzionale non si aveva l'invarianza nel cambiamento,
+ad ogni rappresentazione di un tipo di dato corrispondeva 
+un'implementazione differente.
+
+L'ASTRAZIONE DATI:
+
+L'astrazione dati impone una descrizione su un dato astratto 
+specificando le operazioni con cui si può manipolare tale dato astratto;
+Va nascosta l'implementazione, l'oggetto dell'astrazione è il modo con
+cui dall'esterno si accede ad un'entità.
+
+Bisogna spiegare cosa il dato astratto è, ciò si fa tramite i metodi 
+con cui si accede al tipo di dato;
+Si fa information hiding.
+Solo chi scrive l'implementazione del dato astratto conosce 
+l'implementazione.
+
+La specifica sintattica e semantica è invariante.
+
+In determinate occasioni potrebbe essere necessario rimpiazzare
+la realizzazione.
+
+EVOLUZIONE:
+
+L'astrazione funzionale è all'interno dell'astrazione dati.
+Si nascondono le implementazioni di come il dato astratto è
+rappresentato in memoria e le rappresentazioni delle operazioni di
+come è manipolato quel dato astratto.
+Bisonga rendere visibile all'esterno solo la segnautra (input, output
+e specifica sintattica di cosa fa).
+
+Il c non rispetta l'invarianza al cambiamento a pieno, molte cose
+non si possono nascondere.
+
+L'INCAPSULAMENTO:
+
+L'information hiding va accoppiato con l'incapsulamento:
+la capsula prende tanti nomi:
+-package (in ada)
+-classe (c++)
+-classe	(java)
+
+L'incapsulamento sottointende l'impacchettamento
+e l'entità, che fa vedere solo le segnature.
+
+Esempi di capsule nei vari linguaggi di programmazione:
+-procedure (perché incapsulano un insieme di comandi);
+-librerie  (come sopra);
+-oggetti o classi (rappresentazione del dato in memoria e insime
+		di comandi su quella memoria);
+
+TIPI DI INVOLUCRI:
+
+Una capsula ha un involucro (parentesi graffe), possono essere di 3 
+livelli:
+-trasparenti, ovvero si vede ciò che si vede dentro, controproducente
+	per l'invarianza al cambiamento;
+-opache, ovvero che non si vede nulla di quello che sta dentro
+	dunque è inutilizzabile;
+-traslucide, le pareti della capsula fanno vedere le segnature,
+	ovvero l'astrazione funzionale,
+	non implementazioni di procedure e la rappresentazione 
+	del dato in memoria. Il loro cosa deve essere visibile;
+	
+Non tutti i linguaggi hanno i costrutti per implementare le pareti 
+traslucide. 
+
+Nel paccetto possono essere implementate anche operazioni non lecite
+che avranno visibilità opaca.
+
+Come si esprime un progetto è diverso da come il programmatore
+deciderà di implementare internamente il dato.
+
+Storicamente si provò ad estendere i linguaggi che avevano le 
+astrazioni funzionali in modo da permettere le astrazioni dati;
+
+Si decide sempre: nome, dominio, codominio e vanno rispettati;
+Si forniscono tutti gli identificatori che sono associati alle 
+funzioni.
+Rimane la parametrizzazione, si utilizza un'evoluzione delle specifiche
+sintattiche e semantiche. I parametri da specificare indicano come 
+chiamare le operazioni lecite. Come chiamare una operazione:
+nome_modulo_software(parametri).
+
+Nel fattoriale N è il parametro formale, 5 può essere un parametro
+attuale, con fatt(5) si indica la chiamata di fatt con una copia
+di 5 come parametro attuale.
+I parametri formali indicano, quindi, anche l'ordine con cui passare
+i parametri attuali, l'uso dei parametri non deriva dai linguaggi, ma
+dalla formalizzazione delle specifiche sintattiche.
+
+
+specifica sintattica:	potenza(intero, intero) -> intero
+specifica semantica:	potenza(n,m) = h 
+			poi precondizioni e postcondizioni
+-meccanismo di copia:			
+si ha potenza(2,3)
+-meccanismo definizionale
+potenza(m = 3, n = 2) si indica esplicitamente il parametro
+scelto e che valore dargli;
+Anche questo aspetto è stato definito come modello concettuale.
+
+COME SCRIVERE LA SPECIFICA:
+
+la specifica sintattica si devono fornire gli identificatori, ovvero una
+serie di nomi: nome del dato astratto (vettore, dizionario), 
+ovvero dominio del nuovo dato da definire (dominio designato), 
+e i domini ausiliari (una volta e basta), nomi delle operazioni
+lecite sul nuovo tipo di dato, tali nomi sono quelli che avranno
+visibilità trasparente all'esterno. Per ciascun nome di operazione 
+va specificato domini e codomini (specifica sintattica 
+dell'astrazione funzionale).
+
+In sintesi: 
+TIPI: nomi dei domini, 
+OPERATORI: nomi delle operazioni,
+per ogni operazione dominio e codominio.
+ 
+Per la specifica semantica bisogna trovare cosa sono i
+valori di quel dato astratto. Per ogni nome di dominio bisogna 
+descrivere che valori vengono rappresentati e come, partendo
+da quei valori, si costruisce il risultato 
+(un elemento del codominio).
+
+Il dominio contocorrente diventa, ad esempio, una tripla 
+(saldo, fido, numero_conto).
+
+Se si usa la stessa variabile si denota lo stesso valore nelle 
+specifiche semantiche.
+
+Se le precondizioni non vengono soddisfatte la funzione va in errore,
+sta al programmatore come mostrare tale violazione.
+Nella specifica semantica le precondizioni vanno interpretate al
+fine di comprendere quando mostrare l'errore (eccezione, stampa
+a video).
+
+Limite delle specifiche assiomatiche: 
+1)ambiguità del linguaggio naturale; 
+2)in più vanno ricavate le condizioni di errore;
+
+SPECIFICA ALGEBRICA:
+
+Il linguaggio delle specifiche si basa sul fatto che un tipo di dato
+è in realtà un'algebra.
+Le algebre possono essere omogenee (lavora solo su un dominio);
+oppure eterogenea (lavora su più di un diminio).
+Un dato astratto è un'algebra eterogenea.
+Come specificare un'algebra:
+1)specifica sintattica;
+2)specifica semantica;
+3)specifica di restrizione; 
+
+in 1) si elencano i nomi dei sort che compongono l'algebra,
+il sort principale e tutti i sort secondari, poi tutte le operazioni
+che permettono di manipolare il sort principale e per ogni operazione
+i sort di partenza ed i sort di arrivo (è identica, cambia solo 
+il termine sort invece di dominio).
+
+la semantica algebrica si esprime diversamente da quella assiomatica.
+La 2), infatti si specifica tramite equazioni algebriche.
+
+La 3) sono sempre equazioni algebriche che a destra hanno l'error.
+
+Cosa bisonga conoscere per poter scrivere le specifice algebriche:
+
+-il prodotto di composizione funzionale:
+-1)	f: X -> Y
+	g: Z -> W
+	f°g : Z -> Y
+	solo se W incluso in X.
+
+-2)	il simbolo =
+
+-3)	due costanti: true e false
+
+-4)	numero illimitato di variabili libere cioè non quantificate 
+ 	(non si possono utilizzare i quantificatori universali ed 
+ 	esistenziali)
+
+-5)	funzione if then else (true, q, r) = q 
+	if then else (false, q, r) = r
+ 	(si può comporre, perché è una funzione matematica)

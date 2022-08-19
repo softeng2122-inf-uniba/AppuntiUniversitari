@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1562777804 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\pila\main.cpp
+	<iostream>
+	<stdlib.h>
+	"./Nodo.h"
+	"./Pila.h"
+
+1562778208 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\pila\nodo.h
+
+1562792894 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\pila\pila.h
+
+1562778215 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\pila\nodo.cpp
+	"./Nodo.h"
+	<iostream>
+	<stdlib.h>
+
+1562833475 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\pila\pila.cpp
+	<iostream>
+	<stdlib.h>
+	"./Nodo.h"
+	"./Pila.h"
+
+1562777804 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\pila funziona\main.cpp
+	<iostream>
+	<stdlib.h>
+	"./Nodo.h"
+	"./Pila.h"
+
+1562778208 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\pila funziona\nodo.h
+
+1562792894 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\pila funziona\pila.h
+
+1562778215 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\pila funziona\nodo.cpp
+	"./Nodo.h"
+	<iostream>
+	<stdlib.h>
+
+1562836209 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\pila funziona\pila.cpp
+	<iostream>
+	<stdlib.h>
+	"./Nodo.h"
+	"./Pila.h"
+

@@ -1,0 +1,36 @@
+# depslib dependency file v1.0
+1514144174 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\traccia 02,02,2016\main.cpp
+	<iostream>
+
+1564046497 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\traccia 02,02,2016\matricelista.cpp
+	"MatriceLista.h"
+
+1564046497 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\traccia 02,02,2016\matricelista.h
+
+1564050595 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\traccia 02,02,2016\matricenodo.cpp
+	"MatriceNodo.h"
+	<stdlib.h>
+	<stdio.h>
+
+1564047214 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\traccia 02,02,2016\matricenodo.h
+
+1564475459 source:c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\traccia 02,02,2016\main.cpp
+	<iostream>
+	"MatriceLista.h"
+
+1564050595 source:c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\traccia 02,02,2016\matricenodo.cpp
+	"MatriceNodo.h"
+	<stdlib.h>
+	<stdio.h>
+
+1564047214 c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\traccia 02,02,2016\matricenodo.h
+
+1564475961 c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\traccia 02,02,2016\matricelista.h
+	"MatriceNodo.h"
+
+1564476082 source:c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\traccia 02,02,2016\matricelista.cpp
+	"MatriceLista.h"
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+

@@ -1,0 +1,312 @@
+Se uno scrive un package in ada esso potrebbe essere stateless (astrazione di tipo)
+(con package specification e package body) con le seguenti caratteristiche:
+-Il nome del tipo deve essere pubblicato e deve essere visibile all'esterno
+-I prototipi delle funzioni e delle procedure leciti per il nuovo tipo di dato devono essere pubbliche
+-La creazione corrisponde alla dichiarazione delle variabili
+-Nella parte privata si mette la dichiarazione di come è fatto in memoria l'oggetto, serve al compilatore per
+sapere come allocare il nuovo tipo di dato.
+-Si può disabilitare tramite la parola chiave limited, l'uso dell' = (confronto)
+-L'implementazione deve andare nel body
+-Anche se è possibile scrivere un main alla fine del body, non ha senso quando si realizza il tipo astratto,
+serve per inizializzare variabili esterne (bisogna ricordarsi di mettere sia with Type_stack, che 
+use Type_stack)
+-se si scrive il limited nella parte privata esso ha valenza solo nel package body, se si mette al di fuori 
+il limited vale anche nel package che usa il nuovo tipo di dato
+
+Nel passato vennero scritti package oggetto (che hanno lo stato nelle variabili esterne), che non è
+un'astrazione di tipo perché non pubblica nessun nome di tipo astratto.
+Nel caso dell'oggetto le segnature non rispettano la specifica sintattica.
+Solo le segnature dei metodi sono pubblici.
+Use Type_stack esegue il main interno al package dell'oggetto.
+
+Non si vuole usare l'oggetto perché si sovraccarica il compilatore copiando lo stesso codice più e più volte
+cambiando nome del package.
+Per far sì che la copia non venga fatta dal programmatore si è andati ad astrarre sulla dichiarazione del modulo
+così è stata definita la classe.
+L'astrazione di dichiarazione (astrazione generica) è supportata da ada, come soluzione al problema
+del copiare più volte il medesimo oggetto.
+L'astrazione generica non riguarda solo gli oggetti, ma ogni dichiarazione, un package, una funzione, 
+una procedura ecc. Ma si parte con l'esempio specifico dell'oggetto (package dotato di stato locale),
+quindi la classe è l'astrazione generica di un oggetto.
+
+L'oggetto è l'istanza di una classe, ma è nato prima l'oggetto.
+Davanti alla definizione del modulo oggetto si scrive generic, si ottiene la classe.
+Si istanzia con _nome_istanza_ istantiation of _nome_classe_ (pseudolinguaggio)
+E' il precompilatore a fare le copie, in modo automatico.
+Ma il sovraccarico sul compilatore rimane tutto, quindi viene compilato _nome_istanza_, 
+nei linguaggi imperativi solo ciò che è completamente definito viene compilato, quindi le istanze degli oggetti
+vengono compilati.
+
+E' possibile fare use solo di moduli definiti, se c'è generic non si possono passare al compilatore.
+
+Quindi si scrive with _classe_
+package _nome_oggetto_ is new _classe_ (ada)
+use _nome_oggetto
+
+Si può utilizzare generic anche sugli stateless, si crea un'istanza sola poi, per dichiarare tutte le variabili 
+che si vuole, quindi sembra essere inutile.
+
+Tutta quest'astrazione è una maniera per mettere ordine fra gli strumenti di programmazione, 
+si hanno 3 maniere, in fine, per poter creare un dato astratto: scrivere l'oggetto, scrivere il tipo astratto,
+scrivere la classe.
+Scrivere un oggetto non è contemplabile se si devono manipolare più valori di un certo dato astratto.
+
+differenze tra tipi astratti e classi:
+-un tipo astratto ha operatori che hanno sempre un parametro in più (differenza sintattica)
+-nel tipo astratto gli operatori sono definiti una volta, nelle classi si hanno più copie, quindi più definizioni
+degli stessi operatori (differenza realizzativa)
+-nel caso dei tipi astratti, essi sono organizzati attorno agli osservatori, mentre le classi attorno
+ai costruttori, ovvero le procedure o funzioni dei tipi astratti manipolano i parametri, mentre nel caso
+delle classi si modificano gli stati degli oggetti, ovvero le variabili esterne, nasce quindi il 
+concetto di costruttore.
+
+Il tipo astratto è efficiente, ma andrebbe fatta la classificazione di tipo astratto come cittadino, 
+il tipo astratto è, infatti, cittadino di prima classe (nome, scrivere tipi astratti con 
+altri tipi astratti, memorizzazione), proprio come i tipi primitivi hanno massima potenza espressiva.
+
+Gli oggetti sono cittadini di terza classe.
+In ada oggetti che sono combinazione di altri oggetti non esistono.
+Non si può memorizzare un oggetto in una variabile.
+Gli oggetti non possono avere operazioni binarie.
+
+Nell'object oriented gli oggetti sono cittadini di prima classe.
+
+I tipi astratti hanno scarsa estendibilità: le nuove osservazioni hanno implementazione che potrebbe 
+impattare sulle osservazioni già viste.
+
+come esercizio: scrivere in ada il tipo astratto che calcoli area di cerchio e quadrato.
+
+Una classe per ogni costruttore di tipo differente vuol dire aumentare l'estendibilità.
+Una cosa che non esiste nell'imperativo è l'ereditarietà.
+
+che cosa succede in generale quando si applica l'astrazione generica ad una dichiarazione:
+1) il corpo dell'astrazione generica deve essere una funzione, un modulo, una procedura (una dichiarazione).
+2) generic _nome_(_parametri_) is _dichiarazione_ (la dichiarazione è lo scheletro da cui partire per 
+creare le istanze, ciò che può essere soggetto ad una dichiarazione).
+
+-----capacity: Positive; è un parametro, va tra generic ed il resto del package--------
+
+3) un parametro è qualcosa di formale, non va al compilatore, questo è il motivo del generic, 
+nell'istanza si inserirà un parametro attuale al posto di quello formale, quindi il compilatore
+lo accetterà.
+4) generic di un tipo stateless è un tipo astratto generico.
+5) l'astrazione generica serve solo quando stanno i parametri.
+6) come parametro si possono passare tipi, anche astratti, ma non le classi.
+
+oggetto: mancanza di un parametro, mancanza del type per esportare il nome, presenza di variabili esterne
+
+Il problema della ridondanza non è superato, ma è un vantaggio dal punto di vista della programmazione.
+
+il template è l'astrazione generica per il c++, in c++ non viene compilata la classe template, ma l'istanza.
+Ad esempio list<int> è il nome della classe, list da solo no, non è stato compilato.
+
+Si può dare direttamente la direttiva al precompilatore con template class _nomeclasse_<_tipo_>
+che si scrive dove serve, ma non dopo di una dichiarazione implicita (si creerebbe ambiguità, 
+è lo stesso errore di cercare di compilare due classi con lo stesso nome).
+
+Ogni volta che si scrive implicitamente una procedura template con un parametro si sta facendo overloading:
+
+template <class T>
+float funzione(T parametro);
+...
+int x;
+funzione(x); implica la creazione della funzione con il parametro intero, implicitamente
+float y;
+funzione(y); //overloading
+
+In c++ si ha ancora ridondanza, come in ada, in java non si ha. 
+
+---------------------------------------------------------------------------------------------------------
+package TipoDizionario
+begin
+	type Dizionario is limited private;
+	procedure aggiungi(D: in out Dizionario, k: in Integer, v: in Character);
+	function leggi(D: in Dizionario, k: in Integer) return Character;
+	procedure cancella(D: in out Dizionario, k: in Integer);
+	function uguale(D1: in Dizionario, D2: in Dizionario) return Boolean;
+	private 
+	type Dizionario is record
+			chiavi: array(1..100) of Integer;
+			valori: array(1..100) of Character;
+			dim: positive (1..100) := 0;
+		end Dizionario
+end TipoDizionario
+
+package body TipoDizionario is 
+begin
+	function contieneChiave(D: in Dizionario, k: in Integer) return Boolean is
+	var flag: boolean := flase;
+	var i: Integer
+	i := 1
+	begin
+		
+		while(i < D.dim and flag = false) do
+		begin
+			if D.chiavi(i) = k then flag := true
+			i := i + 1
+		end
+		return flag
+	end
+
+	procedure aggiungi(D: in out Dizionario, k: in Integer, v: in Character) is
+	begin 
+		if(contieneChiave(D, k) = false) then
+			if(D.dim < 100)
+			begin
+				D.dim = D.dim + 1;
+				D.chiavi(D.dim) = k;
+				D.valori(D.dim) = v;
+			end
+			else rise_Exception();
+		else
+			end;
+		
+	end
+
+	function leggi(D: in Dizionario, k: in Integer) return Character is
+	var i: Integer
+	i := 1
+	begin
+		while(i <= D.dim and k<>D.chiavi(i)) do
+		begin
+			i := i + 1
+		end
+		if(i>D.dim)
+		then rise_Exception();
+		else return D.valori(i);
+	end
+
+	procedure cancella(D: in out Dizionario, k: in Integer) is
+	var i: Integer := 1
+	var j: Integer
+	begin
+		if(contieneChiave(D, k) = true)
+		begin
+			while(i<= D.dim && k <> D.chiavi(i)) do
+			begin
+				i:= i + 1
+			end
+			for j:=i to D.dim - 1 
+			begin
+				D.chiavi(j):= D.chiavi(j + 1);
+				D.valori(j):= D.valori(j + 1);
+			end
+			D.dim = D.dim - 1;
+		end
+	end
+
+	function uguale(D1: in Dizionario, D2: in Dizionario) return Boolean is
+	var i: integer;
+	begin
+		if(D1.dim = D2.dim) 
+		begin
+			for i = 1 to D1.dim do
+			begin
+				if !(contieneChiave(D2, D1.chiavi(i)) = true && leggi(D1,D1.chiavi(i) = 
+										leggi(D2,D2.chiavi(i)))))
+				return false;
+			end
+			return true;
+		end
+	end
+
+end TipoDizionario
+
+...
+
+with TipoDizionario; use TipoDizionario 
+...
+
+var D: Dizionario;
+
+aggiungi(D, 1, 'a');
+
+
+----------------------------------------------------------------------------------------------------
+Class
+----------------------------------------------------------------------------------------------------
+generic
+package Dizionario is
+begin
+	procedure aggiungi( k: in Integer, v: in Character);
+	function leggi(k: in Integer) return Character;
+	procedure cancella(k: in Integer);
+end TipoDizionario
+
+package body TipoDizionario is 
+begin
+	
+	var chiavi: array(1..100) of Integer;
+	var valori: array(1..100) of Character;
+	var dim: positive (1..100) := 0;
+	
+	function contieneChiave(k: in Integer) return Boolean is
+	var flag: boolean := flase;
+	var i: Integer
+	i := 1
+	begin
+		
+		while(i < dim and flag = false) do
+		begin
+			if chiavi(i) = k then flag := true
+			i := i + 1
+		end
+		return flag
+	end
+
+	procedure aggiungi(k: in Integer, v: in Character) is
+	begin 
+		if(contieneChiave(k) = false) then
+			if(D.dim < 100)
+			begin
+				dim = dim + 1;
+				chiavi(dim) = k;
+				valori(dim) = v;
+			end
+			else rise_Exception();
+		else
+			end;
+		
+	end
+
+	function leggi(k: in Integer) return Character is
+	var i: Integer
+	i := 1
+	begin
+		while(i <= dim and k<>chiavi(i)) do
+		begin
+			i := i + 1
+		end
+		if(i>dim)
+		then rise_Exception();
+		else return valori(i);
+	end
+
+	procedure cancella(k: in Integer) is
+	var i: Integer := 1
+	var j: Integer
+	begin
+		if(contieneChiave(k) = true)
+		begin
+			while(k <> chiavi(i)) do
+			begin
+				i:= i + 1
+			end
+			for j:=i to dim - 1 
+			begin
+				chiavi(j):= chiavi(j + 1);
+				valori(j):= valori(j + 1);
+			end
+			dim = dim - 1;
+		end
+	end
+
+end TipoDizionario
+
+...
+
+with Dizionario; 
+package di is new Dizionario;
+use di;
+...
+di.aggiungi(1,'a');

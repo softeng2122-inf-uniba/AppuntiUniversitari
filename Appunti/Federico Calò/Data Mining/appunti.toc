@@ -1,0 +1,10 @@
+\contentsline {section}{\numberline {1}KDD process}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Steps del KDD}{5}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}Business Understanding}{6}{subsubsection.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.2}Data Understanding}{8}{subsubsection.1.1.2}%
+\contentsline {subsubsection}{\numberline {1.1.3}Data Preparation}{9}{subsubsection.1.1.3}%
+\contentsline {subsubsection}{\numberline {1.1.4}Modeling}{16}{subsubsection.1.1.4}%
+\contentsline {subsubsection}{\numberline {1.1.5}Valutazione}{18}{subsubsection.1.1.5}%
+\contentsline {subsubsection}{\numberline {1.1.6}Deployment}{19}{subsubsection.1.1.6}%
+\contentsline {section}{\numberline {2}Learning sets of rules}{20}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Classificatore basato su regole}{20}{subsection.2.1}%

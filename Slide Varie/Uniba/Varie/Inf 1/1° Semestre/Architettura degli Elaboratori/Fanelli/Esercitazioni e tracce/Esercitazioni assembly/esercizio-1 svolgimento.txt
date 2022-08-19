@@ -1,0 +1,77 @@
+#MAKE_COM#
+
+ORG 100h
+
+; Definizione di macro
+
+StampaStringa MACRO s
+LEA DX, s      ;anche: mov dx, offset s
+MOV AH, 09h
+INT 21h  
+StampaStringa ENDM
+
+
+;-------------------------------------------------------------
+StampaStringa msg1
+
+;   Lettura della stringa
+LEA DX, buf       ;anche: mov dx, offset buf
+MOV AH, 0Ah
+INT 21h
+
+
+; visualizzazione della stringa inserita
+; NB: il primo carattere della stringa non  
+;     si trova in posizione 0 ma in posizione 2
+StampaStringa acapo
+Stampastringa buf+2
+StampaStringa acapo         
+
+; CX e' usato come contatore nel loop di inversione della stringa
+; e' inizializzato con il numero effettivo di caratteri della stringa
+MOV CH,0	    ; azzera il registro CH
+MOV CL,buf[1] 	; memorizza in CL la lunghezza effettiva della stringa 
+			    ; (secondo elemento dell'array)
+; SI e' usato come indice per referenziare i caratteri della stringa buf
+; SI e' inizializzato con l'indice dell'ultimo carattere inserito 
+; questo indice si ottiene come:
+; numero effettivo di caratteri+2-1
+
+; inizializzazione del registro SI
+mov SI, CX
+INC SI	
+; DI e' usato come indice per referenziare i caratteri della stringa ibuf
+; DI e' inizializzato con l'indice del primo elemento della stringa ibuf
+mov DI,0
+ 
+; ciclo per l'inversione della stringa
+inizio: 
+MOV DL, buf[si]
+mov ibuf[di],dl
+DEC SI
+INC DI
+LOOP inizio 
+
+
+;-------------------------------------------------------------
+;   Visualizzazione della stringa invertita
+StampaStringa msg2
+StampaStringa acapo
+StampaStringa ibuf
+
+
+; terminazione programma
+MOV AH, 4ch
+INT 21h  
+
+
+; VARIABILI --------------------------------------------
+MAX EQU 20
+
+buf     DB MAX+1, ?, MAX+1 DUP('$')
+ibuf    DB MAX DUP('$')
+
+;   Messaggi
+msg1  DB  "Inserire una stringa di max 20 caratteri: $"
+msg2  DB  "La stringa invertita e': $"   
+acapo DB  13,10,"$"

@@ -1,0 +1,7 @@
+APPUNTI PASSAGGIO PARAMETRI INIZIALIZZAZIONE
+
+- gli oggetti sono SEMPRE passati con i puntatori ad essi
+
+- per creare copie di oggetti la classe deve implementare l'interfaccia cloneable; la copia profonda di oggetti composti si deve fare manualmente e tutte le classi devono implementare cloneable
+
+-le classi a sola lettura hanno tutti i dati privati e i metodi che non modificano mai i dati; al più restituiscono nuovi oggetti modificati (es. String)

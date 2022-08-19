@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1544376303 source:c:\users\federico calò\desktop\asd project c++\esercitazione del 5.10.2018\main.cpp
+	<iostream>
+	<studente.h>
+
+1545465539 source:c:\users\federico calò\desktop\asd project c++\esercitazione del 5.10.2018\studente.cpp
+	<studente.h>
+	<iostream>
+

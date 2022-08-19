@@ -1,0 +1,224 @@
+
+NELLE PUNTATE PRECEDENTI:
+
+Stack e specifica sintattica, semantica e
+di restrizione;
+La sintattica è pari a quella del linguaggio assiomatico,
+la semantica è espressa in termini di equazioni algebriche,
+la restrizione che è espressa in termini di equazioni che mostrano i 
+casi di errore;
+
+STRUTTURA DELLA SPECIFICA ALGEBRICA:
+
+Il set minimale e completo di equazioni è quello che in effetti
+compone la specifica algebrica, è necessaria una metodologia per
+poter scrivere tale set minimale.
+
+L'approccio object oriented viene posto in modo da ripercorrere la 
+storia della nascita del paradigma object oriented, non viene
+presentato direttamente perché sarebbe una scelta didattica differente.
+
+Quando si progetta un software si progettano in realtà i suoi dati 
+astratti, quando va progettato un dato astratto per la prima volta
+si distinguono le operazioni che operano sulla struttura:
+operazioni che costruiscono, operazioni che osservano (top dello stack,
+per esempio)
+
+A sinistra delle equazioni c'è sempre una composizione funzionale di
+due funzioni, quella più interna è sempre il costruttore,
+all'esterno c'è sempre un osservetore.
+Ovvero costruttore°osservatore.
+Tutti i valori del dominio stack sono costruiti usando costruttori:
+
+newstack = stackvuoto
+push(newstack, 1) = stack con solo l'elemento 1
+push(push(newstack,1),2) = stack con gli elementi 1 e 2
+
+Il numero di equazioni è numero di osservatori * numero di costruttori
+perché si fa la composizione funzionale.
+
+Tuttavia le equazioni non sono direttamente separate nei casi della 
+restrizione o della specifica algebrica.
+
+Tabella: sulle colonne si trovano i costruttori,
+	sulle righe gli osservatori.
+	stk' non è una variabile, la chiamano fake-variable, rappresenta
+	newstack oppure push(stk,i)
+	perché l'equazione sarà pop(newstack) = qualcosa 
+			oppure  pop(push(stk,i)) = qualcosa
+	in ogni caso non si scrive pop(stk') = qualcosa
+	nelle celle si descrive il comportamento in modo matematico,
+	ad ogni cella che contiene un errore corrisponde un'equazione
+	della specifica di restrizione.
+	
+Alcuni operatori potrbbero avere due argomenti del sort 
+principale (operatori binari, potrebbero avere anche argomenti di
+altri sort);
+si hanno due fake-variables nella tabella, che dovrebbe diventare 
+a tre dimensioni, nella terza dimensione i costruttori del sort 
+secondario.
+
+Immaginiamo di avere l'operazione P(S,S,item) (specifica sintattica)
+se su S i costruttori sono 3 si hanno 9 equazioni di P.
+Serve un equazione per ogni combinazione di S' e di S''.
+
+Costruire una tabella a tre dimensioni è, per ovvie ragioni, scomodo.
+
+È necessario fare una tabella a parte per ogni operatore binario,
+c'è anche la specifica sintattica di uguale(S,S) -> boolean
+
+PER LO STACK:
+
+uguale(stack, stack) -> boolean
+
+per uguale si fa una tabella a parte con i costruttori di uno stack
+su una riga, i costruttori dell'altro stack sulle colonne;
+In questo caso stk' non è una fake variable, perché corrisponde 
+a variabili che sono state dichiarate, si considerano entità separate;
+
+Si hanno 2 stack e due variabili di tipo item: stk, stk', i, i' 
+
+la parte destra dell'equazione di confronto di due stack che hanno 
+elementi, è i = i' and equal(stk',stk), l'equazione completa diventa:
+
+equal(push(stk',i'), push(stk,i)) = (i = i') and (equal(stk',stk))
+
+nella tabella i passi base sono 3: in alto a sinistra, in alto a 
+destra, in basso a sinistra (slide 71);
+
+Si può anche scrivere l'equal sulla vecchia tabella, senza farne una 
+a parte:
+si avrà una variabile effettiva ed una sola fake variable;
+si scrivono le condizioni affinché stk' = m, in funzione di m:
+se stk' è pari a newstack si ha, in fatti isnew(m) = true;
+se stk' non è pari a newstack si ha false, è importante che 
+l'equazione non vada in errore, si possono fare le quattro quazioni 
+oppure le due equazioni.
+
+Bisogna sempre verificare nei passi ricorsivi, che nelle parti destre
+ci sia una chiamata su una struttura più semplice;
+
+Perché si possono utilizzare le operazioni logiche?
+Perché assumiamo che sia già importato nel sort boolean l'insieme
+di operazioni sui booleani.
+
+Quando si usa un'operazione di un sort secondario si scrive "assumo
+l'esistenza nel progetto del tipo di dato boolean l'esistenza 
+dell'operatore _operatore_booleano_scelto_" (questo si scrive
+nella specifica semantica).
+
+COME RICONOSCERE I COSTRUTTORI:
+
+I costruttori sono quelli che restituiscono il sort principale e sono
+minimali, se qualcosa costruisce, ma partire da un altro costruttore,
+esso non è un costruttore. Si considera osservazione tutto ciò che
+si può scrivere in composizione con un costruttore.
+	
+SULLE STRINGHE:
+
+si assume che sul progetto del sort intero qualcuno ha creato 
+la funzione +, operazione binaria sugli interi
++(intero,intero) -> intero
+
+		costruttori di s'
+		new			add(s,c)
+length(s')	0			length(s) + 1  	
+isempty(s')	true			false
+
+
+declare s:string, c:char
+
+length(new) = 0
+length(add(s,c)) = length(c) + 1
+
+isempty(new) = true
+isempty(add(s,c)) = false
+
+
+		
+equal(s',s'')		costruttori di s'
+costruttori s''		new		add(s,c)
+new			true		false
+add(S,C)		false		c = C and equal(s,S)
+
+
+declare S,s: string c,C: char
+and(boolean, boolean) -> boolean
+
+equal(new,new) = true
+equal(new, add(S,C)) = 	false
+equal(add(s,c), new) =	false
+equal(add(s, c), add(S,C)) = (c=C) and (equal(s,S))
+
+
+append(s',s'')		costruttori di s'
+costruttori s''		new		add(s,c)
+new			new		add(s,c)	//passi base
+add(S,C)		add(S,C)	add(append(add(s,c), S), C)
+
+Teoricamente è come se avessi un declare per ogni equazione, 
+ma si usano variabili uguali, indipendenti in ogni equazione, 
+per semplificare le cose, senza perdere di generalità.
+
+SUI CONTI:
+
+Talvolta ci possono essere argomenti differenti, sebbene l'operazione
+sia unaria, come deposita(c, d') e concediFido(c,l').
+d' ed l' sono di tipo denaro, e non sono fake-variables.
+
+si assume che esista:
++(saldo, denaro) -> saldo
+
+In alcuni casi si ha una parte di semantica ed una parte di 
+restrizione, se si vuole separare si scrive due volte, oppure si scrive
+semantica and restrizione;
+
+s<-l' condizione di consistenza del conto, se il saldo è minore del
+nuovo fido da concedere non si può fare;
+
+SUL MAZZO DI CARTE:
+
+non si può scrivere add(mescola(m), c) perché non mischia veramente,
+se necessario si possono aggiungere altre operazioni, che avranno, 
+poi visibilità opaca. Nell'esercizio ci sono tutti gli operatori che 
+saranno pubblici, per definire in maniera corretta la semantica del
+dato astratto sarà necessario aggiungere nuovi operatori.
+Vanno definiti.
+
+Random(integer) -> integer, prende come argomento la dimensione 
+massima e genera un numero casuale tra 1 e quella dimensione + 1
+
+m' non si può mettere, va messo aggiungiCarta(m,c) (è stato scritto
+così sulla slide per renderlo visibile).
+
+SUL LIBRETTO:
+
+declare: L: libretto, E:esame, E': esame, V:voto
+
+			costruttori(L')
+			crea()			inserisci(L, E, V)
+vuoto(L')		true			false
+contieneEsame(L',E')	false			if E=E' then true
+						else
+						contieneEsame(L,E') 
+leggiVoto(L',E')	error			if E=E' then V
+						else leggiVoto(L,E')
+contaEsami(L')		0			contaesami(L) + 1
+mediaVoti(L')		error			if vuoto(L)
+						then V
+						else
+						(V + (mediaVoti(L)*
+						contaEsami(L)))/
+						contaesami(inserisci
+						(L,E,V))
+contaVoti(L', V')	0			if(V' = V) then
+						contavoti(L, V') + 1
+						else
+						contavoti(L,V')
+
+
++(intero,intero) -> intero //tra il declare delle variabili e le
+			   //equazioni
++(voto, voto) -> voto
+*(voto, intero) -> voto
+/(voto, intero) -> voto

@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1524770120 source:c:\users\federico calò\desktop\esercizi programmazione\generatore di numeri casuali\main.c
+	<stdio.h>
+	<stdlib.h>
+

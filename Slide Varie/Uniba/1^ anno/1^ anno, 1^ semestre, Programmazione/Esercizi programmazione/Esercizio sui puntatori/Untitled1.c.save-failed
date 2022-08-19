@@ -1,0 +1,12 @@
+#include<stdio.h>
+#include<stdlib.h>
+int maini()
+{
+    int a;
+    int *pa;
+    a=8;
+    pa=&a;
+    printf("a %d puntatore %d",a,pa);
+    *pa=a;
+    printf("a %d puntatore %d",a,pa);
+}

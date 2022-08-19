@@ -1,0 +1,102 @@
+#include<stdio.h>
+#include<stdlib.h>
+void prodottomatrici(int nr1,int nc1,int nr2,int nc2, float M1[nr1][nc1],float M2[nr2][nc2]);
+int main()
+{
+    int nc1,nc2,nr1,nr2;
+    printf("inserire il numero di righe della prima matrice\n");
+    scanf("%d",&nr1);
+    printf("\n inserire il numero di colonne della prima matrice\n");
+    scanf("%d",&nc1);
+    printf("\n inserire il numero di righe della seconda matrice\n");
+    scanf("%d",&nr2);
+    printf("\n inserire il numero di colonne della seconda matrice\n");
+    float M1[nr1][nc1],M2[nr2][nc2];
+    int i,j;
+    i=0;
+    while(i<nr1)
+    {
+        j=0;
+        while(j<nc1)
+        {
+            printf("inserire il valore della prima matrice in posizione %dx%d",i,j);
+            scanf("%f",&M1[i][j]);
+            j++;
+        }
+        i++;
+    }
+    i=0;
+    while(i<nr2)
+    {
+        j=0;
+        while(j<nc2)
+        {
+            printf("inserire il valore della seconda matrice in posizione %dx%d",i,j);
+            scanf("%f",&M2[i][j]);
+            j++;
+        }
+        i++;
+    }
+    i=0;
+    while(i<nr1)
+    {
+        j=0;
+        while(j<nc1)
+        {
+            printf("elemento della prima matrice in posizione %dx%d : %f",i,j,M1[i][j]);
+            j++;
+        }
+        i++;
+    }
+     i=0;
+    while(i<nr2)
+    {
+        j=0;
+        while(j<nc2)
+        {
+            printf("elemento della prima matrice in posizione %dx%d : %f",i,j,M2[i][j]);
+            j++;
+        }
+        i++;
+    }
+    float M3[nr1][nc2];
+    if(nr1==nc2)
+        prodottomatrici(nr1,nr2,nc1,nc2,M1,M2);
+    else
+        printf("Le due matrici non hanno i requisiti necessari per effettuare il loro prodotto\n");
+}
+void prodottomatrici(int nr1,int nc1,int nr2,int nc2, float M1[nr1][nc1],float M2[nr2][nc2])
+{
+    int i,j,k,l,x,y;
+    float M3[nc2][nr1];
+    x=0;
+    while(x<nc2)
+    {
+        y=0;
+        while(y<nr1)
+        {
+            M3[x][y]=0;
+            y++;
+        }
+        x++;
+    }
+    j=0;
+    l=0;
+    x=0;
+    while(j<nc1 &&k<nc2)
+    {
+        i=0;
+        k=0;
+        y=0;
+        while(i<nr1 && k<nr2)
+        {
+            M3[x][y]=M3[x][y]+(M1[i][j]*M2[k][l]);
+            i++;
+            k++;
+        }
+        y++;
+        j++;
+        l++;
+        x++;
+    }
+}

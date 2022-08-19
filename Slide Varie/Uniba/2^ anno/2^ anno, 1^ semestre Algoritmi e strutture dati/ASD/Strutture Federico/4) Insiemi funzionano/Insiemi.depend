@@ -1,0 +1,67 @@
+# depslib dependency file v1.0
+1562877418 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\insiemi\main.cpp
+	<iostream>
+	"./Nodo.h"
+	"./Insieme.h"
+	<stdlib.h>
+
+1562867422 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\insiemi\nodo.h
+
+1562870788 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\insiemi\insieme.h
+	"./Nodo.h"
+
+1562877636 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\insiemi\insieme.cpp
+	<iostream>
+	<stdlib.h>
+	"./Nodo.h"
+	"./Insieme.h"
+
+1562871253 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\insiemi\nodo.cpp
+	<stdlib.h>
+	<iostream>
+	"./Nodo.h"
+
+1563439093 source:c:\users\fedca\onedrive\desktop\4) insiemi\insieme.cpp
+	<iostream>
+	<stdlib.h>
+	"./Nodo.h"
+	"./Insieme.h"
+
+1562867422 c:\users\fedca\onedrive\desktop\4) insiemi\nodo.h
+
+1563005303 c:\users\fedca\onedrive\desktop\4) insiemi\insieme.h
+	"./Nodo.h"
+
+1563006343 source:c:\users\fedca\onedrive\desktop\4) insiemi\main.cpp
+	<iostream>
+	"./Nodo.h"
+	"./Insieme.h"
+	<stdlib.h>
+
+1562871253 source:c:\users\fedca\onedrive\desktop\4) insiemi\nodo.cpp
+	<stdlib.h>
+	<iostream>
+	"./Nodo.h"
+
+1563439449 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\4) insiemi funzionano\insieme.cpp
+	<iostream>
+	<stdlib.h>
+	"./Nodo.h"
+	"./Insieme.h"
+
+1562867422 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\4) insiemi funzionano\nodo.h
+
+1563005303 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\4) insiemi funzionano\insieme.h
+	"./Nodo.h"
+
+1563006343 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\4) insiemi funzionano\main.cpp
+	<iostream>
+	"./Nodo.h"
+	"./Insieme.h"
+	<stdlib.h>
+
+1562871253 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\4) insiemi funzionano\nodo.cpp
+	<stdlib.h>
+	<iostream>
+	"./Nodo.h"
+

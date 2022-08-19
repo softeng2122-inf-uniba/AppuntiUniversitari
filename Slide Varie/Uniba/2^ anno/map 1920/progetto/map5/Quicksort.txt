@@ -1,0 +1,124 @@
+
+
+	public void sort(Attribute attribute, int beginExampleIndex, int endExampleIndex){
+	
+			quicksort(attribute, beginExampleIndex, endExampleIndex);
+	}
+	
+	// scambio esempio i con esempi oj
+	private void swap(int i,int j){
+		Object temp;
+		for (int k=0;k<getNumberOfExplanatoryAttributes()+1;k++){
+			temp=data[i][k];
+			data[i][k]=data[j][k];
+			data[j][k]=temp;
+		}
+		
+	}
+	
+
+	
+	
+	/*
+	 * Partiziona il vettore rispetto all'elemento x e restiutisce il punto di separazione
+	 */
+	private  int partition(DiscreteAttribute attribute, int inf, int sup){
+		int i,j;
+	
+		i=inf; 
+		j=sup; 
+		int	med=(inf+sup)/2;
+		String x=(String)getExplanatoryValue(med, attribute.getIndex());
+		swap(inf,med);
+	
+		while (true) 
+		{
+			
+			while(i<=sup && ((String)getExplanatoryValue(i, attribute.getIndex())).compareTo(x)<=0){ 
+				i++; 
+				
+			}
+		
+			while(((String)getExplanatoryValue(j, attribute.getIndex())).compareTo(x)>0) {
+				j--;
+			
+			}
+			
+			if(i<j) { 
+				swap(i,j);
+			}
+			else break;
+		}
+		swap(inf,j);
+		return j;
+
+	}
+
+	
+
+	/*
+	 * Partiziona il vettore rispetto all'elemento x e restiutisce il punto di separazione
+	 */
+	private  int partition(ContinuousAttribute attribute, int inf, int sup){
+		int i,j;
+	
+		i=inf; 
+		j=sup; 
+		int	med=(inf+sup)/2;
+		Double x=(Double)getExplanatoryValue(med, attribute.getIndex());
+		swap(inf,med);
+	
+		while (true) 
+		{
+			
+			while(i<=sup && ((Double)getExplanatoryValue(i, attribute.getIndex())).compareTo(x)<=0){ 
+				i++; 
+				
+			}
+		
+			while(((Double)getExplanatoryValue(j, attribute.getIndex())).compareTo(x)>0) {
+				j--;
+			
+			}
+			
+			if(i<j) { 
+				swap(i,j);
+			}
+			else break;
+		}
+		swap(inf,j);
+		return j;
+
+	}
+
+	/*
+	 * Algoritmo quicksort per l'ordinamento di un array di interi A
+	 * usando come relazione d'ordine totale "<="
+	 * @param A
+	 */
+	private void quicksort(Attribute attribute, int inf, int sup){
+		
+		if(sup>=inf){
+			
+			int pos;
+			if(attribute instanceof DiscreteAttribute)
+				pos=partition((DiscreteAttribute)attribute, inf, sup);
+			else
+				pos=partition((ContinuousAttribute)attribute, inf, sup);
+					
+			if ((pos-inf) < (sup-pos+1)) {
+				quicksort(attribute, inf, pos-1); 
+				quicksort(attribute, pos+1,sup);
+			}
+			else
+			{
+				quicksort(attribute, pos+1, sup); 
+				quicksort(attribute, inf, pos-1);
+			}
+			
+			
+		}
+		
+	}
+	
+

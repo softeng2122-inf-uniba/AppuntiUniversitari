@@ -1,0 +1,113 @@
+Dati astratti con costrutti di programmazione: astrazione di tipo è una forma, i tipi astratti sono 
+dei tipi a tutti gli effetti (ma talvolta non è garantito il requisito di protezione).
+Quando si utilizza una variabile di tipo astratto i valori possono essere acceduti solo
+dalle funzioni che sono lecite per manipolare tale dato astratto.
+
+L'astrazione che porta alla scrittura di classi di oggetti non è tipica dei linguaggi object oriented, ma nasce
+nei linguaggi imperativi.
+
+Astrazioni di tipo nei linguaggi imperativi:
+I costrutti linguistici che consentono di creare un tipo astratto è un modulo ovvero uno spazio dedicato all'
+implementazione del dato astratto e delle operazioni su di esse.
+Si effettua con un record con un certo numero di campi, associato ad un nome, ma non basta, serve un meccanismo 
+per nascondere la struttura in memoria del tipo all'esterno e servono le operazioni lecite per accedere al
+dato.
+
+astrazione di tipo: type nome_(parametro_1_, parametro_2_, parametro_3_) is T (T è la definizione di come
+il tipo è rappresentato in memoria, l'elenco delle operazioni lecite e la loro implementazione, in T possono
+anche trovarsi operazioni di servizio che devono essere opache all'esterno).
+
+Il pascal non ha i modificatori di visibilità, come il c ed a differenza del c++.
+In pascal la tipizzazione è forte, ma comunque si può accedere alla struttura interna dei tipi, se si 
+crea un complex, ad esempio (numero complesso), si può accedere direttamente alla parte reale o alla parte 
+immaginaria.
+
+Un modulo è tale se è possibile associare una visibilità a delle componenti.
+In questo senso un file .c non è un modulo.
+
+Il modulo è una zona in cui si raggruppa qualcosa, quindi bisogna avere parole chiave per delimitarlo, 
+un nome per denotarlo, la possibilità di scrivere tipi di dati e funzioni (con visibilità differenti) e moduli 
+annidati.
+
+I moduli si trovano nei linguaggi di programmazione che vengono compilati, il compilatore genera codice oggetto
+e i codici oggetto vengono linkati per creare l'eseguibile.
+
+I moduli sono unità di programma compilati in maniera separata. In un modulo ci devono essere le informazioni
+per il compilatore per poterlo compilare.
+
+public e private sono parole chiave che servono a specificare ciò che è visibile all'esterno di un modulo e ciò 
+che non lo è; è importante che sia pubblico il nome del nuovo tipo perché devo poter dichiarare le variabili, 
+stesso discorso per i prototipi delle operazioni lecite del nuovo tipo di dato.
+
+la parte privata è inclusa nello stesso modulo dove risiede la parte pubblica.
+Anche le dichiarazioni di costanti devono essere poste nello stesso modulo.
+
+La maggior parte dei linguaggi di programmazione permettono un file per la definizione del modulo ed un file per
+l'implementazione del modulo, tipicamente ciò che va nella definizione è la parte pubblica, ciò che va
+nell'implementazione è la parte privata.
+Il compilatore necessita di entrambi i files per creare il modulo oggetto.
+Più moduli danno più oggetti, più oggetti danno un solo file eseguibile.
+
+Se un modulo è stato creato a partire da un altro (se si ha una dipendenza), tale modulo necessita la definizione
+del modulo implementato (o incluso).
+
+Il compilatore, oltre che a vedere se è corretta la definizione di un tipo necessita di
+sapere quanta memoria allocare:
+per un dato, quindi, o si utilizzano solo i puntatori (come in modula-2) oppure come in ada ci sono i packages:
+parte che si chiama package specification e package body (con l'implementazione); in ada si può utilizzare
+private e public anche nella definizione. Nella parte privata del package specification si trova l'implementazione.
+
+La parte private non è invisibile al compilatore, ma al programmatore si.
+
+Esistono i moduli privi di stato locale e i moduli con stato locale (chiamati oggetti).
+I moduli visti in precedenza sono moduli privi di stato locale, ovvero non ci sono variabili dalla 
+parte di implementazione del modulo.
+
+Se sono con stato: 
+Se si vuole avere delle variabili visibili a funzioni e procedure si creano globali nell'implementazione (si
+dichiarano variabili esterne).
+
+I moduli dotati di stato locale si chiamano oggetti. Le funzioni e le procedure degli oggetti si chiamano metodi.
+Un modulo con stato locale non ha il nome del tipo nella parte pubblica, quindi si ha la variabile dentro il modulo
+ed è visibile solo alle procedure e alle funzioni pubbliche. Si ha come risultato che le segnature delle funzioni
+da dare all'esterno sono differenti rispetto alla specifica data dal progettista.
+Il problema è che si può gestire un solo dato del nuovo tipo.
+
+Ogni volta che si ha un nuovo oggetto il compilatore deve essere chiamato daccapo.
+
+E' nato un costrutto nuovo, ma ha delle limitazioni, quindi bisogna superare il paradigma imperativo.
+
+Si ha ambiguità in ada, se non specifichiamo quale oggetto usare, come si fa?
+_object_identifier_.method_(parameters_)
+se l'oggetto è uno ci si limita a scrivere: 
+method_(parameters_)
+
+il compilatore vede sempre tutto dello specification.
+
+is private: direttiva al compilatore che dice che la realizzazione è nel campo privato.
+
+Quindi il tipo rispetta il requisito di protezione.
+
+Per essere un'astrazione di tipo bisogna constatare che l'implementazione non presenta variabili esterne.
+in: in input, come const in c, non modificabile
+out: solo in output
+inout: modificabile.
+
+with Type_complex; (direttiva al precompilatore)
+use Type_complex; (direttiva al compilatore)
+
+per usare Type_complex
+
+Potrebbe non servire a nulla mettere un main perché non ci sono variabili da inizializzare in un package, 
+Il main verrà utilizzato veramente quando viene utilizzato use Type_complex.
+
+Is limited: non si può usare l' =  (confronto) tra strutture, quindi si evita quello che succede in c quando
+si eguagliano due struct, in cui si analizza byte per byte.
+
+Nell'esonero si scrive tutta la realizzazione, quindi bisogna scrivere anche le implementazioni di funzioni.
+
+Se nell'elenco delle operazioni lecite c' è l' = bisogna implementare l'operatore:
+
+si mette is limited, in public si dichiara:
+
+function "="(s: in Stack, s': in Stack) is Boolean

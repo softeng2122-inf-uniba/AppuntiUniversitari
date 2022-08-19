@@ -1,0 +1,33 @@
+La classe InetAddress (che si trova nel package java.net) modella un indirizzo
+di rete. E' possibile ottenere un oggetto di clase InetAddress a partire
+dall'indirizzo ip del nodo della rete. Attraverso il metodo di classe:
+	InetAddress getByName(String ip)
+è possibile ottenere un oggetto di classe InetAddress che modella l'indirizzo
+di rete che identifica l'ip del nodo.
+
+La classe Socket modella i "terminali" della connessione di rete. Il
+costruttore della classe Socket è il seguente:
+	Socket(InetAddress addr, int port)
+Quindi esso prende in input un InetAddress, che modella un indirizzo
+di rete, e un identificativo di porta. Al momento dell'istanziazione
+di un oggetti della clase Socket viene effettuato un tentativo di
+connessione al server. Se questo fallisce viene lanciata una IOException.
+E' possibile ottenere gli stream di input e di output del socket con i
+metodi d'istanza:
+	InputStream getInputStream()
+	OutputStream getOutputStream()
+con cui è possibile costruire stream più complessi.
+
+La classe ServerSocket è una classe che modella il socket di un server.
+L'unico parametro che il costruttore richiede è la porta su cui attendere
+un tentativo di connessione da parte dei client. Un oggetto di classe
+ServerSocket possiede il metodo:
+	Socket accept()
+Questo metodo mette in pausa il thread su cui è eseguito il server in
+attesa di un tentativo di connessione. Quando un client tenta di connettersi
+al server allora accept() termina e ritorna un socket di connessione col
+client. E' possibile, come detto in precedenza, ottenere gli stream di input
+e di output dal socket.
+
+E' sempre bene chiudere i socket non utilizzati in quanto il numero di socket
+che è possible tenere aperti contemporaneamente è limitato.

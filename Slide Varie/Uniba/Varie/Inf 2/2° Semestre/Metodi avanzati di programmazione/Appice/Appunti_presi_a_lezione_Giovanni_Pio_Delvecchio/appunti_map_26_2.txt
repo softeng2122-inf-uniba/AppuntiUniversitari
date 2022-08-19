@@ -1,0 +1,172 @@
+
+LA PARTE IMPORTANTE DOVE VI DICO COME USARE QUESTI APPUNTI:
+
+Questi appunti sono stati scritti da me,
+Giovanni Pio Delvecchio,
+quindi se non vi piacciono sapete di chi è la colpa. 
+Sono stati pensati per essere un accompagnamento, un approfondimento
+ed una spiegazione più chiara di ciò che è scritto nelle slides,
+per questo potete notare la bislacca formattazione
+(i più arguti di voi sanno già che
+premendo windows + freccia sinistra il documento occuperà
+esattamente metà dello schermo, in modo tale che gli appunti 
+possano occupare la parte destra).
+Se notate che qualcosa è scritta in modo errato, 
+segnalatelo a lezione, sui gruppi di Whatsapp dove potete taggarmi.
+
+------------------------------------------------------------------------------
+
+INFO VARIE:
+
+Quinto piano stanza 512, ricevimento mercoledì dalle 15 alle 17.
+Iscrizione ADA: map1920
+
+Orientativamente il laboratorio sarà venerdì, le date di recupero saranno il 
+mercoledì pomeriggio, piuttosto che il giovedì.
+
+-------------------------------------------------------------------------------
+
+INFO SU ESONERO ED ESAME:
+
+Il primo esonero è il 7 aprile.
+Gli esoneri sono 2: uno il 7 uno appena si arriva a giugno,
+sono esonerate le persone che hanno passato entrambi gli esoneri.
+Il caso di studio ha valenza fino all'aprile dell'anno successivo.
+Il voto viene sommato e mediato, la media degli esoneri rappresenta il voto
+dello scritto, il progetto è qualcosa a parte.
+Il voto finale è scritto+progetto/2, si ha la lode se si supera la media
+del 30 di un milionesimo; come si fa: si valuta in 33-esimi.
+Chi è esonerato può presentare il progetto dell'anno in corso, fino ad 
+aprile 2021. Per chi sostiene lo scritto, invece, deve consegnare il progetto
+nello stesso appello in cui supera lo scritto o in uno precedente.
+
+Gruppi di massimo 3 persone per il progetto. 
+
+E' necessario prenotarsi su esse3.
+
+--------------------------------------------------------------------------------
+INTRODUZIONE:
+
+L'obiettivo del corso di studio è la comprensione del paradigma object oriented;
+si parlerà di astrazione in progettazione ed in programmazione.
+
+COSA E COME:
+
+Tutte le discipline che fanno riferimento all'informatica vivono la dicotomia
+fra il cosa viene fatto ed il come viene fatto, perché il software viene
+utilizzato dall'utente che lo realizza (come) e da chi lo utilizza (cosa).
+Quando si usa una libreria interessa il cosa, quando i metodi vengono invocati
+si è interessati a cosa fanno, non come. Chi ha scritto la libreria era 
+interessato al come, doveva capire algoritmicamente come andava scritta la 
+libreria.
+Un informatico non è solo interessato al come, ma anche al cosa.
+
+Il cosa sono i domini di interesse, il cosa viene tipicamente espresso in 
+linguaggio naturale, è l'obiettivo del software. 
+Di contro il come è l'implementazione di un algoritmo per fare in modo che
+un determinato cosa possa essere effettivamente realizzato.
+
+PARADIGMI:
+
+Paradigmi e linguaggi sono indissolubilmente legati tra loro e si pongono
+in questa dicotomia tra il cosa ed il come.
+
+Un paradigma è un insieme di modelli concettuali che plasmano il processo di 
+analisi, progettazione e sviluppo di un programma, il paradigma
+non coinvolge solo il programmatore.
+Il paradigma si può presentare senza scrivere codice.
+
+Concetto: un modello concettuale è il modo in cui l'essere umano modella
+	nel suo pensiero la realtà che lo circonda. E' schematizzare la realtà 
+	tramite il modo in cui pensiamo, ovvero in che modo si deve pensare
+	la soluzione. Ci sono molte maniere in cui si pensa ad un problema
+	e quindi a come risolverlo.
+	Va schematizzato il modo in cui si risolve un problema.
+	Modello iterativo: fattoriale come 1*2*3*...*n
+	Modello ricorsivo: fattoriale come n*(n-1)!
+		
+I paradigmi ed i linguaggi sono rapportati; in generale si dice che un 
+linguaggio di programmazione supporta un paradigma.
+Il paradigma introduce una tassonomia, i linguaggi appartengono alla tassonomia
+di un paradigma. Tutti i linguaggi nascono perché supportano un particolare
+paradigma. Ci sono alcuni linguaggi che supportano più di un linguaggio 
+contemporaneamente. Se si vuole creare un nuovo linguaggio bisogna scegliere
+che paradigma supportare, poi si forniscono le regole linguistiche 
+per creare il linguaggio.
+
+LINGUAGGI E PARADIGMI:
+
+In C la sequenza corrisponde al ;
+la selezione corrisponde all' if-else
+l'iterazione corrisponde al do-while o while
+anche il Pascal fa lo stesso con gli stessi costrutti linguistici,
+quello che cambia è la sintassi. Il modello concettuale è lo stesso.
+
+tutti i linguaggi di un paradigma si devono inventare un modo per
+poter supportare i costrutti del paradigma stesso.
+Come un linguaggio supporta un paradigma?
+Il linguaggio deve fornire le primitive del paradigma,
+I metodi di composizioni (funzioni, procedure, chiamate)
+Il linguaggio utente appropriato, chiaro, con diverse condizioni.
+
+Servono anche i tool che permettono la reale esecuzione di un programma 
+scritto in un dato linguaggio di programmazione. 
+
+I linguaggi esistenti si evolvono per supportare più di un paradigma.
+Python supporta tutto.
+
+APPROCCI ALLA RISOLUZIONE DI UN PROBLEMA:
+
+Approccio operazionale: come quello utilizzato alle elementari per 
+	risolvere un problema, si dice quali semplici operazioni vanno
+	svolte per poter risolvere un particolare problema.
+	Approccio orientato al come. Rientra nell'approccio operazionale
+	il paradigma imperativo.
+
+Approccio definizionale: orientato al cosa, bisogna definire le proprietà 
+	della soluzione, appartiene a questo paradigma la programmazione logica,
+	dove si dicono le proprietà di un risultato per poterlo ottenere.
+
+Approccio dimostrazionale: un po' cosa un po' come, è una variante dell'
+	operazionale, ma non si spiega la risoluzione del problema generale,
+	si  fanno tanti esempi e si chiedere di trovare una regola 
+	per trovare la soluzione al prossima soluzione al prossimo problema.
+
+POTERE DI ELISIONE:
+
+Perché tutti questi paradigmi? Perché in alcune situazioni va meglio un 
+paradigma ed in altre situazioni va meglio un altro.
+
+ogni paradigma ha un potere diverso di elisione, cioè la capacità di
+esprimere qualcosa in modo coinciso (quanto è compatta la scrittura
+della definizione della soluzione), più è coinciso meno si sbaglia;
+e l'invarianza rispetto al cambiamento (questa proprietà indica
+quanto codice va modificato per nuove regole, è
+importante che le modifiche abbiano un impatto limitato).
+
+Come si sceglie un linguaggio in base alla situazione? Con l'esperienza.
+Un linguaggio di programmazione multiparadigmatico necessita la conoscenza
+di più di un paradigma, il costo di apprendimento è quindi più elevato.
+
+Costa molto di più anche il debugging, in termini di competenza di chi deve
+utilizzare questo strumento.
+Si ha anche il costo di variazione dovuto all'evoluzione del programma.
+Side-effecting è un paradigma, il linguaggio che lo supporta modifica 
+ripetutamente la rappresentazione dei dati (x = 3; x = x + 1), si riassegna;
+Un linguaggio che non supporta il paradigma side-effecting non permette la
+riassegnazione, anche le funzioni possono essere side effecting o non side 
+effecting. getc di c è, ad esempio side-effecting.
+
+(Su ogni esonero c'è un esercizio sulle specifiche algebriche 
+che vale 7 punti.)
+
+Nell'informatica l'astrazione sottointende due elementi: un processo e 
+un'entità. Con il processo decidiamo, dell'individuo considerato, quali
+informazioni sono necessarie e quali vanno ignorate. Un entità è il risultato 
+del processo, è la selezione di caratteristiche interessanti.
+
+I sistemi software richiedono delle astrazioni che siano coerenti con
+il cosa del problema da risolvere.
+
+Quando si progetta un software si progetta COSA deve fare.
+La realizzazione rientra, invece nel COME.

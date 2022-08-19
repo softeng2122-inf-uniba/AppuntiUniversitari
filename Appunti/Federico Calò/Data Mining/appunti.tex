@@ -1,0 +1,434 @@
+\documentclass[a4paper]{extarticle}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx} % libreria per le immagini
+\usepackage{amssymb} %libreria per i simboli (ex. alfabeto reco)
+\usepackage{algorithm2e} %libreria per scrivere pseudocodice
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{lastpage}
+
+\setlength{\parindent}{0em}%indentazione paragrafo
+\setlength{\parskip}{1em}%spazio tra paragrafi
+\renewcommand{\baselinestretch}{1.3}%interlinea
+\graphicspath{ {./} }
+\geometry{
+    a4paper,
+    left=10mm,
+    right=10mm,
+    bottom=20mm
+}
+
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Federico Calò}
+\lhead{Data Mining - Il processo KDD}
+\cfoot{  \thepage }
+
+
+\title{Data Mining - Il processo KDD}
+\author{\href{http://www.federicocalo.it}{Federico Calò} }
+\date{}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\voffset -30pt
+
+\newpage
+
+\section{KDD process}
+
+L'automazione delle attività economiche produce un incremento dello stream di dati perchè anche singole transazioni (una chiamata telefonica, il credito di una carta, un test medico) sono tipicamente registrate in un computer.
+Le basi di dati scientifiche e governative sono anche in rapida crescita. C'è un divario crescente tra la generazione di dati e la loro comprensione. Risulta quindi necessario l'utilizzo di computer per analizzare i dati, ma questo non è sufficiente.
+
+Necessitiamo di una metodologia matura che spieghi come grandi strutture di dati possono essere analizzate. Questa metodologia è stata studiata in un'area di ricerca conosciuta come KDD. Lo scopo è investigare come tecniche di Machine Learning possono 
+essere applicate a estratti di "conoscenza" di una grande massa di dati disponibili. All'inizio vi era una certa confusione sull'area di interesse ricoperta dal Machine learning, Data Mining e Knowledge Discovery. 
+Ora, si è giunti alla conclusione che il KDD denota l'intero processo di estrazione della conoscenza, dalla raccolta dei dati e dalla preelaborazione all'interpretazione dei risultati.
+
+Il Data Mining è lo step, all'interno del processo KDD, nel quale le informazioni sono estratte dai dati applicando ad essi opportuni algoritmi. Questi algoritmi sono il più delle volte quelli di Machine Learning. 
+In un contesto aziendale il termine Data Mining è ancora utilizzato per denotare il processo di knowledge discoverym e questo causa qualche confusione. Sempre sulla terminologia: KDD è ancora utilizzato anche se la conoscenza non è rigorosamente estratta dai "database". 
+
+Il tentativo più importante e completo di definire il Knowledge Discovery come un processo afferma: "La scoperta della conoscenza è l'estrazione non banale di informazioni implicite, precedentemente sconosciute e potenzialmente utili dai dati."
+\begin{itemize}
+    \item \textbf{Non banale}: si intende che nel processo è coinvolta qualche ricerca o inferenza statistica, quindi non è un semplice calcolo di quantità predefinite;
+    \item \textbf{Implicita}: ci si riferisce al fatto che l'informazione è implicita nel dato e non formalmente esplicita, l'informazione esplicita è estratta attraverso altre tecniche;
+    \item \textbf{Sconosciuta}: l'informazione deve essere nuova, la novità dipende dal quadro di riferimento assunto;
+    \item \textbf{Utile}: l'informazione deve essere utile a raggiungere lo scopo del sistema o dell'utente. I pattern completamente estranei agli obiettivi dati sono di scarsa utilità e non costituiscono conoscenza all'interno della situazione data.
+\end{itemize}
+
+Diamo una definizione formale al KDD:
+
+\textbf{Dati}:
+\begin{itemize}
+	\item un insieme di fatti (data) F,
+	\item una rappresentazione in un linguaggio L,
+	\item una certa misura di certezza C,
+\end{itemize}
+possiamo definire un pattern come una dichiarazione S in L che descrive le relazioni tra un sotto insieme $F_{S}$ di F con una certezza \textbf{\textit{c}}, tale che S è più semplice (in un certo senso) dell'enumerazione di tutti i fatti in $F_S$.
+
+Un pattern è considerato conoscenza se è interessante e abbastanza
+certo (o valido). Nel KDD siamo interessati in pattern che sono espressi in un linguaggio di alto livello, come:
+\newpage
+\begin{center}
+Se Età $<$ 25 e Corso-di-Educazione = no
+
+Allora Incidente = si
+
+Con probabilità = 0.2 a 0.3
+\end{center}
+In questo modo alcuni pattern possono essere capiti e usati direttamente dalle persone o possono essere input ad altri programmatori.
+Definiamo ora il termine \textbf{certezza}, senza un livello sufficiente di certezza i modelli diventano ingiustificati e non riescono a diventare conoscenza. La certezza coinvolge diversi fattori, quali: 
+\begin{itemize}
+	\item Integrità dei dati,
+	\item Dimensione del campione su cui è stata effettuata la scoperta 
+	\item Il grado di supporto dalla conoscenza del dominio disponibile
+\end{itemize}
+
+Un pattern è definito \textbf{interessante} quando è:
+\begin{itemize}
+	\item Nuovo
+	\item Utile
+	\item Non banale da calcolare
+\end{itemize}
+
+Vi sono principalmente due differenti interpretazioni dei pattern e dei modelli.
+La \textbf{prima} interpretazione che possiamo dare consiste nel definire un modello come una sintesi globale del data-set, mentre il pattern è una caratteristica locale del data-set, limitato a un sub-set di osservazioni e/o attributi.
+La \textbf{seconda interpretazione} esplica come il data mining implica l'adattamento o la determinazione di pattern da dati osservati. In questo caso il pattern è visto come una istanza del modello. I modelli adattati svolgono il ruolo di conoscenza dedotta
+
+Il kdd è un processo iterativo e interattivo, costituito da molti passaggi che includono molte decisione prese dall'utente.
+
+\begin{figure}[h]
+\noindent
+\makebox[\textwidth]{\includegraphics[width=12cm]{kdd-process}}%
+\end{figure}
+
+In una prima fase si sviluppa una \textbf{comprensione del dominio} dell'applicazione, delle relative conoscenze di base e degli obiettivi dell'utente finale. Si prosegue creando \textbf{un data set target}, quindi si seleziona un dataset o ci si focalizza su un sotto insieme di variabili o di esempi di dati sui quali deve essere eseguita la scoperta. Una volta selezionati questi dati si passa alla fase di \textbf{pulizia dei dati e preprocessing} nella quale si effettuano svariate operazioni volte a rimuovere il rumore o dei valori anomali, collezionando le informazioni necessarie per modellare o tenere conto del rumore, decidere strategie per gestire i campi di dati mancanti o tenere conto delle informazioni sulla sequenza temporale e delle modifiche note. Successivamente si entra in una fase di \textbf{riduzione e proiezione dei dati}, nella quale si trovano funzioni utili per rappresentare i dati a seconda dell'obiettivo dell'attività. Vengono utilizzati metodi di riduzione o trasformazione multidimensionale per ridurre l'effettivo numero di variabili da considerare o per trovare rappresentazioni di dati invarianti. Conclusa questa attività, si passa alla \textbf{selezione del compito del data mining}, decidendo qual è l'obiettivo del processo KDD, scegliendo tra classificazione, regressione, clustering. 
+
+Definito l'obiettivo si passa alla \textbf{scelta degli algoritmi} di data mining. Vengono selezionati i metodi che verranno utilizzati per ricercare i pattern frequenti all'interno dei dati. Vengono definiti i modelli e i parametri più appropriati e si cerca di far corrispondere particolari metodi di data mining con i criteri globali dei processi di KDD. Quindi si entra nella fase di \textbf{Data Mining}, nella quale si ricercano modelli di interesse in una particolare forma rappresentativa.  L'utente può contribuire significativamente in questa fase eseguendo correttamente i passaggi precedenti. Alla fine del processo di data mining, vi è la fase di \textbf{interpretazione dei pattern minati}, nella quale si effettuano le valutazioni sui risultati ottenuti ed eventualmente si ritorna ad iterare su uno degli step precedenti. Infine si \textbf{consolida la conoscenza scoperta}, la conoscenza ottenuta viene incorporata nel sistema per migliorarne le prestazioni o semplicemente si documenta per essere segnalata ad altre parti di interesse. Questa fase include anche il controllo e la risoluzione di particolar conflitti con conoscenze precedentemente estratte o scoperte.
+
+\subsection{Steps del KDD}
+
+La maggior parte del lavoro nel KDD è focalizzata sullo step del data mining. Anche se gli altri step sono considerati importanti per il successo dell'applicazione del KDD nella pratica. La necessità per una standardizzazione del processo della scoperta della conoscenza ha portato alla definizione dello standard industriale CRISP-DM. L'obiettivo di questo standard è quello di sviluppare un processo neutrale per condurre il KD,  e di definire i compiti, i loro outputs, la terminologia e i problemi tipici di caratterizzazione. 
+
+Il modello di processo CRISP-DM è per la scoperta i conoscenza consiste in sei fasi.
+
+\begin{center}
+
+\fbox{\includegraphics[width=.4\textwidth, height=.3\textheight, keepaspectratio]{crisp-dm-model}}
+
+\end{center}
+
+La sequenza delle fasi non è rigida. È possibile spostarsi avanti e indietro tra le diverse fasi a seconda dell'esito di ciascuna fase. Le frecce indicano le dipendenze più importanti/frequenti. Il cerchio esterno simboleggia la natura ciclica di un processo KDD che può continuare dopo l'implementazione di una soluzione. Ogni fase contiene un numero di task che produce specifici output.
+\subsubsection{Business Understanding}
+
+La \textbf{prima fase} di questo modello viene definita \textbf{Business Understanding} (comprensione degli affari), il cui primo step è quello di \textbf{determinare gli obiettivi commerciali}, step ha molti aspetti in comune con la fase iniziale di quasiasi impegno progettuale significativo. I requisiti minimi sono:
+\begin{itemize}
+	\item un problema o un'opportunità commerciale percepita
+	\item un certo livello di sponsorizzazione esecutiva
+\end{itemize}
+Sviluppare una definizione chiara e comprensibile dei bisogni aziendali non è un compito semplice. E' richiesta la collaborazione dei business analyst e dei data analyst. Questo passaggio del processo è anche il momento in cui iniziare a definire le aspettative. Alla fine di questo step vengono prodotti:
+\begin{itemize}
+	\item \textbf{Il background}, che descrive le informazioni note sulla situazione aziendale all'inizio del processo
+	\item \textbf{Gli obiettivi di business}, che descrivono i principali obiettivi dalle prospettive di business
+	\item \textbf{I criteri economici di successo}, che definiscono le misure per risultati di alta qualità del progetto dal punto di vista del business
+\end{itemize}
+
+Dopo aver definito gli obiettivi commerciali, si passa alla \textbf{valutazione della situazione}, con lo scopo di raccogliere informazioni sulle risorse, sui vincoli e sulle assunzioni. Alla fine di questo sotto processo verrà prodotto un inventario contenente:
+\begin{itemize}
+\item le risorse: personale, dati, calcoli
+\item vincoli: schede di compilazione, questioni legali, comprensibilità
+\item assunzioni: disponibilità dei dati
+\end{itemize}
+
+Inoltre non dimentichiamo che vengono prodotti anche \textbf{un glossario di termini}, che copre la terminologia di business e di data mining, e \textbf{un'analisi costo-beneficio}, cioè un documento contenente le spese del progetto dovrebbero essere confrontate con i potenziali guadagni.
+
+Successivamente si passa alla \textbf{determinazione degli obiettivi del Data Mining}. In questa fase si trasformano gli obiettivi commerciali in obietti del processo di Data Mining e si costruiscono i relativi criteri di successo. Possiamo classificare gli obiettivi del Data Mining in:
+\begin{itemize}
+\item Classification
+\item Estimation (produrre una stima, Estimation)
+\item Prediction
+\item Affinity grouping
+\item Clustering
+\item Description e Profiling
+\end{itemize}
+
+I due obiettivi primari del Data Mining tendono ad essere:
+\begin{itemize}
+\item \textbf{Predizione}, che include l'uso di alcune variabili indipendenti per predire valori sconosciuti o futuri che dipendono da altre variabili
+\item \textbf{Descrizione}, nella quale non si fa una distinzione tra variabili dipendenti e indipendenti e si concentra sulla ricerca di modelli interpretabili dall'uomo che descrivono i dati.
+\end{itemize}
+L'obiettivo della classificazione è apprendere una funzione che mappa, o classifica, un dato in una predefinita classe. Questa tecnica è molto utilizzata per i database. Invece quando si parla di regressione, si ha come obiettivo apprendere una funzione che mappa un dato in una variabile di previsione reale. Quando invece si cerca di creare un procedimento per trovare le associazioni tra gruppi di variabili, si utilizza il metodo Affinity Grouping. Il clustering è un'attività descrittiva in cui si cerca di identificare un insieme finito di categorie o cluster per descrivere i dati. Le categorie possono essere mutuamente esclusive ed esaustive, oppure consistere in una rappresentazione più ricca come una gerarchia o categorie sovrapposte. La clasterizzazione viene utilizzata spesso per scoprire sotto-popolazioni omogenee, identificare sotto categorie, o analisi di dati. Strettamente correlato al clustering è il compito della stima della densità di probabilità, che consiste in tecniche per stimare dai dati la funzione di densità di probabilità multivariata congiunta di tutte le variabili/campi nel database.
+Per \textbf{Summarization} (riassunto o descrizione o profilazione), si intendono tutti quei metodi per trovare una descrizione compatta per un sottoinsieme di dati. Invece il task \textbf{Dependency modeling} (modellare le dipendenze), consiste nel trovare un modello che descrive dipendenze significative tra variabili. Esistono due tipi di modelli dipendenti:
+\begin{itemize}
+\item il livello strutturale di specifici modelli le cui variabili sono localmente dipendenti tra loro
+\item il livello quantitativo il cui modello specifica quanto le variabili sono dipendenti usando una scala numerica.
+\end{itemize}
+Il task di rilevamento di modifiche e deviazioni si focalizza sulla scoperta delle modifiche più significanti nei dati rispetto a valori misurati o normativi in precedenza. Consiste nel trovare un modello che descrive significanti dipendenze tra variabili.
+
+Dopo aver definito il task del Data Mining si passa a \textbf{produrre un piano progettuale} per il raggiungimento egli obiettivi di data mining e quindi il raggiungimento degli obiettivi di business. L'output di questa fase è ovviante un piano progettuale, che specifica l'insieme degli step per la restante parte del progetto, la sua durata, le risorse richieste, gli input, gli output e le dipendenze.
+
+\subsubsection{Data Understanding}
+
+Dopo aver contestualizzato il business in cui si andrà a progettare il sistema, si passa a una fase di \textbf{Data Understanding}, cioè di compresone dei dati, che inizia con una fase di raccolta iniziale dei dati, durante la si accede ai data rilevanti nell'inventario delle risorse e si produce un report iniziale dei dati raccolti, nel quale si elenca la posizione dei dati, i metodi usati per acquisirli e i problemi incontrati. Successivamente si passa a descrivere i dati esaminando le loro proprietà e creando un report nel quale si descrive il formato dei dati, i potenziali valori, la quantità, l'identificatore dei campi e tutte le caratteristiche che vengono scoperte.
+
+Ci sono due metodi principali per descrivere le variabili:
+\begin{itemize}
+\item \textbf{in maniera categorica}: i possibili valori finiti e i differenti tipi che una variabile può assumere. Questa categoria si può suddividere in:
+\begin{itemize}
+\item \textbf{variabili nominali} che denominano il tipo di oggetto a cui si riferiscono, ma non esiste un ordine tra i valori possibili. (stato del materiale, genere, livello di educazione)
+\item \textbf{variabili ordinali} che assumono un ordine tra i possibili valori. (valutazione del cliente)
+\end{itemize}
+
+\item \textbf{quantitativi}: sui quali sono consentite operazioni aritmetiche, e si suddividono a loro volta in:
+\begin{itemize}
+\item \textbf{variabili discrete}, i cui valori sono interi
+\item \textbf{variabili continue}, i cui valori sono numeri reali.
+\end{itemize}
+\end{itemize}
+
+Dopo aver descritto la tipologia di dati si passa alla verifica della loro qualità ispezionando e affrontando diverse caratteristiche quali:
+\begin{itemize}
+\item \textbf{Accuratezza}: conformità del valore memorizzato rispetto a quello effettivo
+\item \textbf{Completezza}: nessun valore mancante
+\item \textbf{Consistenza}: rappresentazione uniforme
+\item \textbf{Attualità}: i dati storicizzati non sono obsoleti.
+\end{itemize}
+Scarsa qualità dei dati e scarsa integrità dei dati sono i maggiori problemi all'interno dei progetti KDD.Si vedrà come la maggior parte dei dati operativi non è mai stata acquisita o modellata per scopi di data mining. I dati selezionati vengono generalmente raccolti da numerosi sistemi operativi, incoerenti e scarsamente documentati. È importante comprendere la \textbf{sensibilità temporale} dei dati. Lo specialista della gestione dei dati è responsabile della raccolta e dell'integrazione dei dati nell'ambiente informativo. 
+
+Al termine della verifica della qualità dei dati viene gerato un report di qualità dei dati che riporta i risultati della verifica e se vi sono dei problemi, sarà possibile discutere di eventuali soluzioni.
+
+A valle della verifica della qualità dei dati, è possibile avviare la fase di \textbf{esplorazione dei dati}, alla fine della quale seguirà un relativo report dei risultati ottenuti. Per le \textit{variabili categoriche}, le distribuzioni della frequenza dei dati sono il metodo migliore per capire il contenuto dei dati. Istogrammi e grafici a torta aiutano a identificare gli schemi della distribuzione e i valori mancanti o non validi. Mentre quando lavoriamo con \textit{variabili quantitative}, l'analista dei dati è interessato a misure come il massimo e il minimo, la media, moda, mediana e misure statistiche. Se combinate, queste misure offrono un modo efficace per determinare la presenza di dati non validi e distorti.
+
+\subsubsection{Data Preparation}
+
+Lo step successivo al Data understang vi è lo step di \textbf{Data Preparation}, la cui prima fase consiste nel selezionare i dati, fase in cui il problema maggiore consiste nel selezionare dati da tuple di database relazionali. Si possono comunque seguire alcuni principi che includono:
+\begin{itemize}
+\item la rilevanza del dato rispetto all'obiettivo principale.
+\item vincoli tecnici e qualitativi,
+\item limiti al volume dei dati o ai tipi di dati
+\end{itemize}
+In questa fase si produce un report di inclusione/esclusione dei dati. La selezione dei dati può essere eseguita manualmente o automaticamente (campionamento e selezione delle caratteristiche).
+
+Il più semplice tipo di campionamento è il \textbf{campionamento semplice casuale}: ogni gruppo di oggetti della dimensione richiesta ha la stessa probabilità di essere il campione selezionato. È possibile ottenere un campione molto atipico, tuttavia le leggi della probabilità impongono che più ampio è un campione, più è probabile che sia rappresentativo della popolazione da cui proviene. Il metodo tradizionale di scelta di un campione casuale inizia con una numerazione dei membri della popolazione target. L'ordine di numerazione è irrilevante. Una volta che ogni membro della popolazione ha un numero, il campionatore consulta una tabella di numeri casuali per selezionare gli indici dei membri da includere nel campione. Ovviamente il presupposto principale è quello di essere in grado di numerare i membri della popolazione target. 
+
+Vi sono due tipi di campionamento semplice casuale:
+\begin{itemize}
+\item con sostituzione
+\item senza sostituzione
+\end{itemize}
+
+Se la popolazione è grande rispetto al campione, c'è una probabilità molto piccola che qualsiasi membro venga scelto più di una volta e le due tecniche sono essenzialmente le stesse.
+
+Quando la popolazione è divisa in strati o gruppi, è utile invece usare un \textbf{campionamento casuale stratificato}. Viene selezionato un campione casule semplice da ciascuno strato separatamente e la loro unione produce un campione stratificato. Un vantaggio di questo campionamento consiste nel fatto che l'analista può controllare il numero di osservazioni all'interno di ogni gruppo o strato e può garantire che particolari gruppi all'interno della popolazione sono adeguatamente rappresentati nel campione. Quando uno strato ha un'appartenenza molto più piccola degli altri, il semplice campionamento casuale può produrre campioni senza rappresentativi di quello strato. La dimensione del campione è solitamente proporzionale alla dimensione relativa degli strati. Tuttavia, questa non è una regola.
+
+Se i membri all'interno degli strati sono più simili tra loro rispetto ai membri di strati diversi, le stime specifiche per strato saranno più precise di quelle dell'intero campione. Attenzione però, è importante adeguarsi alla sovra rappresentazione quando le inferenze si riferiscono alla popolazione target nel suo insieme.
+
+Alcune regole per una buona rappresentazione di progettazione per un campionamento stratificato, sono:
+\begin{itemize}
+\item gli strati devono essere scelti per:
+\begin{itemize}
+\item avere dei mezzi che differiscono sostanzialmente tra loro
+\item minimizzare la varianza all'interno di uno strato e massimizzarla tra i vari strati
+\end{itemize}
+\item Le dimensioni del campione devono essere proporzionali alla deviazione standard dello strato.
+\end{itemize}
+
+Un'altra tecnica di campionamento è il \textbf{cluster sampling} o campionamento clusterizzato, nel quale i membri della popolazione arrivano naturalmente da cluster, ciò rende possibile campionare i cluster. In questo caso tutti i membri di ogni cluster sono considerati. Nel contesto di grandi basi di dati, un'applicazione comune del cluster sampling è di rendere casuale la scelta di blocchi di dati, e successivamente usare tutti i dati nei blocchi. La motivazione dietro questo approccio è che per recuperare un record di database da un blocco particolare, l'intero blocco deve essere letto in memoria. Questo tipo di campionamento è anche chiamato \textbf{block scampling}. I vantaggi del cluster sampling è che riduce i costi richiesti per accedere ai campioni, ma al tempo stesso aumenta la variabilità delle stime campionarie al di sopra di quella del semplice campionamento casuale, a econda di quanto i cluster differiscono tra loro, rispetto alla variazione all'interno del cluster.
+
+Se i membri di un cluster sono più simili dei membri di cluster diversi, gli approcci statistici che presuppongono che i dati siano indipendenti porteranno a inferenze distorte. La modellazione gerarchica può modellare esplicitamente la struttura indotta dall'amplificazione nei dati.
+
+Il \textbf{two-stage sampling} (campionamento a due stadi) combina due idee principali: la celta casuale dei cluster e il campionamento all'interno di ogni cluster. 
+
+Quando è possibile numerare in qualsiasi modo gli individui di una popolazione, si può effettuare il \textbf{systematic sampling} (campionamento sistematico), conosciuto anche come \textbf{every k-th sampling}. Questo tipo di campionamento si sviluppa scegliendo un membro in maniera casuale da quelli numerati tra 1 e k, successivamente include ogni k-th membro dopo il campione.  Il vantaggio maggiore di questo tipo di campionamento è la sua facile implementazione,anche nel caso in cui la dimensione della popolazione è inizialmente sconosciuta o il conteggio dei membri della popolazione è computazionalmente espansivo. Al contempo bisogna prestare attenzione, dato che la selezione non è casuale, campioni sistematici possono non essere rappresentativi della popolazione devono essere utilizzati con attenzione. È particolarmente vulnerabile alle periodicità nell'elenco dei membri della popolazione. Se la periodicità è presente e il periodo è un multiplo di k, risulterà una distorsione.
+
+Quando vogliamo organizzare il nostro campionamento basato sul valore di una o pù variabili, ma non conosciamo l'intervallo o la distribuzione di queste variabili nella popolazione target, possiamo avvalerci del \textbf{two-phase sampling} o campionamento in due fasi. Un campione iniziale può facilitare prendere decisioni più consapevoli sulle strategie di campionamento da utilizzare.
+Un campione iniziale può aiutare a determinare la dimensione del campione. I calcoli delle dimensioni del campione spesso richiedono stime di determinati parametri della popolazione, come la forza della relazione tra due variabili. In assenza di conoscenze e/o dati pregressi, un campione iniziale fornirebbe stime per queste quantità e queste stime determinerebbero la dimensione del campione per il campione della seconda fase.
+
+Una domanda che ci si pone spesso è quanto un campione deve essere grande. In statistica vi sono semplici meccanismi per stimare la dimensione del campione necessaria per avere una certa probabilità di rilevare un effetto di una dimensione pre-specificata o superiore. Questi meccanismi, che raggruppati prendono il nome di analisi di potenza, si basano su stime delle medie e varianze delle variabili nella popolazione da campionare. E' importante capire il sistema di cause che determinano popolazione e garantire che tutte le fonti di variazione siano prese in considerazione. Un gran numero di osservazioni non ha alcun valore se le principali fonti di variazione vengono trascurate nello studio.
+
+Un'alternativa ad impostare una dimensione del campione predeterminata consiste nel lasciare che i dati "scelgano" la dimensione del campione. L'idea di base è continuare ad aumentare la dimensione del campione fino a quando i risultati o i riepiloghi non cambiano più molto (dove "molto" è impostato in anticipo). Le varianti di questa idea sono note come campionamento progressivo, campionamento adattivo o campionamento sequenziale.
+
+Bisogna però far attenzione al fatto che molti degli strumenti comuni per l'inferenza statistica, inclusi i t-test, presuppongono che i dati comprendano un semplice campione casuale di una popolazione e che i singoli punti dati siano quindi statisticamente indipendenti. Molte delle tecniche di campionamento violeranno questa ipotesi. Esistono tecniche statistiche specializzate per trattare i dati generati da un numero qualsiasi di schemi di campionamento complessi. Il campionamento casuale da un database fornisce stime imparziali delle caratteristiche del database. Tuttavia, se il database stesso rappresenta un campione casuale o sistematicamente distorto dalla popolazione reale di interesse, nessuna tecnica statistica può salvare le inferenze risultanti.
+
+I database in tempo reale contengono degli attributi (chiamati anche \textbf{features} o caratteristiche). Il problema della selezione delle caratteristiche sorge perchè la complessità di ricerca nello spazio delle ipotesi deve essere ridotta per ragioni pratiche, e caratteristiche ridondanti o irrilevanti possono avere effetti significativi sulla qualità dei risultati del metodo di analisi (\textbf{maledizione della dimensionalità}). L'idea alla base della maledizione della dimensionalità è che dati di grande dimensione sono difficili da processare, per una serie di motivi: il numero di esempi cresce esponenzialmente con il numero di variabili e non ci sono abbastanza osservazioni per ottenere buone stime.
+
+Il \textbf{feature selection} è un processo che scegli un subset ottimo di features seguendo alcuni criteri. Vi sono sostanzialmente 3 approcci:
+\begin{itemize}
+\item \textbf{wrapper models}
+\item \textbf{filter models}
+\item \textbf{embedded methods}
+\end{itemize}
+Il wrapper model si basa su un algoritmo di data mining per determinare se un sottoinsieme di funzionalità è valido. L'algoritmo viene utilizzato come parte della funzione di valutazione e anche per indurre i patterns o il modello finale. L'algoritmo DM può risolvere task predittivi o task descrittivi. Se vogliamo avere un buon insieme di funzionalità per migliorare l'accuratezza di un classificatore, possiamo utilizzare proprio questa misura per basare le evoluzioni del classificatore. Però sorgono diversi problemi, il principale consiste nel determinare veramente l'accuratezza predittiva evitando l'overfitting. Altri problemi consistono nel fatto che un classificatore richiede tempo per apprendere i dati, oppure i dati sono troppo grandi per eseguire un algoritmo di apprendimento, quindi è necessario ridurne la dimensionalità. Vi è quindi la necessità di definire alcuni criteri di stop per garantire che il processo di valutazione termini e che non entri in un loop infinito.
+
+Il filter models è indipendente dall'algoritmo di data mining che sarà utilizzato sul subset di caratteristiche. I subset sono valutati utilizzando proprietà intrinseche dei dati quali le misure informative e di distanza. Se consideriamo l'accuratezza stimata da un classificatore come un'altra misura, possiamo unificare i modelli di filtro e wrapper in un modello generale. Ogni componente può avere diverse scelte. Le varie combinazioni di queste scelte sono alla base di molti algoritmi di selezione delle caratteristiche esistenti.
+
+Alcune strategie per la selezione delle caratteristiche dei subset sono:
+\begin{itemize}
+\item \textbf{enumerazione} di tutte i possibili subset e selezione dei migliori
+\item \textbf{generazione casuale} dei subset e selezione del migliore.
+\item \textbf{generazione sequenziale} dei subsets.
+\end{itemize}
+Possiamo inoltre selezionare i subset in due modi: \textbf{foward selection}, iniziando con un subset vuoto e gradualmente aggiungere una caratteristica alla volta, o \textbf{backward selection}, nel quale si inizia con un insieme completo e si rimuove una caratteristica alla volta. Queste strategie sono basate sulla \textbf{strategia di ricerca greedy} in uno spazio di subset grande $2^N$, dove N è il numero di caratteristiche.
+
+Indipendentemente dal metodo di generazione dei sottoinsiemi di funzionalità adottato, è necessaria una misura per decidere quale funzionalità deve essere aggiunta o rimossa o quale sottoinsieme deve essere mantenuto. Secondo la \textbf{misura dell'informazione}, data una funzione di incertezza \textbf{U} e le probabilità delle classi precedenti \textbf{P($c_i$)}, l'informazione ottenuta da una caratteristica X, \textbf{IG(X)}, è definita come la differenza tra la precedente incertezza e l'incertezza posteriore attesa usando X. In formula
+\begin{equation}
+IG(X)= \sum_{i} U(P(c_i))-E[\sum_{i}U(P(c_i|X))
+\end{equation}
+Una regola di valutazione delle caratteristiche derivata dal concetto di guadagno di informazioni afferma che la caratteristica X è preferita alla caratteristica Y se $IG(X)>IG(Y)$. Cioè, una caratteristica dovrebbe essere selezionata se può ridurre più incertezza. Se U(x)=$-x*log(x)$ allora $\sum_{i}U(P(c_i))$ è una misura di entropia.
+
+\textbf{\textit{Misure della distanza.}} Se l'obiettivo è la classificazione, una misura alternativa può essere la distanza tra le funzioni di densità classe-condizione. Se \textit{P($X|C$)} è la funzione di densità condizionata dalla classe della caratteristica X, nei due casi della clase (C=$c_1$ o C=$c_2$),P($X|C$) è definita da P($X|c_1$) e P($X|c_2$). Se D(X) è la distanza tra P($X|c_1$) e P($X|c_2$), una regola di valutazione basata su P afferma che X è preferito a Y se D(X)$>$D(Y). Questo perchè stiamo cercando una feature che può separare due classi il più possibile. Maggiore è la distanza, più facile separare le due classi.
+
+La divergenza Kullback-Leibler è una misura della distanza tra distribuzioni probabili, P e Q su un dominio V. Questa divergnza è definita come:
+\begin{equation}
+m_{KL}(P,Q)= \sum_{v\in V} q(v)log(\frac {q(v)}{p(v)})
+\end{equation}
+Questa divergenza misura in quale misura la distribuzione P è un'approssimazione della distribuzione Q o, più precisamente, la perdita dell'informazione se noi prendessimo P invece di Q. In sintesi si misura quanto P diverge da Q. LE proprietà di questa misura sono:
+\begin{itemize}
+\item Assimetrica, ovvero $m_{KL}(P,Q) \not = m_{KL}(Q,P)$
+\item non definita quando p(v)=0
+\item nel caso specifico di q(v)=0, q(v)log(q(v)/p(v))=0
+\item il range dei valori non è limitato. Quindi, possiamo utilizzare questo valore per stabilire quale delle due distribuzioni Q e Q' è una migliore approssimazione di P, ma non ci permette di determinare in termini assoluti se Q è una buona approssimazione di P osservando $m_{KL}(P,Q)$
+\end{itemize} 
+
+La divergenza del $\chi ^2$ è definita come:
+\begin{equation}
+m \chi ^2(P,Q) = \sum_{y \in Y} \frac{|p(y)-q(y)|^2}{p(y)}
+\end{equation}
+è rigorosamente topologicamente più forte della divergenza KL data la disuguaglianza $m_{KL}(P,Q) \leq m \chi ^2 (P,Q)$, la convergenza nella funzione di divergenza $\chi ^2$ implica la convergenza nella divergenza KL, ma non il contrario. Inoltre è assimetrica e non definita quando p(y)=0.
+
+Un ultimo tipo di misura della distanza eè la distanza di variazione, data dalla formula $m_1 (P,Q)= \sum_{y \in Y}|p(y)-q(y)|$, detta anche distanza di Manhattan per funzioni di probabilità p(y) e q(y) e coincide con la distanza di Hamming quando tutte le features sono binari. Similarmente si può utilizzare la distanza Euclidea data da $m_2 (P,Q)= \sum_{y \in Y} |p(y)-q(y)|^2$. Queste due metriche soddisfano la proprietà di simmetria e le proprietà metriche.
+
+\textbf{\textit{Dipendenza dalle misure}}. Si verifica con quanta forza una caratteristica è associata alla classe. Denotando attraverso R(X) una misura di dipendenza tra la feature X e la classe C, preferiamo la feature X alla feature Y se R(X)$>$R(Y). Un problema con le tre misure precedenti è che non possono rompere i legami tra due features ugualmente buone. Pertanto queste funzionalità non possono rilevare se una di esse è ridondante.
+
+\textbf{\textit{Inconsistenza delle misure}}. Si tenta di trovare un numero minimo di funzionalità che separano le classi in modo coerente come può fare l'intero set di funzionalità. In altre parole, le misure di incoerenza mirano a raggiungere $P(C|FullSet)= P(C|SubSet)$ Le regole di valutazione delle funzionalità derivate dalle misure di incoerenza affermano che è necessario selezionare il sottoinsieme minimo di funzionalità in grado di mantenere la coerenza dei dati mantenuti dall'insieme completo di funzionalità.
+
+Per \textbf{selezionare le feature} ci sono 3 componenti necessari: un generatore di subset, un valutatore e un criterio di stop. Vi sono diversi metodi. \textbf{\textit{Approcci completi ed esaustivi}}: il \textit{focus} è applicato su una misura di consistenza e valuta esaustivamente tutti i subset partendo da una feature, mentre il \textit{branch and bound} consiste in una enumerazione sistematica di tutte le soluzioni, dove ampi sottoinsiemi di candidati infruttuosi sono scartati in massa utilizzando dei limiti superiori e inferiori della quantità da ottimizzare. Inizia con un insieme completo di feature e valuta l'accuratezza stimata. \textbf{\textit{Approcci Euristici}}: \textbf{\textit{SFS}} (sequential foward search) e \textbf{\textit{SBS}}(sequential backward search) possono essere applicati a ciascuna delle misure, \textbf{\textit{DTM}} è la più semplice versione  di una modalità di weapper - impara un classificatore una volta e usa qualsiasi caratteristica trovata nel classificatore. \textbf{\textit{Approcci non deterministici}}: \textbf{\textit{LVF}} (Las Vegas Filter) e \textbf{\textit{LVW}} (Las Vegas wrapper), generano subset di feature casualmente e li testano in maniera differente, LVF applica una misura inconsistente, LVW usa una stima accurata attraverso un classificatore; \textbf{\textit{algoritmi generici}} e \textbf{\textit{ricottura simulata}} sono anche usati nella selezione di feature. Il primo può produrre più sottoinsiemi, il secondo produce un singolo sottoinsieme. \textbf{\textit{Approcci basati sulle instanze}}: \textbf{\textit{Relief}}, molti piccoli campioni di dati sono campioni proveniente dai dati. Le funzionalità vengono ponderate in base ai loro ruoli nella differenziazione di istanze di classi diverse per un campione di dati. È possibile selezionare funzioni con pesi maggiori. 
+
+Per le attività di data mining non di classificazione (nessuna etichetta di classe disponibile), dovrebbero essere presi in considerazione metodi alternativi. Ad esempio, una misura di entropia può essere introdotta per classificare in sequenza le caratteristiche. L'idea di base è che le caratteristiche sono rilevanti se possono descrivere le istanze in termini di cluster relativamente chiaramente definiti.
+
+La \textbf{scalabilità} è un altro problema. In LVS la parte più dispendiosa in termini di tempo di un processo di selezione delle funzionalità viene identificata e ritardata fino a quando non è necessario. LVS è un'estensione di LVF che utilizza una misura di incoerenza (IC) con una complessità di runtime di controllo O(n), dove n è il numero di istanze. Se n è enorme, è costoso calcolare IC molte volte. Si noti inoltre che il componente di generazione di sottoinsiemi di funzionalità genererà sempre più sottoinsiemi non validi che non soddisfano IC man mano che la cardinalità di un sottoinsieme valido diminuisce. Pertanto, ha senso separare il calcolo di IC come cardinalità per tutti i dati dalla generazione di sottoinsiemi di funzionalità. Ma abbiamo bisogno di dati per generare sottoinsiemi di funzionalità. Il compromesso è che invece di utilizzare l'intero set di dati, ne utilizziamo solo una parte per la generazione di sottoinsiemi di funzionalità. Quando un sottoinsieme viene testato come valido sulla porzione di dati, viene calcolato l'IC per l'intero dato. Successivamente se IC è stato soddisfatto, allora la selezione della feature è completata, altrimenti se IC non è stato soddisfatto, le istanze inconsistenti vengono aggiunte alla porzione di dati e viene eseguito un altro ciclo di generazione di sottoinsiemi di funzionalità sulla porzione di dati ingrandita. Questo metodo è particolarmente efficace solo quando n è sufficientemente largo a causa del sovraccarico nel LVS.
+
+\textbf{Wrapper models} cercano di risolvere uno specifico problema, quindi il criterio può realmente essere specificato. Invece consuma molto tempo se bisogna valutare uno schema a ogni iterata. \textbf{Filter models} sono molto più veloci  ma non incorporano algoritmi di data mining usati per la generazione di un modello o pattern, quindi il modello può essere subottimale.
+
+A differenza dei modelli di filtri e wrapper, nei metodi embedded la parte di selezione delle caratteristiche non può essere separata dall'algoritmo di data mining. È parte integrante dell'algoritmo. Per esempio, nell'algoritmo di decision tree, la selezioni delle caratteristiche che contribuiscono alla creazione dell'albero finale è parte della costruzione dell'algoritmo di decision tree. Poiché siamo interessati a selezionare le funzionalità nella fase di trasformazione dei dati, non consideriamo gli embedded methods.
+
+La \textbf{pulizia dei dati} aumenta la qualità dei dati al livello richiesto. Ciò comporta la selezione di sottoinsiemi di dati puliti, l'inserimento di impostazioni predefinite adeguate o tecniche più ambiziose come la stima della modellazione dei dati mancanti. Alla fine di questa fase vi è un rapporto sulla pulizia dei dati, che descrive le decisioni e le azioni per affrontare i problemi di qualità dei dati ed elenca le trasformazioni dei dati per la pulizia e i possibili impatti sull'analisi dei risultati. I due problemi più comuni sono la mancanza di valori e dati di rumore. I \textbf{dati di rumore} consistono in variabile che hanno valori che non sono conformi con quelli che ci aspettiamo dalle variabili. Le osservazioni in cui si verificano questi valori rumorosi sono chiamate valori anomali (\textit{outliers}). Differenti tipi di outliers possono essere trattati in differenti modi. Vi possono essere errori umani, i quali possono essere corretti o cancellati dall'analisi, oppure le distribuzioni simmetriche spesso indicano valori anomali. La mancanza di dati, invece, include valori che non sono presenti nei dati selezionati e questi valori non validi bisogna eliminarli durante il rilevamento del rumore. Questo caso si verifica se viene commesso un errore durante l'inserimento dei dati, oppure se l'informazione non era disponibile al momento dell'inserimento oppure i dati selezionati all'interno di risorse eterogenee hanno creato dei mismatch. Per correggere questo tipo di errore vengono eseguite diversi tipi di azioni, l'inserimento di un valore predefinito come il termine "none" è l'ideale. Si potrebbe cancellare le righe che presentano valori mancanti, però questa tecnica, per quanto facile da implementare, può generare la perdita di dati che possono essere valutati. Un'altra tecnica consiste nell'eliminazione della variabile dall'analisi se presnta un significativo numero di osservazioni con valori mancanti per la stessa variabile. Infine, un'ultima tecnica, consiste nel rimpiazzare il valore mancante con un altro valore, che nel caso di variabili quantitative può consistere nella media o nella mediana, mentre per le variabili categoriche può essere rappresentato dalla moda o dal valore "sconosciuto". Si potrebbe anche pensare di attuare un approccio più sofisticato è quello di predire il valore più probabile delle variabili all'interno delle osservazioni.
+
+Successivamente si passa alla fase di \textbf{costruzione dei dati}, la quale include operazioni di preparazione dei dati, come la generazione di variabili derivate, inserimento di nuovi record o trasformazione di variabili esistenti. I dati possono essere trasformati in \textit{una singola variabile}, per essere ulteriormente perfezionati per soddisfare i requisiti del formato di input dei particolari algoritmi di data mining da utilizzare. Esempi sono la conversione delle variabili di tipo data dal formato US a quello Europeo, oppure il calcolo dell'età data la data di nascita, l'aggregazione dei valori all'interno di un conto corrente per gli ultimi 3,6,12 mesi. Si può effettuare un ridimensionamento o una normalizzazione dei dati. Si parla di normalizzazione dei dati quando colonne numeriche sono trasformate usando funzioni matematiche in dei range. Questo processo è importante perchè tutte le variabili all'interno di una colonna devono essere trattate in maniera uguale e non devono influenzarsi a vicenda, oppure perchè alcuni dati possono ricevere solo alcuni valori all'interno di un range.
+
+Un altro tipo di normalizzazione è la normalizzazione min-max che performa una transformazione lineare sui dati originali. Supponendo che $ min_A$ e $max_A$ sono i valori di minimo e di massimo di un attributo A, questa normalizzazione mappa un valore v di A in v' nel range $[newMin_A; newMax_A]$ attraverso la formula:
+\begin{equation}
+v'= \frac{v-min_A}{max_A-min_A}(newMax_A - newMin_A)+newMin_A
+\end{equation}
+
+Le relazioni tra i valori dei dati originali vengono preservate. Se un caso di input futuro per la normalizzazione non rientra nell'intervallo di dati originale per A, si verifica un errore "out of bounds" (fuori dal limite).
+
+Nella normalizzazione definita z-score, anche chiamata a media zero), i valori per un attributo A sono normalizzati sulla base della media o della deviazione standard di A. Un valore v di A è normalizzato in v' attraverso la formula:
+\begin{equation}
+v'=\frac{v-mean_A}{standDev_A}
+\end{equation}
+dove $mean_A$ e $standDev_A$ sono la media e la deviazione standard dell'attributo A. Questo metodo di normalizzazione è utile quando il minmo e il massimo dell'attributo A sono sconosciuti, o quando ci sono gli outliers che dominano la normalizzazione min-max.
+
+La normalizzazione attraverso il decimal scaling transforma i valori dell'attributo A in punti decimali, per assicurarsi che il range dell'intervallo i cui essi sono compresi sia \{-1,+1\}. Il numero di punti decimali dipende dal massimo valore assoluto di A. Un valore v di A è normalizzato in v' attraverso la funzione:
+\begin{equation}
+v'= \frac{v}{10^j}
+\end{equation}
+dove j è il più piccolo intero tale che $max(|v'|)<1$
+
+Si parla di discretizzazione delle variabili quando convertiamo variabili quantitative in variabili categoriche dividendo il valore di input in intervalli. Due metodi di discretizzazione sono l'Equale width e l'Equal depth. In entrambi questi metodi le informazioni sulla classe non vengono utilizzate nel caso in cui le osservazioni siano preclassificate, inoltre la discretizzazione viene applica a ogni attributo indipendentemente dagli altri. Il partizionamento attraverso l'equal width divide il range in N intervalli di uguale lunghezza, se A e B sono il più piccolo e il più grande valore all'interno dell'attributo, l'intervallo di width sarà:
+\begin{equation}
+W=\frac{B-A}{N}
+\end{equation}
+Questo metodo è il più diretto, però ha anche degli aspetti negativi perchè non gestisce bene i dati distorti ed è sensibile ai valori anomali.
+
+Il partizionamento attraverso l'equal-depth divide il range in N intervalli, ognuno contenente approssimativamente lo stesso numero di esempi. Questo tipo di partizionamento ha una buona scalabilità, gestisce gli attributi categorici attraverso alcuni trucchetti, minimizza le informazioni perdute durante il processo di partizionamento.
+
+In entrambi i casi il numero di elementi tralasciati è definito dall'utente. Nel caso di classificazione dei dati, è buona pratica che questo numero non sia minore del numero di classi che vogliamo riconoscere, oppure determinarlo attraverso la formula:
+\begin{equation}
+N_{bins} = \frac{M}{3*C}
+\end{equation}
+dove M è il numero di esempi di training e C il numero di classi.
+
+Procedure complesse di conversione di dati hanno l'obiettivo di costruire un piccolo insieme di indici da un vasto numero di variabili, in modo tale che solo alcune informazioni vengano perse e il numero totale di funzioni venga ridotto. L'analisi fattoriale e l'analisi del componente principale sono due tecniche di analisi multivariate per la riduzione dei dati. L'analisi fattoriale affronta il problema dell'analisi della struttura delle interrelazioni (correlazioni) tra un GRANDE numero di variabili (ad es. punteggi dei test, elementi del test, risposte al questionario) definendo un insieme di dimensioni sottostanti comuni, note come fattori. Questa non è una tecnica che usa dipendenze, ovvero non vi è nessuna variabile considerata come criterio o variabile dipendente da cui tutte le altre dipendono e sono le variabili predittore o indipendenti. E' una tecnica interdipendente in cui ogni variabile è considerata simultaneamente e ognuna è in relazione alle altre.
+
+Oltre alla costruzione dei dati, vi è l'integrazione dei dati, che ha come obiettivo la combinazione di informazioni provenienti da tabelle multiple o record per creare nuovi record o valori. L'output di questa fase è un insieme di dati uniti, che si riferisce all'unione di due o più tabelle unite che contengono differenti informazioni sugli stessi oggetti, o dati aggregati, sui quali verranno effettuate delle operazioni per produrre nuovi dati. Il risultato è il modello dei dati analitici, che rappresenta una ristrutturazione consolidata, integrata e dipendente dal tempo dei dati selezionati e preelaborati dalle varie fonti operative ed esterne. Una decisione importante presa in questo compito riguarda l'unità di analisi. Nella ricerca nelle scienze sociali, le unità di analisi più tipiche sono le persone individuali. Altre unità di analisi possono essere gruppi, manufatti (libri, foto, giornali), unità geografiche (città, censimento, stato), interazioni sociali (relazioni diadiche, divorzi, arresti). L'unità di analisi non deve essere confusa con le unità di osservazione, che è l'unità su cui vengono raccolti i dati, cioè vengono effettuate osservazioni sistematiche. Ad esempio, uno studio può avere un'unità di osservazione a livello individuale (ad es. alunni), ma può avere l'unità di analisi a livello di gruppo (ad es. una classe). L'unità di osservazione è la stessa dell'unità di analisi quando le generalizzazioni ricavate da un'analisi statistica sono attribuite all'unità di osservazione (cioè gli oggetti su cui i dati sono stati raccolti e organizzati per l'analisi statistica).
+
+Un'altra procedura consiste nel formattare la sintassi di alcuni tipi, non andando ad alterare i significati, perchè questi formati sono richiesti da altri modelli.
+
+\subsubsection{Modeling}
+In questa fase viene scelta la tecnica di modellazione tra le tecniche e gli strumenti preselezionati, comprese le ipotesi di modellazione da parte di quest tecnica. Ci sono diversi fattori su cui basare la scelta dell'algoritmo o degli algoritmi per modellare i dati, tra cui la natura dell'obiettivo, la capacità di gestire determinati tipi di dati, la capacità di gestire multiple relazioni e generare pattern relazionali, la scalabilità o il livello di famigliarità. Inoltre si possono identificare tre componenti primari in qualsiasi algoritmo di data mining:
+\begin{itemize}
+\item \textbf{modello di rappresentazione}: relazionale o proposizionale, qualitativo o quantitativo, adeguatezza per un utente.
+\item \textbf{modello di valutazione}: l'incertezza del modello si base su stime probabilistiche, test statistici ecc.
+\item \textbf{ricerca}
+\end{itemize}
+
+Il modello di rappresentazione consiste nel linguaggio L usato per descrivere patterns che possono essere scoperti. Dipende dal tipo di rappresentazione, la capacità descrittiva, l'adeguatezza per un dato utente. La conoscenza scoperta può essere categorizzata dal tipo di pattern dei dati. Una scoperta quantitativa mette in relazione valori di campi numerici usando equazioni matematiche, mentre una relazione qualitativa mette in relazione logica diversi campi. Spesso si possono trovare queste due relazioni combinate. Un altro aspetto che bisogna considerare nella creazione del modello è la sua rappresentazione che deve essere appropriata per l'utente previsto. 
+
+La maggior parte degli utenti per i quali bisogna creare una rappresentazione sono gli umani, programmi per computer e sistemi di scoperta. Se si parla di utenti umani bisogna utilizzare un linguaggio naturale, molto utile ma non conveniente per la manipolazione da parte di algoritmi di scoperta, oppure si potrebbe utilizzare un linguaggio logico, molto più utile per la computazione e se necessario può essere anche traslato in un linguaggio normale. Le informazioni sulla forma e la densità dei gruppi di record sono un altro tipo di conoscenza che si presenta al meglio visivamente per mezzo di grafici bidimensionali o tridimesionali, quindi attraverso opportune rappresentazioni visive. 
+
+Nel caso in cui gli utenti finali siano dei programmi, la rappresentazione include linguaggi di programmazione e formalismi dichiarativi. Quando invece l'utente è un sistema il cui compito è scoprire conoscenza, le nuove scoperte vengono reinserite nel sistema come conoscenza di dominio, la conoscenza di dominio e la conoscenza scoperta devono condividere una rappresentazione comune. Se la rappresentazione è limitata, nessun addestramento o nessun tipo di esempio produrrà un modello accurato per i dati. È importante che un analista di dati comprenda appieno i presupposti rappresentativi che possono essere inerenti a un particolare metodo.
+
+Alcuni patterns sono spesso associati a un grado di incertezza, rappresentata attraverso la probabilità, la deviazione standard, misure di credenza o fuzzy sets. In maniera visiva l'informazione incerta può essere convertita in dimensione, densità e ombreggiatura.
+
+Quando databases sono veramente grandi, con milioni di record,  un'analisi completa di tutti i dati è infattibile. Gli algoritmi di rilevamento devono quindi basarsi su una qualche forma di campionamento, per cui viene considerata una parte dei dati. Le scoperte risultanti in questi casi sono necessariamente incerte. Le tecniche statistiche possono misurare il grado di incertezza. Possono anche essere utilizzati per determinare la quantità di campionamento aggiuntivo necessaria per ottenere il livello di fiducia desiderato nei risultati.
+
+Il modello di valutazione stima l'incertezza di un particolare pattern. Ci sono diversi metodi per valutare questa incertezza. La \textbf{cross validation} è una di queste procedure che consiste nel mescolare i dati del dataset, partizionarli in k sottoinsiemi di uguale lunghezza n, per ogni sottoinsieme chiama i-esimo subset di n oggetti come insieme test e lo mette da parte, addestra il sistema sui rimanenti sottoinsiemi e testa il sistema sull'insieme di test e memorizza le performances,  successivamente pulisce la memoria dimenticando ciò che ha imparato durate l'addestramento, calcola le performance medi di ogni insieme di test.
+
+La scelta dell'algoritmo di data mining è fondamentale per conoscere se la ricerca dovrebbe essere performata nello spazio dei parametri o nello spazio dei modelli o entrambi. Se non è possibile una soluzione, si puossono utilizzare metodi iterativi greedy. La ricerca del modello avviene come un ciclo sul metodo di ricerca dei parametri, la cui rappresentazione viene modificata in modo da considerare una famiglia di modelli. Per ogni rappresentazione specifica del modello viene istanziata la modalità di ricerca dei parametri per valutare la qualità di quel particolare modello. Le implementazioni dei metodi di ricerca del modello tendono a utilizzare tecniche di ricerca euristica poiché la dimensione dello spazio dei possibili modelli vieta la ricerca esauriente e le soluzioni in forma chiusa non sono facilmente ottenibili.
+
+Prima di costruire modelli, è importante generare una procedura per testare la qualità dei modelli. Successivamente la tecnica di modellazione è applicata ai dati e alla fine della quale vengono descritte le varie motivazioni delle scelte effettuate, le impostazioni dei parametri e l'output model con accuratezza aspettata, la robustezza e le possibili carenze.
+
+L'output dell'algoritmo di data mining può essere espresso seguendo alcuni standard industriali. Il \textbf{Predictive Model Markup Language} (PMML) è uno standard basato su XML, il cui obiettivo è quello di definire e condividere modelli predittivi usando uno standard aperto. Un complesso mosaico di applicazioni software generano e consumano conoscenza, quindi si ha la necessità di una rappresentazione indipendente dal fornitore di output di data mining. 
+
+Alcuni benefici di questo standard consistono nell'eliminare i problemi e le incompatibilità di software proprietari per lo scambio di modelli tra applicazioni,  oltre alla facilitazione nello sviluppo di modelli utilizzando qualsiasi fornitore e maggiore facilità nella  distribuzione dell'applicazione.
+
+Alla fine della creazione del modello, bisogna valutarlo. I risultati sono interpretati in base ai criteri di successo dell'algoritmo di data mining. Alcuni tipici criteri sono l'accuratezza del modello, quanto esso riesce a descrivere i dati osservati, quanta confidenza può essere riposta nella predizione. Alla fine di questa fase viene effettuata una valutazione dei modelli generati e revisionati i parametri delle impostazioni. I modelli predittivi vengono valutati in base alla loro accuratezza su dati non visti in precedenza. La valutazione del modello può avvenire a livello dell'intero modello o a livello di singole previsioni. Due modelli con la stessa accuratezza complessiva possono avere livelli di varianza abbastanza diversi tra le singole previsioni. La valutazione del modello dovrebbe basarsi su un set di test indipendente dal set di formazione.
+
+Per i modelli di classificazione, la stima dell'accuratezza è il numero complessivo di classificazioni corrette, diviso per il numero totale di campioni nel test set. Il tasso di errata classificazione (o errore) è il complemento della stima dell'accuratezza. La precisione potrebbe non essere appropriata quando gli errori possono avere costi (e conseguenze) diversi. In tal caso, un costo di errore è una misura migliore di un errore di classificazione errata. Per i modelli di regressione o per i modelli di stima dei parametri, l'accuratezza è stimata come la somma media degli errori quadrati (differenze tra valori previsti ed effettivi) (errore quadratico medio).
+
+\subsubsection{Valutazione}
+
+Mentre la valutazione del modello si occupa di fattori quali l'accuratezza e la generalità dei modelli, questa attività valuta i modelli in base agli obiettivi di business originali e ai criteri di successo. La sfida consiste nel presentare le nuove scoperte in modo convincente e orientato al business. Questa attività può essere eseguita correttamente da un analista di dati esperto che lavora con un analista aziendale. Come output di questa operazione abbiamo una valutazione complessiva del data mining rispetto ai criteri di successo aziendale, inclusa una dichiarazione finale sul fatto che il progetto soddisfi già gli obiettivi aziendali iniziali. Questo passaggio rientra nel dominio dell'analista aziendale ed è focalizzato sullo sponsor esecutivo. L'analista aziendale esperto sarà in grado di formulare i risultati in un modo che si collega direttamente agli obiettivi aziendali che erano stati fissati per il progetto all'inizio. Inoltre, un analista di dati con una vasta conoscenza del settore e/o del settore può essere una grande risorsa in questa fase.
+
+Il più grande vantaggio del progetto potrebbe essere un riconoscimento o una rinnovata attenzione all'importanza del patrimonio di dati aziendali e alla potenza delle soluzioni basate sui dati. Questo a sua volta può generare una cultura all'interno dell'organizzazione in grado di promuovere iniziative più ampie, a lungo termine e orientate ai dati, come il data warehousing e il data marting.
+
+Oltre alla valutazione del modello, viene effettuato un processo di revisione nel quale viene considerato l'intero processo al fine di determinare se vi è qualche fattore o compito importante che viene trascurato o per identificare una procedura generica per generare modelli simili in futuro.
+
+\subsubsection{Deployment}
+Per distribuire i risultati del data mining nell'azienda, questa attività sviluppa una strategia per il deployment.In questa fase si pianifica il piano per il deployment, considerando anche l'infrastruttura tecnica che deve essere impiegata per il corretto funzionamento dell'applicativo sviluppato. Successivamente a questa fase viene creato un piano per il monitoraggio e il mantenimento dell'applicazione. Viene redatto un report del prodotto finale e in fase di revisione si valut cosa è andato bene, cosa è andato male e cosa bisogna migliorare.
+\newpage
+\section{Learning sets of rules}
+\subsection{Classificatore basato su regole}
+Un classificatore è espresso in uno stile logico costituito da un insieme di regole di decisione (if-then), che rappresentano la conoscenza nel miglior modo possibile in termini di espressione e comprensione. Vi sono due tipologie di regole, le regole per l'apprendimento di attributi e le regole per la descrizione relazionale.
+
+Nel \textbf{concept learning}, apprendimento dei concetti, si hanno due punti di vista opposti: \textit{estensionale}, quando si ha un insieme di oggetti fisici o astratti, o \textit{intenzionale}, quando si hanno un insieme di condizioni sufficienti e necessarie. In entrambi i casi abbiamo un insieme di condizioni sufficienti da un insieme di esempi di concetti positivi e negativi.
+
+Un ipotesi h è una congiunzione di vincoli sugli attributi di istanza. Ogni costrutto può essere uno specifico valore, senza un valore attribuito o non importante. Una definizione formale di ipotesi può essere:
+
+\begin{center}
+Data un'istanza X, un insieme di esempi D $<x_i,c(x_i)>$, un concetto target c, delle ipotesi H espresse come congiunzione di costrutti sugli attributi, un ipotesi h in H è determinata come $h(x)=c(x)$ per ogni x in X. Il task di apprendimento è volto a determinare un ipotesi h identica al concetto di target c sull'intero insieme di istanze X.
+\end{center}
+
+Ogni ipotesi cerca di approssimare la funzione target su un insieme sufficientemente largo d esempi di training che sarà a sua volta l'approssimazione della funzione target sugli esempi non osservati. l'apprendimento di concetti può essere visto con un task i ricerca su un largo spazio di ipotesi H. L'obiettivo della ricerca è di trovare l'ipotesi che misura l'insieme di training. Lo spazio di ipotesi è implicitamente definito dalla rappresentazione dell'ipotesi.
+
+Date due ipotesi $h_k$ e $h_j$, $h_j$ è più generale o uguale a $h_k$ quando $h_j \geq h_k$ se e solo se ogni istanza che soddisfa $h_k$ soddisfa anche $h_j$. Inoltre possiamo definire che $h_j$ è strettamente più generale rispetto a $h_k$ quando $h_j > h_k$ e se e solo se $h_j \geq h_k$ e $h_k \not \geq h_j$
+ 
+\end{document}
+
+
+

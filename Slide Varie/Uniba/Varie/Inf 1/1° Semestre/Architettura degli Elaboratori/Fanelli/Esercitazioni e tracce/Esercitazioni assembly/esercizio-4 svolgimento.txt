@@ -1,0 +1,111 @@
+org  100h	; set location counter to 100h
+
+
+StampaStringa MACRO m
+    mov ah, 9
+    lea dx, m
+    int 21h
+StampaStringa ENDM   
+    
+;inizio programma
+;-------------------------------------------------------------------
+; lettura dell'input         
+mov ah, 0ah
+mov dx, offset buf
+int 21h      
+;---------------------------------------------------------------------
+; conversione della stringa letta nel valore corrispondente
+; per la conversione occorre implementare la formula polinomiale
+
+; CX e' usato come contatore nel loop di conversione della stringa
+; e' inizializzato con il numero effettivo di caratteri della stringa
+mov CL, buf[1]  ; memorizza in CL la lunghezza effettiva della stringa 
+			    ; (secondo elemento dell'array)
+mov CH, 0  
+
+; SI e' usato come indice per referenziare i caratteri della stringa buf
+; SI e' inizializzato con l'indice dell'ultimo carattere inserito 
+; questo indice si ottiene come: numero effettivo di caratteri+1 ovvero buf[1]+1
+
+; inizializzazione del registro SI
+mov SI, CX
+INC SI
+
+; DI e' usato come indice per referenziare la posizione della cifra
+; DI e� inizializzato al valore 0 (posizione delle unita�) 
+; e sara� incrementato ad ogni passo del ciclo 
+mov DI,0
+
+
+; inizio ciclo di conversione della stringa letta nel numero corrispondente
+ciclo_conv:    mov bl, buf[si] 
+               sub bl, '0' ; conversione del carattere nella cifra numerica
+               mov bh,0
+;--- moltiplico la cifra bl per la potenza di 10 corrispondente alla sua posizione       
+push cx ; occorre salvare il valore di cx perche�    
+        ; la procedura CalcolaPotenza lo modifica
+call CalcolaPotenza 
+mul bx    ; moltiplica la cifra corrente per la potenza di dieci
+
+;-- sommo il risultato della moltiplicazione al numero    
+add numero, ax
+
+pop cx ; ripristino il valore di cx per continuare il ciclo di conversione
+inc di
+dec si
+LOOP ciclo_conv
+
+; test se il numero e� maggiore di 100
+StampaStringa acapo
+
+cmp numero, 100
+jae maggiore
+jmp minore
+maggiore: StampaStringa msg1
+jmp fine_prog
+minore: StampaStringa msg2
+;--------------------------------------------------------------------
+; fine programma
+fine_prog:
+mov ah, 4ch
+int 21h    
+ 
+
+;--------------------------------------------------------------------
+; definizione di variabili e costanti
+max equ 10  
+buf db max, ?, max dup (?)  
+numero dw 0   ; il valore massimo del numero sar� 65535
+base dw 10
+
+
+acapo db 13, 10, '$'
+msg1 db "Il numero e'maggiore di 100 $"
+msg2 db "Il numero e'minore di 100 $"
+;-------------------------------------------------------------------
+;definizione di procedure
+
+CalcolaPotenza PROC 
+; questa procedura calcola la potenza di 10 avente esponente
+; uguale al valore presente in DI
+; al termine della procedura la potenza sara� in ax
+
+        cmp di,0    ; se l'esponente e� zero, 10^0=1
+        je uno 
+
+        cmp di, 1   ; se l'esponente e� uno, 10^1=10
+        je dieci
+                    
+        mov cx, di
+        dec cx   
+        mov ax, base
+        
+ciclo:  mul base
+        LOOP ciclo
+
+        jmp fine
+uno:    mov ax,1 
+        jmp fine
+dieci:  mov ax, 10
+fine:   ret  
+ENDP  

@@ -1,0 +1,1 @@
+Considerata la formattazione txt degli appunti è consigliabile visualizzarli in un text editor (blocco note/sublime/atom) senza la funzione di a capo automatico che rendere i file meno comprensibili

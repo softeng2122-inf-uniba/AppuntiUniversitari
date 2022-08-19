@@ -1,0 +1,103 @@
+
+; You may customize this and other start-up templates; 
+; The location of this template is c:\emu8086\inc\0_com_template.txt
+
+org 100h
+
+STAMPA MACRO MSG       ;MACRO PER LA STAMPA A VIDEO
+    MOV AH,09H         
+    LEA DX,MSG         
+    INT 21H            
+ENDM
+
+
+;------------------------------------------------
+
+STAMPA MSG_INPUT  
+STAMPA ACAPO          
+     
+MOV AH,0AH        ;Lettura in input della stringa
+LEA DX,cifre
+INT 21H 
+     
+STAMPA ACAPO
+
+MOV SI,2          ;inizializza l'indice sul primo elemento della stringa inserita
+MOV DH,0          ;SETTA IL CONTATORE DEI VALORI PARI A 0
+
+MOV CX,0          ;AZZERA IL CONTATORE DEL CICLO
+MOV CL,cifre[1]   ;COPIA IN CL IL NUMERO DI CARATTERI INSERITI DA TASTIERA
+     
+MOV BH, 2         ; imposta il divisore della divisione
+     
+CICLO:            ;INIZIO CICLO PER IL CALCOLO DEI VALORI PARI
+         
+      MOV BL,cifre[SI]  ;copia IN BL L'ELEMENTO DA CONVERTIRE
+      SUB BL,'0' 
+       
+      ; verifica se il valore e' pari dividendo il valore per 2
+      ; se il resto della divisione e' = 0, allora il numero e' pari   
+      MOV AX,0
+      MOV AL, BL
+      DIV BH
+      CMP AH, 0    
+      JE pari ; se il valore e' pari 
+      JMP continua   
+ pari:add sum, BL
+      inc dh       ;incrementa il contatore dei valori pari
+continua:             
+      INC SI
+LOOP ciclo  
+         
+; conversione del contatore in una stringa di caratteri
+mov DL,DH
+call Converti
+; visualizzazione del contatore
+STAMPA MSG1
+STAMPA B 
+
+STAMPA ACAPO
+
+; conversione di sum in una stringa di caratteri
+mov DL,sum
+call Converti
+; visualizzazione della somma
+STAMPA MSG2
+STAMPA B  
+
+
+fine:
+MOV AH,4CH               
+INT 21H     
+
+; definizione di variabili
+N EQU 10
+cifre DB N+1,?,N+1 DUP('$') 
+MSG_INPUT DB "INSERISCI UNA STRINGA DI MAX 10 CARATTERI: $"
+ACAPO DB 13,10,'$' 
+MSG1 DB "Il numero di cifre pari e': $"
+MSG2 DB "La somma delle cifre pari e': $" 
+SUM db 0 
+B DB 3 DUP('$')   ;stringa che conterra' la conversione
+  
+
+;-----------------------------------------------------------------    
+Converti PROC 
+; questa procedura converte il valore contenuto nel registro DL in una stringa 
+
+MOV AL,DL   ;sposto nel registro AL il valore specificato in DL 
+MOV AH,0    ;azzero AH per ospitare l'eventuale resto della divisione
+MOV BL,10   ;imposto in un registro il valore del divisore
+DIV BL      ;eseguo la prima divisione per 10
+ADD AH,'0'  ;aggiungo il valore '0' al resto della divisione  
+            ; questa operazione converte la cifra numerica corrispondente alle unita'
+            ; nel carattere corrispondente
+MOV B[1],AH ;metto nel secondo elemento di B la cifra numerica corrispondente alle unita'
+
+MOV AH,0    ;riazzero AH per ospitare il resto della seconda divisione
+DIV BL      ;eseguo la seconda divisione per 10  
+ADD AH,'0'   ;aggiungo il carattere '0' al resto della divisione
+MOV B[0],AH  ;metto nel primo elemento di B la cifra corrispondente alle decine
+ret
+Converti ENDP          
+           

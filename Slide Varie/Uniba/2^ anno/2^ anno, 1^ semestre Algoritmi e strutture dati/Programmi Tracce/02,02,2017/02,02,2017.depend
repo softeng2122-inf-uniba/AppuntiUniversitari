@@ -1,0 +1,50 @@
+# depslib dependency file v1.0
+1564565178 source:c:\users\fedca\desktop\02,02,2017\main.cpp
+	<string.h>
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	"Clustering.h"
+
+1564499907 source:c:\users\fedca\desktop\02,02,2017\oggetto.cpp
+	"oggetto.h"
+	<string.h>
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+
+1564499813 c:\users\fedca\desktop\02,02,2017\oggetto.h
+	<string.h>
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+
+1564565486 source:c:\users\fedca\desktop\02,02,2017\cluster.cpp
+	"cluster.h"
+	<string.h>
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+
+1564563595 c:\users\fedca\desktop\02,02,2017\cluster.h
+	"oggetto.h"
+	<string.h>
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+
+1564565649 source:c:\users\fedca\desktop\02,02,2017\clustering.cpp
+	<string.h>
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	"Clustering.h"
+
+1564563523 c:\users\fedca\desktop\02,02,2017\clustering.h
+	<string.h>
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	"cluster.h"
+	"oggetto.h"
+

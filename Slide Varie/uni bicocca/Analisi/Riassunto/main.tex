@@ -1,0 +1,80 @@
+\documentclass[a4paper,12pt,oneside]{book}
+
+\usepackage{fullpage}
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphics}
+\usepackage{amsmath}
+\usepackage{amstext}
+\usepackage{engrec}
+\usepackage{rotating}
+\usepackage[safe,extra]{tipa}
+\usepackage{showkeys}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{enumerate}
+\usepackage{braket}
+\usepackage{marginnote}
+\usepackage{pgfplots}
+\usepackage{cancel}
+\usepackage{polynom}
+
+
+\usetikzlibrary{decorations.markings, intersections}
+\usetikzlibrary{snakes}
+\usetikzlibrary{arrows}
+
+\setlength{\parindent}{0pt}
+\renewcommand{\baselinestretch}{1.25}
+\pagestyle{plain}
+
+% This is to suppress the 'Chapter N' title at the beginning of every
+% chapter while keeping chapter numbers.
+\usepackage[pagestyles]{titlesec}
+\titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Huge}
+
+\title{Riassunto Analisi Matematica}
+\author{Cristian Baldi}
+
+\usepackage{fontspec}
+\newfontfamily\DejaSans{DejaVu Sans}
+\usepackage[linewidth=1pt,linecolor=black]{mdframed}
+\newenvironment{tip}
+{ \begin{mdframed} {\DejaSans ☺} }
+{ \end{mdframed} }
+
+\newcommand{\serie}[2]{
+  \sum\limits_{#1}^{#2}
+}
+\newcommand{\comment}[1]{}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Prima di iniziare}
+
+Un paio di cose prima di iniziare.
+
+Questo riassunto è in preparazione per l'esame orale di Analisi Matematica Unimib Corso Informatica.
+
+Fonte dei contenuti:
+\begin{itemize}
+\item Analisi Matematica, Paolo Maurizio Soardi
+\item Appunti di Matematica, Luca Chiodini
+\item WikiToLearn, Analisi 1
+\end{itemize}
+
+
+\input 2_Successioni.tex
+\input 3_Serie_Numeriche.tex
+\input 4_Funzioni.tex
+\input 5_Derivate.tex
+\input 6_Primitive.tex
+
+\end{document}

@@ -1,0 +1,229 @@
+#include <iostream.h>
+#include <stdlib.h>
+
+typedef int tipoelem;
+
+class Nodoptr{
+   private:
+   	tipoelem elem;
+      Nodoptr *succ, *pred;
+   public:
+      Nodoptr();	//costruttore
+      ~Nodoptr(); //distruttore
+      void setelem(tipoelem);
+      void setsucc(Nodoptr*);
+      void setpred(Nodoptr*);
+      tipoelem getelem();
+      Nodoptr* getsucc();
+      Nodoptr* getpred();
+};//end-class
+typedef Nodoptr* posizione;
+
+
+//operatori del nodo
+Nodoptr::Nodoptr()
+	{this->succ=this->pred=0;};
+
+Nodoptr::~Nodoptr()
+	{};
+
+void Nodoptr::setelem(tipoelem e)
+	{elem=e; return;};
+
+void Nodoptr::setsucc(posizione p)
+{this->succ=p; return;};
+
+void Nodoptr::setpred(posizione p)
+{this->pred=p; return;};
+
+tipoelem Nodoptr::getelem()
+{return this->elem;};
+
+posizione Nodoptr::getsucc()
+{return this->succ;};
+
+posizione Nodoptr::getpred()
+{return this->pred;};
+
+
+//DEFINIZIONE DELLA CLASSE LISTA
+class Lista{
+private:
+    posizione begin,		//puntatore al primo elemento della lista
+    			  end;		//puntatore all'ultimo elemento della lista
+public:
+    Lista();      		//costruttore
+    ~Lista();           //distruttore
+
+    void crealista();
+    bool listavuota();
+    posizione primolista();
+    posizione ultimolista();
+    bool finelista(posizione);
+    tipoelem leggi(posizione);
+    void scrivi(posizione, tipoelem);
+    void cancella(posizione);
+    void inserisci(posizione, tipoelem);
+    posizione succlista(posizione);
+    posizione predlista(posizione);
+    void stampa();                //operatore aggiuntivo x la stampa
+    posizione cerca(tipoelem);    //operatore aggiuntivo
+    										 //per la ricerca di un elemento
+
+};
+
+//operatori della lista
+
+Lista::Lista(){this->crealista();};
+Lista::~Lista(){};
+
+void Lista::crealista(){begin=end=0;return;};
+
+bool Lista::listavuota(){return (begin==0);};
+
+posizione Lista::primolista(){return begin;};
+
+posizione Lista::ultimolista(){return end;};
+
+bool Lista::finelista(posizione p)
+	{ return (p->getsucc()==0);};
+
+tipoelem Lista::leggi(posizione p)
+	{return p->getelem();};
+
+void Lista::scrivi(posizione p, tipoelem e)
+	{if(p!=0)
+   	{p->setelem(e);}
+    else cout<<"\n\tElemento nullo!\n";
+    return;};
+
+void Lista::cancella(posizione p)
+	{posizione temp=new Nodoptr();
+
+   	if (p==this->ultimolista())      //se è l'ultimo nodo
+      	{p->getpred()->setsucc(0);
+          end=p->getpred();
+          temp=p;}
+          else if(p==this->primolista())  //se è il primo nodo
+          			{p->getsucc()->setpred(0);
+                   begin=p->getsucc();
+                   temp=p;}
+    		 else{                           //altri casi
+          		temp=p;
+   				predlista(p)->setsucc(succlista(p));
+    				succlista(p)->setpred(predlista(p));}
+    delete(temp);
+    return;};
+
+void Lista::inserisci(posizione p, tipoelem e)
+	{posizione temp=new Nodoptr();
+    temp->setelem(e);
+
+    if(this->listavuota()) 		//primo inserimento
+    	{temp->setsucc(0);
+       temp->setpred(0);
+       begin=end=temp;
+      }
+    else if (p==this->primolista()) //inserimento in testa
+      	 {primolista()->setpred(temp);
+           temp->setsucc(primolista());
+           begin=temp;}
+    else if (p==0) 						//inserimento in coda
+     		{ultimolista()->setsucc(temp);
+          temp->setsucc(0);
+          temp->setpred(ultimolista());
+          end=temp;}
+          else{p->getpred()->setsucc(temp);		//casi restanti
+           temp->setpred(p->getpred());
+           temp->setsucc(p);
+           p->setpred(temp);}
+   return;};
+
+posizione Lista::succlista(posizione p)
+{return p->getsucc();};
+
+posizione Lista::predlista(posizione p)
+{return p->getpred();};
+
+void Lista::stampa()
+{posizione temp;
+	temp=primolista();
+   do{
+   	cout<<"\t"<<temp->getelem();
+      temp=temp->getsucc();
+   }while(temp!=0);
+return;
+};
+
+posizione Lista::cerca(tipoelem e)
+{posizione temp=this->primolista();
+ bool trovato=false;
+	do{
+   	if (temp->getelem()==e)
+      	{trovato=true; break;}
+   	temp=temp->getsucc();
+
+   }while((temp->getsucc()!=0));
+   if (trovato)
+   	return temp;
+      else return 0;
+};
+
+//il main
+
+int main(){
+Lista l;
+posizione temp;
+tipoelem e,mod;
+int risp;
+char r;
+	temp=0;
+  do{
+   cout<<"\n\n\t::: STRUTTURA DATI LISTA :::\n\n";
+   cout<<"\t 1. Inserimento di elementi\n";
+   cout<<"\t 2. Modifica di elementi\n";
+   cout<<"\t 3. Cancellazione di elementi\n";
+   cout<<"\t 4. Stampa della lista\n";
+   cout<<"\t Any to ESC\n";
+   cin>>risp;
+
+   switch(risp){
+   case 1:
+   	{do{cout<<" Inserisci l'elemento...";
+      	 cin>>e;
+          l.inserisci(0, e);
+          cout<<" ancora? (s-n)...";
+          cin>>r;
+         }while(r=='s');
+         break;
+       };
+   case 2:
+   	{l.stampa();
+       cout<<"\n\tQuale elemento vuoi modificare?...";
+       cin>>mod;
+       cout<<"\n\tQuale sarà il nuovo elemento?...";
+       cin>>e;
+       temp=l.cerca(mod);
+       if (temp!=0)
+       	{l.scrivi(temp, e);}
+         else cout<<"\n  L'elemento da sostituire non esiste!";
+         break;
+       };
+   case 3:
+   	{l.stampa();
+       cout<<"\n\tQuale elemento vuoi cancellare?...";
+       cin>>mod;
+       temp=l.cerca(mod);
+       if (temp!=0)
+       	{l.cancella(temp);}
+         else cout<<"\n  L'elemento da cancellare non esiste!";
+         break;
+      };
+   case 4:{l.stampa();break;}
+   };
+   }while(risp==1 || risp==2 || risp==3 || risp==4);
+ system("PAUSE");
+
+
+return 0;
+}

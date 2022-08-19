@@ -1,0 +1,19 @@
+Caro studente :
+Queste sono le query di Basi dati del prof. Tangorra
+ovvero quelle che si trovano alla fine di ogni blocco di slides.
+
+il file di testo contiene le query dalla slide 1 alla slides 5
+mentre i file sql sono quelli che ho utilizato su mysql workbench:
+COME PUOI USARLE :
+Modo 1 apri i file .sql su un editor di testo, spero per te notepad ++  e le copi sulla shell
+modo 2 usi mysql workbench e le importi li dentro.
+
+ti allego il file various.sql sul quale ho incollato varie query usate nel tempo che chissa potrebbero esserti utili quando avrai bisogno di aiuto su qualche tipo di alter table
+o di update.
+
+NOTA BENE: 
+non prendere le "soluzioni" per completamente vere, in quanto sono state realizzate personalmente da me in fase di studio
+dunque buon divertimento caro.
+
+Se hai dubbi non esitare a contattarci.
+-Studenti indipendenti 

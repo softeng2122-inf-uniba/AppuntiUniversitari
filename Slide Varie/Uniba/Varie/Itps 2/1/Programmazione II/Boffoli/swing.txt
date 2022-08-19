@@ -1,0 +1,297 @@
+Gui java con swing
+
+Appunti Zizza Vincenzo
+
+import javax.swing.*;
+
+
+import javax.swing.JFrame
+
+JFrame -> classe dedicata ai frame -> JFrame frame = new JFrame();
+	necessario settare la dimensione -> frame.setSize(420, 420); // x dimension, y dimension
+	necessario settare un titolo -> frame.setTitle("title"); // string argument
+	se si preme la x per chiudere l'esecuzione del programma continua
+		soluzione -> frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	se vogliamo impedire la modifica delle dimensioni -> frame.setResizable(false);
+	necessario settarla come visibile -> frame.setVisible(true);
+
+	per settare un logo:
+
+	import javax.swing.ImageIcon;
+
+	1) creare un oggetto ImageIcon
+	2) cercare il path o il nome del file (se nella stessa cartella dei file java)
+	3) invocare il costruttore
+
+	ImageIcon image = new ImageIcon("image.jpg");
+	frame.setIconImage(image.getImage());
+
+	colore di sfondo -> frame.getContentPane().setBackground(Color.color); 
+	//necessario importare java.awt.color
+	oppure -> frame.getContentPanel().setBackground(new Color(r, g, b))
+	//r, g, b da 0 a 255
+	oppure -> frame.getContentPanel().setBackground(new Color(0xYYYYYY))
+	//YYYYYY -> hex code of the color
+
+	Possibile standardizzare un frame creando una classe che estende JFrame e definiamo
+	il costruttore in modo da creare un frame su misura per noi.
+
+	public class frame extends JFrame
+	{
+		frame()
+		{
+			this.setSize(240, 240);
+			this.setTitle("Pippo");
+			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			this.setVisible(true);
+		}
+	}
+
+	public static void main (String[] args)
+	{
+		frame a1 = new frame();
+	}
+
+	volendo renderlo piu malleabile:
+
+	public class frame extends JFrame
+	{
+		frame(String title)
+		{
+			this.setSize(240, 240);
+			this.setTitle(title);
+			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			this.setVisible(true);
+		}
+	}
+
+	public static void main (String[] args)
+	{
+		String titolo = new String("titolo");
+
+		frame a1 = new frame(titolo); //cosi per tutti gli attributi rendendo il tutto più automatico
+	}
+
+import javax.swing.JLabel
+
+JLabel -> classe utile per mostrare un testo, un immagine o altro -> JLabel label = new JLabel();
+	
+	da aggiungere al JFrame tramite frame.add(label).
+
+	per settare un testo -> label.setText(String);
+	per inserire un immagine -> ImageIcon image = new ImageIcon(path);
+								label.setIcon(image);
+								//image = every ImageIcon object
+	per posizionare un testo rispetto a ImageIcon -> label.setHorizontalTextPosition(JLabel.CENTER/LEFT/RIGHT);
+													 label.setVerticalTextPosition(JLabel.TOP/CENTER/BOTTOM);
+	per settare il colore del testo -> label.setForeground(Color.colore/new Color(r, g, b/0xYYYYYY));
+	per settare un font -> label.setFont(new Font("nome font",  Font.stile, dimensione));
+	per settare il distanziamento tra icon e text -> label.setIconTextGap(numero);
+	per settare il background -> label.setBackground(Color.colore/new Color(r, g, b/0xYYYYYY));
+								 label.setOpaque(true); -> opacità dello sfondo
+	per settare un bordo -> Border border = BorderFactory.createLineBorder(Color.colore/new Color(r, g, b/0xYYYYYY), dimensione);
+											label.setBorder(border);
+	per settare la posizione della label -> label.setVerticalAlignment(JLabel.CENTER/TOP/BOTTOM);
+											label.setHorizontalAlignment(JLabel.CENTER/LEFT/RIGHT);
+	per rendere indipendente la label dal frame -> frame.setLayout(null); //imposta un layout manager, in questo caso nessuno
+	per settare dimensioni e posizione della label -> label.setBounds(x, y, larghezza,altezza); //x e y posizione, larghezza e altezza dimensione
+	per settare il frame della misura degli elementi che contiene -> frame.pack(); //IMPORTANTE aggiungere prima ogni elemento prima di invocare pack()
+
+JPanel -> pannelli che permettono di inserire altri elementi in un frame -> JPanel panel = new JPanel();
+	
+	import javax.swing.JPanel
+
+	impostare lo sfondo -> panel.setBackground(Color.colore/new Color(r, g, b/0xYYYYYY))
+	dimensioni e posizione del panel -> panel.setBounds(x, y, larghezza, altezza) //x e y posizione, altezza e larghezza dimensioni
+		//necessario in caso di frame.setLayout(null), cioe senza nessun layout
+	come ogni componente è necessario -> frame.add(panel);
+	per aggiungere componenti al panel -> panel.add(arg); //arg = label o altre componenti
+	per settare un layout manager(simile alla configurazione del frame) -> label.setLayout(mng) // mng  = new BorderLayout/ecc...
+		//possibilità di utilizzare i comandi per la posizione della label sul panel come se fosse un frame
+
+JButton -> 2D button con il quale è possibile interagire -> JButton button = new JButton ();
+
+	import javax.swing.JButton
+
+	posizione e dimensione del button -> button.setBounds(x, y, larghezza,altezza); //x e y posizione, larghezza e altezza dimensioni
+	aggiungere il button al frame -> frame.add(button);
+	per poter permettere l'interazione con il button -> necessario implementare l'interfaccia ActionListener
+	e definire actionPerformed(ActionEvent e) inoltre è necessario invocare button.addActionListener(classe)
+	dove classe è la classe che implementa ActionListener (in caso fosse la stessa classe diviene this).
+
+	per utilizzare JButton è molto consigliato creare il frame in una classe separata dal main.
+
+	il metodo getSource() di ActionEvent permette di ottenere l'oggetto su cui si compie l'evento
+	es -> if(e.getScource == button) -> codice da eseguire se si preme il pulsante.
+
+	per inserire un testo all'interno del pulsante -> button.setText(testo)
+
+	per impedire un iterazione da tastiera (focus) sul pulsante -> button.setFocusable(false);
+
+	aggiugere un icona al pulsante -> ImageIcon icon = new ImageIcon(path)
+									  button.setIcon(icon);
+
+	posizione del testo nel pulsante -> button.setHorizontalTextPosition(JButton.CENTER/LEFT/RIGHT);
+										button.setVerticalTextPosition(JButton.CENTER/TOP/BOTTOM);
+	font del pulsante -> button.setFont(new Font(nome_font, Font.style, dimension));
+	spazio tra pulsante e testo -> button.setIconTextGap(num);
+	colore testo pulsante -> button.setForeground(Color.colore/new Color(r, g, b/0xYYYYYY))
+	colore sfondo pulsante -> button.setBackground(Color.colore/new Color(r, g, b/0xYYYYYY))
+	bordo del pulsante -> button.setBorder(BorderFactory.method)
+	disattivare il pulsante -> button.setEnabled(true/false);
+
+	inserendo nel metodo actionPerformed(ActionEvent e) azioni è possibile eseguirle alla pressione del pulsante
+	es.
+	-button.setEnabled(false);
+	-label.setVisible(true); -> far apparire qualcosa alla pressione
+
+	per impostare una posizione predefinita degli elementi utilizziamo un BorderLayout:
+	- in un frame settiamo frame.setLayout(new BorderLayout(spazio orizzontale tra elementi, spazio verticale tra elementi))
+	- settiamo le misure preferite -> panel.setPreferredSize(new Dimension(x, y));
+	- invochiamo frame.add(panel, BorderLayout.NORTH/SOUTH/EAST/WEST/CENTER)
+	il pannello (in questo caso) cambiera dimensione in base alla finestra
+		in caso di un pannello centrale è buon uso dare al pannello un BorderLayout con panel.setLayout(new BorderLayout())
+
+	FlowLayout -> permette di disporre piu elementi in una o piu righe -> frame.setLayout(new FlowLayout()/new FlowLayout(FlowLayout.LEADING/CENTER/TRAILING, horizontal space, vertical space))
+	applicabile anche a JPanel
+
+	GridLayout -> permette di disporre piu elementi in una griglia -> frame.setLayout(new GridLayout(righe, colonne,or. space, vert. space))
+
+JTextField -> Textbox a interfaccia grafica per aggiungere o visualizzare testo
+
+	necessario creare una classe che estende JFrame e implementa ActionListener con la quale creare il frame
+
+	creazione di un textfield -> JTextField field = new JTextField();
+	dimensione textfield -> field.setPreferredSize(new Dimension(larg, alt))
+	aggiungere un textfield al frame -> frame.add(field);
+	leggere testo da field -> field.getText();
+	cambiare font -> field.setFont(new Font(font, style, dimension))
+	cambiare colore font -> field.setForeground(Color.colore/new Color(r, g, b/0xYYYYYY))
+	cambiare colore sfondo -> field.setBackground(Color.colore/new Color(r, g, b/0xYYYYYY))
+	cambiare colore linea indicatore -> field.setCaretColor(Color.colore/new Color(r, g, b/0xYYYYYY))
+	testo predefinito -> field.setText(text)
+	rendere un field non modificabile -> field.setEditable(false)
+
+JCheckBox -> checkbox che puo essere selezionato o non selezionato -> JCheckBox cbox = new JCheckBox();
+
+	necessario creare una classe che estende JFrame e implementa ActionListener con la quale creare il frame
+	(questo avviene con ogni oggetto con il quale è possibile interagire)
+
+	inserire testo affianco al checkbox -> cbox.setText(testo); 
+	per cambiare il font utilizzato -> cbox.setFont(new Font(font, style, dim));
+	per leggere lo stato del checkbox -> cbox.isSelected();
+	icona checkbox -> cbox.setIcon(icon)
+					  cbox.setSelectedIcon(icon)
+
+JRadioButton -> pulsanti stile radio per permettere la selezione di uno o piu elemento -> JRadioButton button = new JRadioButton(testo da affiancare);
+	aggiungere al frame -> frame.add(button);
+	per selezionare un solo elemento -> ButtonGroup group = new ButtonGroup();
+										group.add(button);
+										//all the button
+	per comportamenti derivanti dalla selezione -> aggiungere a button un listener (dato che stiamo usando una classe che implementa un listener basta this)
+												   button.addActionListener(this)
+												   //per ogni pulsante
+												   in actionPerformed(ActionEvent e) usare la sintassi
+												   if(e.getSource()==button)
+												   {
+												   		//codice
+												   }
+	per aggiungere un icona -> ImageIcon icon = new ImageIcon(img)
+							   button.setIcon(icon);
+
+JComboBox -> componente che combina pulsanti o field in un menu a cascata -> JComboBox comboBox = new JComboBox();
+	possibile aggiungere al costruttore un array di oggetti creando gia la lista
+	aggiungerlo al frame -> frame.add(comboBox)
+							
+	per impostare azioni in base alla scelta -> in actionPerformed(ActionEvent e) usare la sintassi
+												if(e.getSource()==comboBox)
+												{
+													//codice
+												}
+
+												aggiungere inoltre un listener all'elemento tramite comboBox.addActionListener(ActionListener);
+												se la classe corrente implementa ActionListener è possibile usare this
+	per leggere la selezione -> comboBox.getSelectedItem();
+	possibile anche leggere l'index della selezione -> comboBox.getSelectedIndex();
+	per permettere la selezione tramite digitazione -> comboBox.setEditable(true)
+	per avere il numero degli item -> comboBox.getItemCount();
+	per aggiungere elementi -> comboBox.addItem(item)
+	per aggiungere un elemento a un determinato index -> comboBox.addItemAt(oggetto, index)
+	per settare l'index predefinito -> comboBox.setSelectedIndex();
+	per rimuovere un item -> comboBox.removeItem(String)
+	per rimuovere un item tramite index -> comboBox.removeItemAt(index)
+	per rimuovere ogni elemento -> comboBox.removeAllItems();
+
+JSlider -> componente che permette la selezione di un intero tramite uno slider
+	implementare ChangeListener che dichiara stateChanged(ChangeEvente e)
+	costruttore -> new JSlider(min, max, half)
+	necessita di essere contenuto in in JPanel -> panel.add(slider)
+		il JPanel a sua volta deve essere contenuto nel JFrame
+	dimensioni preferite per lo slider -> slider.setPreferredSize(new Dimension(x, y))
+	per visualizzare le tacchette intermedie -> slider.setPaintTicks(true)
+	per impostare la distanza tra le tacchette -> slider.setMinorTickSpacing(int n)
+	per impostare le tacche -> slider.setPaintTrack(true)
+	per impostare la distanza tra le tacche -> slider.setMajorTickSpacing(int n)
+	per impostare la rappresentazione dei valori numerici sotto le tacche -> slider.setPaintLabels(true)
+	per impostare il font dei valori numerici -> slider.setFont(new Font(font, style, dimension));
+	per impostarel'orientamento dello slider -> slider.setOrientation(SwingConstants.VERTICAL/HORIZONTAL);
+	per ottenere il valore impostato ->	slider.addChangeListener(se la classe implementa ChangeListener possibile usare this)
+										all'interno di stateChanged(ChangeEvent e)
+											slider.getValue();
+
+JProgressBar -> indicatore visuale di svolgimento di un processo -> JProgressBar bar = new JProgressBar();
+	necessitiamo di un container che contenga la progressBar -> JFrame
+	per impostare il valore corrente -> bar.setValue(n)
+	per impostare le dimensioni e la posizione della barra -> bar.setBounds(x, y, largh, altezza)
+	per impostare la visibilità della percentuale -> bar.setStringPainted(true)
+	per cambiare il valore (per esempio durante un esecuzione di un processo) -> bar.setValue(valore attuale)
+	per settare la stringa da visualizzare raggiunto il 100% -> bar.setString("string")
+	per cambiare il font -> bar.setFont(new Font(font, style, dim))
+	per settare il colore della barra -> bar.setForeground(Color.colore/new Color(r, g, b/0xYYYYYY))
+	per settare il colore di sfondo -> bar.setBackground(Color.colore/new Color(r, g, b/0xYYYYYY))
+	possibile settare minimo e massimo con il costruttore -> JProgressBar(min, max)
+
+JMenuBar -> menù presente nella barra superiore delle finestre -> JMenuBar menu = new JMenuBar();
+	per aggiungere il menu al frame -> frame.setJMenuBar(menu)
+	menu singoli -> componenti separate -> JMenu -> JMenu file = new JMenu("Nome");
+		menu.add(file) -> da fare per ogni componente
+		ogni voce dei menu è una componente -> JMenuItem -> JMenuItem save = new JMenuItem("String")
+		va aggiunta tramite -> file.add(save)
+		per ottenere reazioni cliccando una voce
+			-aggiugere un listener alla componente -> save.addActionListener(oggetto che implementa ActionListener, anche this)
+			-nel metodo actionPerformed(ActionEvent e) -> e.getSource() restituisce l'oggetto cliccato e permette una decisione vincolata alla scelta
+				- if(e.getSource() == save)
+					{
+						//code
+					}
+			-per impostare degli shortcut -> save.setMnemotic(KeyEvent.COSTANT)
+			-per impostare un icona -> save.setIcon(ImageIcon)
+	per impostare degli shortcut (Alt + pulsante scelto) -> file.setMnemotic(KeyEvent.COSTANT)
+
+JFileChooser -> chiama una finestra per selezionare un file (utilizzabile senza JFrame)
+	-JFileChooser chooser = new JFileChooser();
+	finestra apertura file -> chooser.showOpenDialog(); -> restituisce 0 se riesce ad aprire il file (utile per gli if)
+	finestra salvataggio file -> chooser.showSaveDialog();  -> restituisce 0 se riesce ad aprire il file (utile per gli if)
+	per ottenere il file -> File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+
+JColorChooser -> simile a file chooser
+	chiamata -> JColorChooser color = new JColorChooser();
+				Color color = JColorChooser.showDialog(null, titolo, colore iniziale)
+
+KeyListener ->bisogna estendere la classe che si vuole rendere listener e implementare i 3 metodi 
+ 		-keyTyped (keyEvent e) -> pressione veloce -> utilizzabile con getKeyChar();
+ 		-keyPressed (keyEvent e) -> pulsante premuto -> utilizzabile con getKeyCode();
+ 		-keyReleased (keyEvent e) -> pulsante rilasciato
+ 			e.getKeyChar() -> restituisce il carattere premuto -> case sensitive
+ 			e.getKeyCode() -> codice del pulsante (ogni tasto ha un codice) -> non case sensitive
+ 	-inoltre bisogna aggiungere alla classe il listener -> this.addKeyListener(nel caso la classe implementa KeyListener basta this)
+
+MouseListener -> interfaccia da implementare per leggere le interazioni del mouse con l'interfaccia
+	-necessario implementare 5 metodi
+		-mouseClicked(MouseEvent e) -> pulsante del mouse cliccato su un componente
+		-mousePressed(MouseEvent e) -> pulsante del mouse rimasto premuto su un oggetto
+		-mouseReleased(MouseEvent e) -> pulsante del mouse rilasciato su un componente
+		-mouseEntered(MouseEvent e) -> quando il mouse entra su un componente
+		-mouseExited(MouseEvent e) -> quando il mouse esce da un componente
+	per permettere a un componente di interagire con il mouse -> componente.addMouseListener(classe che implementa MouseListener)
+	

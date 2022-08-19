@@ -1,0 +1,216 @@
+
+CONTINUA DELLA SPECIFICA ALGEBRICA DEL LIBRETTO:
+
+stessoVoto(L1,L2,e)	costruttore di L1
+costruttore di L2	creaLibretto()		inserisci(L,E,V)
+crealibretto()		error			error	
+inserisci(L',E',V')	error			if (E = E'= e) 
+						then
+						(V = V')
+						else 
+						if(E' = e) 
+						then 
+						if(contieneEsame(L,e)
+						then 
+						leggiVoto(L,e) = 
+							V' else error)
+						else
+						if(E = e) 
+						then 
+						if(contieneEsame(L',e)
+						then 
+						leggiVoto(L',e) = V
+						else 
+						error
+						else 
+						stessoVoto(L,L',e)
+													 
+
+
+l'uguale non è definito per avere come valori "error"
+
+declare L,L': Libretto, E,E',e: Esame, V,V': Voto
+stessoVoto(inserisciEsame(L,E,V), inserisciEsame(L',E',V'),e) =
+if(contieneEsame(inserisci(L',E',V'), e)) and 
+(contieneEsame(L',E',V'),e)
+then leggiVoto(inserisciEsame(L,E,V), e) = leggiVoto(
+inserisciEsame(L',E',V'), e) 
+else error
+
+Il libretto è un dizionario.
+
+SUL SOCIAL BOOK:
+(a partire da questo punto la caratteristica di far rientrare tutto in metà schermo 
+verrà meno, perché le equazioni formulate in tabella richiedevano più spazio)
+
+sorts: SocialBook, Contatto, Intero, Boolean
+
+				crea()		aggiungiContatto(S,C)			aggiungiLegame(S,C1,C2)
+vuoto(S')			true		false					false
+contieneContatto(S',C')		false		if C = C' then true			contieneContatto(S,C')
+						else contieneContatto(S,C')
+contieneLegame(S',C',C'')	error		if (C = C')				if(C'=C1 and C''=C2) then true
+						then if contieneContatto(S,C'')		else if(C'=C2 and C''=C1) then true
+							then false			else contieneLegame(S,C',C'')
+							else error
+						else (C = C'')
+						then if contieneContatto(S,C')
+							then false
+							else error
+						else contieneLegame(S,C',C'')						 	
+contaLegami(S',C')		error		if C = C' then 0			if(C'=C1) or (C'=C2)
+						else contaLegami(S,C')			then contaLegami(S,C') + 1
+											else contaLegami(S,C')
+rimuoviContatto(S',C')		crea()		if(C=C') 				if(C1 = C') or (C2 = C1)
+						then S					then rimuoviContatto(S,C)
+						else aggiungiContatto(			else 
+						rimuoviContatto(S,C'), C)		aggiungiLegame(
+											rimuoviContatto(S,C'),C1,C2)
+rimuoviLegame(S',C',C'')	error		if C = C' or C = C''			if((C1=C')and(C2=C'') or (C1=C'') and (C2=C'))
+						then error				then S
+						else					else aggiungiLegame(rimuoviLegame(S,C',C''),C1,C2)
+						aggiungiContatto(
+						rimuoviLegame(S,C',C''),C)	
+
+
+contenuto(S ,S')		crea()		aggiungiContatto(S,C)			aggiungiLegame(S,C1,C2)
+crea()				true		true					true
+aggiungiContatto(S',C')		false		if(C'=C) then				contenuto(S,aggiungiContatto(S',C'))
+						contenuto(S,S')
+						else 
+						contieneContatto(S,C')
+						and contenuto(aggiungiContatto(S,C),S')
+
+aggiungiLegame(S',C',C'')	false		contenuto(aggiungiContatto(S,C),S')	contenuto(S,S')		
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+SULLA MATRICE:
+
+sort: Matrice, intero, booleano, reale
+
+			crea(n)				assegna(M,r,c,v)
+leggi(M',r',c')		if(r'<n and c'<n)		if(r' = r and c'=c)
+			and (r'>=0 and c'>=0)		then v
+			then 0				else leggi(M,r',c')
+			else error
+max(M')			0				if max(M) > v then Max(M)
+							else v
+
+leggiDimensione(Matrice)-->intero
+
+leggiDimensione(M')	n				leggiDimensione(M)
+cancella(M',r',c')	if(r'>=0 and r'<n) and		if(r=r' and c=c') then M
+			(c'>=0 and c'<n)then 		else assegna(cancella(M,r',c'),r,c,v)
+			crea(n) else error
+modifica(M',r',c',v')	if(r'>=0 and r'<n) and		if(r'=r and c'=c)then assegna(M,r,c,v')
+			(c'>=0 and c'<n)		else assegna(modifica(M,r',c',v'),r,c,v)
+			then assegna(crea(n),	
+			r',c',v') else error
+
+
+somma(M1,M2)			crea(n2)		assegna(M2',r2',c2',v2')		
+crea(n1) 			if n1 = n2 then		if leggiDimensione(M2') = n1
+				crea(n1) else error	then assegna(M2',r2',c2',v2')
+							else error
+assegna(M1', r1',c1',v1')	if leggidimensione(	if leggiDimensione(M1') = leggiDimensione(M2')
+				M1') = n2		then if r1' = r2' and c1'=c2' then assegna(somma(M1',M2'),r1',c1',v1'+v2')
+				then assegna(M1',	else assegna(cancella(somma(assegna(M1',r1',c1',v1'), M2'), r2',c2'),r2',c2',
+				r1',c1',v1')		leggi(M1',r2',c2')+v2')
+				else error			
+
+uguale(M1,M2)			crea(n2)			assegna(M2',r2',c2',v2')
+crea(n1)			if n1=n2 then true		if n1 = leggiDimensione(M2')
+				else error			then (v2'=0) and uguale(crea(n1),M2')
+								else error
+assegna(M1', r1',c1',v1')	if n2 = leggiDimensione(M1')	if(leggiDimensione(M1') = leggiDimensione(M2')) then
+				then (v1' = 0) and uguale(M1',	if r1'=r2' and c1'=c2' then v1'=v2' and uguale(M1',M2')
+				crea(n2)) else error		else
+								v1' = leggi(M2', r1',c1') and v2' = leggi(M1', r2',c2')
+								and uguale(cancella(M1',r2',c2'), cancella(M2',r1',c1'))
+
+-----------------------------------------------------------
+Astrazione e linguaggi:
+
+Un progetto va in input ad un programmatore, il progettista deve
+aver scritto un linguaggio matematico in modo non ambiguo, il
+programmatore deve comprendere il comportamento dei dati astratti che
+lui deve implementare.
+Dal punto di vista dell'implementatore, è ora necessario 
+definire il come.
+Già di loro un linguaggio ad alto livello è astratto rispetto agli
+effettivi indirizzi.
+Variabili, assegnazioni e molti altri costrutti sono già forme di 
+astrazione per definire i modelli linguistici che supportano un
+linguaggio di programmazione.
+
+Ci interessa direttamente quello che possiamo fare oggi (saltare
+la parte sulla storia).
+
+ASTRAZIONE DI FUNZIONE:
+
+Possiamo scrivere tutte le forme di astrazione quante sono le 
+categorie sintattiche che implicano un'elaborazione, esempio:
+l'assegnazione va a modificare lo stato della memoria, quindi implica
+una computazione. Valutare la condizione 3<4 vuol dire valutare
+un'espressione matematica, la cui valutazione implica comunque una
+computazione poiché restituisce un booleano.
+Ogni espressione corrisponde un'astrazione di funzione, diverso dall'
+astrazione funzionale, che è una tecnica di progettazione.
+
+ASTRAZIONE DI PROCEDURA:
+
+I comandi sono astrazioni di procedure, che cambiano lo stato
+della memoria, un'astrazione di procedura ha return void, l'astrazione
+di funzione implica la restituzione di un valore.
+l'astrazione di funzione genera un valore, l'astrazione di procedura
+sono i linguaggi operazionali, che fanno variare lo stato del sistema
+(si memorizza qualcosa in memoria, anche temporaneamente,
+come nel caso del getc del c, che fa variare lo stato
+del buffer di input).
+
+ASTRAZIONE DI CONTROLLO:
+
+Controllo dell'ordine con cui vengono eseguite le istruzioni, sono 
+astrazioni di controllo. Valutano l'ordine con cui eseguire le 
+operazioni, e sono: switch, if, ;,while ecc.
+
+ASTRAZIONE DI SELETTORE:
+
+Astrarre sull'accesso alla memoria, astrazione di selettore, come 
+l'uso delle variabili, int a,b,c ma anche record.campo, array[index]
+
+ASTRAZIONE DI TIPO:
+
+definizione di un dato, con astrazione di tipo, tutti i tipi 
+predefiniti, primitivi. Deve valere il requisito di protezione
+se si vuole estendere il set di dati primitivi.
+
+ASTRAZIONE GENERICA:
+
+dichiarazione con astrazione generica, si astrae sull'idea di 
+dichiarare qualcosa (verrà vista meglio successivamente).
+
+Tutte le precedenti implicano una computazione.
+
+L'astrazione di funzione va definita formalmente.
+Ogni linguaggio di programmazione assegnerà ai nomi dello schema in 
+pseudolinguaggio qualcosa, si ha, dunque:
+function I(FP1; ... ; FPn) is E 
+
+FP1, ..., FPn sono, al momento della dichiarazione, parametri formali;
+n è pari al numero di parametri, deve seguire il progetto.
+L'implementatore deve scrivere tutto ciò che vuol dire "is E".
+Come quei calcoli devono avvenire lo deve dire il programmatore.
+
+E è un'espressione, la cui valutazione restituisce un valore;
+Si scrivono queste funzioni perché qualcuno le deve chiamare, 
+il codice si tiene nascosto, ma la segnatura no, 
+al momento della chiamata gli argomenti sono parametri attuali.
+
+Una funzione non altera lo stato del sistema, quindi non si altera
+la memoria, i/o ecc. quindi senza mai fare assegnamenti, perché 
+ognuno di essi 
+modificherebbe lo stato del sistema. Ma certi linguaggi (i side 
+effecting, come gli imperativi, le porcherie, insomma) vedono
+le funzioni come procedure con dei return.

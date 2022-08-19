@@ -1,0 +1,40 @@
+show tables;
+show columns from testate;
+show columns from redazione;
+show databases;
+show columns from redattori;
+show columns from inserzioni;
+show columns from insaz;
+drop table aziende;
+delete from redazione where indirizzo_web != 'ciao';
+drop table redazione;
+
+
+create database testategiornalistiche;
+use testategiornalistiche;
+create table testate (idTestata varchar(4) primary key, nome varchar(20), redazione varchar(4));
+create table redazione(idRedazione varchar(4) primary key, nomeComitato varchar(10), indirizzo_web varchar(50));
+create table redattori (idRedattori varchar(3) primary key, cognome varchar(10), nome varchar(8), via varchar(15), citta varchar(15), provincia varchar(2), cap varchar(15), email varchar (50));
+alter table testate add constraint fk_testate foreign key (redazione) references redazione(idRedazione);
+create table redazRedat (idRedazione varchar (4), idRedattori varchar(3));
+alter table redazRedat add constraint fk_redaz foreign key (idRedazione) references redazione(idRedazione);
+alter table redazRedat add constraint fk_redat foreign key (idRedattori) references redattori(idRedattori);
+create table categorie(nomeCategoria varchar(10) primary key, categoriaPadre varchar(10));
+# vedi di capire che cazzo vuole da sta categoria padre
+create table inserzioni (codice varchar(6) primary key, testo varchar(100), categoria varchar(10));
+alter table inserzioni add constraint fk_insert foreign key(categoria) references categorie(nomeCategoria);
+create table instest (idInserzione varchar(6), idTestata varchar (4));
+alter table instest add constraint fk_inserz foreign key(idInserzione) references inserzioni(codice);
+alter table instest add constraint fk_intest foreign key(idTestata) references testate(idTestata);
+create table aziende (idAzienda varchar(6) primary key, nomeAzienda varchar(40), nomeAzioneda varchar(40), referente varchar(40), telefono varchar (11));
+create table insaz (idAzienda varchar (6), idInserzione varchar(6));
+alter table insaz add constraint fk_idaz foreign key(idAzienda) references aziende(idAzienda);
+alter table insaz add constraint fk_idinse foreign key(idInserzione) references inserzioni(codice);
+create table privati (idPrivato varchar(3) primary key, cognome varchar(10), nome varchar(8), via varchar(15), citta varchar(15), provincia varchar(2), cap varchar(5), email varchar (20));
+create table inspriv (idPrivato varchar (6), idInserzione varchar(6));
+alter table inspriv add constraint fl_idpriv foreign key(idPrivato) references privati(idPrivato);
+alter table inspriv add constraint fk_idinserzi foreign key (idInserzione) references inserzioni(codice);
+insert into testate values ('A001', 'Leggo', 'AB01') , ('A002', 'Scrivo', 'AB02') , ('A003', 'Diggito', 'CA05');
+insert into redazione values('AB01','Allasalute','www.allasalutedeimortichetieni.it'), ('AB02', 'precariaS', 'www.magarimuorimoproprio.it'),('CA05','Gesù son','diputtana.it');
+create table citta (citta varchar (20), provincia varchar(2), cap varchar (5));
+select * from redazione;

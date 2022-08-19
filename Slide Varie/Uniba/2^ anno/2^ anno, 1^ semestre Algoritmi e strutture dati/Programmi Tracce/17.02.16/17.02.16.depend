@@ -1,0 +1,41 @@
+# depslib dependency file v1.0
+1563793312 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\17.02.16\main.cpp
+	<iostream>
+	"Nodo.h"
+	"Listapolinomi.h"
+
+1563443324 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\17.02.16\nodo.h
+
+1563794354 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\17.02.16\listapolinomi.h
+	"Nodo.h"
+
+1563794354 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\17.02.16\listapolinomi.cpp
+	"Listapolinomi.h"
+	<iostream>
+	<stdlib.h>
+
+1563443897 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\17.02.16\nodo.cpp
+	"Nodo.h"
+	<iostream>
+	<stdlib.h>
+
+1563794354 source:c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\17.02.16\listapolinomi.cpp
+	"Listapolinomi.h"
+	<iostream>
+	<stdlib.h>
+
+1563794354 c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\17.02.16\listapolinomi.h
+	"Nodo.h"
+
+1563443324 c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\17.02.16\nodo.h
+
+1563793312 source:c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\17.02.16\main.cpp
+	<iostream>
+	"Nodo.h"
+	"Listapolinomi.h"
+
+1563443897 source:c:\users\fedca\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\programmi tracce\17.02.16\nodo.cpp
+	"Nodo.h"
+	<iostream>
+	<stdlib.h>
+

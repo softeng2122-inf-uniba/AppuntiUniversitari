@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1517679932 source:c:\users\utente\desktop\codeblocksprj\2015\06\07\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+

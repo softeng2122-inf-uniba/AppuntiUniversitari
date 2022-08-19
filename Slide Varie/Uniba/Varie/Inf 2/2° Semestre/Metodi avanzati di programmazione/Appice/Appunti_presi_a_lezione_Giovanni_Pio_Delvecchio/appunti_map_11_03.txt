@@ -1,0 +1,135 @@
+
+Espressione: quando si computa un'espressione la si elabora e ogni volta che si computa un'espressione 
+essa produce il risultato dell'espressione stessa.
+
+Le espressioni non dovrebbero modificare lo stato del sistema, ma questo avviene nei linguaggi side effecting, 
+i comandi che vengono scritti modificano lo stato del sistema (per esempio modificando i valori dei blocchi
+di memoria), quindi in realtà non sti sta facendo astrazione di funzione.
+
+Esempio del Pascal: la definizione di una funzione implica la dichiarazione di una variabile del tipo che
+restituisce la funzione, avente il nome della funzione. Per restituire il valore va assegnato alla variabile creata
+il valore da restituire. 
+
+L'anomalia sta nell'assegnazione, ovvero si modifica la memoria (anomalo dal punto di vista della definizione).
+Perché è possibile utilizzare i comandi come l'assegnamento?
+Perché la ricorsione vuol dire mettere nello stack delle chiamate una nuova funzione, una 
+volta che si supera un certo numero di chiamate ricorsive si ha un'eccezione, per evitare ciò si usa
+l'iterazione. Quest'anomalia è necessaria per poter eseguire correttamente le funzioni.
+
+E' possibile scrivere funzioni con linguaggi funzionali rispettanto l'astrazione funzionale, come l'ML, 
+nel corpo dell'espressione non ci sono assegnamenti, si ha un errore se si vuole assegnare dentro una funzione.
+L'ML non è side effect.
+
+Tutti i linguaggi di programmazione che presentano tale anomalia sono i linguaggi side effect. 
+
+Perché ci si pone questo problema?
+Perché scrivere funzioni side effect che per la loro implementazione possono cambiare lo stato del sistema,
+possono creare delle problematiche se il programmatore non è previdente. 
+Esempio di differenza tra side effecting e non side effecting:
+getChar() del c prende un carattere dal buffer F (il primo). Se getChar fosse stata implementata come una vera
+funzione avrebbe solo letto il primo carattere, senza modificarlo, ovvero senza rimuoverlo.
+E' un po' come utilizzare l'operatore top piuttosto che il pop.
+Il getChar, infatti, rimuove anche il carattere dal buffer.
+
+Dunque il getChar non è una vera e propria funzione, è vero che restituisce il valore, ma modifica lo stato del 
+buffer. 
+
+E' importante leggere, dunque, il comportamento della funzione per comprendere se essa modifica anche il 
+sistema.
+
+Le funzioni compaiono a destra di assegnzioni o al posto di parametri effettivi.
+Nell'astrazione di funzione vi sono due punti di vista: quello dell' implementatore e quello dell'utilizzatore.
+
+Le funzioni vanno chiamate con nome della funzione e parametri. 
+
+E' possibile definire funzioni che hanno come parametri classi di funzioni di un certo tipo che hanno a loro
+volta paramatri di un certo tipo.
+
+In ML la funzione non è chiamata, ma definita, si memorizza in una variabile di tipo funzione.
+Alla silde 19: cube(3) = 27
+
+Il c o il c++ non possono memorizzare funzioni nelle variabili.
+
+Cube non è un'alias perché cube contiene in un area di memoria una definizione, gli alias sono solo altri nomi.
+
+Le funzioni si trovano in tutti i linguaggi di programmazione, ma vengono gestite in modo differente, 
+in base alla potenza espressiva delle funzioni stesse.
+
+Solo chiamate: terza classe
+Chiamabili e passate come argomenti: seconda classe
+Chiamabili, passabili come parametri, assegnabili a delle variabili: prima classe
+
+Sono cittadini di prima classe tutte le entità possono essere di prima, seconda e terza classe.
+
+Quando un'entità si dice di prima classe:
+1)Denotabilità (deve essere associata ad un nome)
+2)Esprimibilità (può essere il risultato di un'espressione complessa, ovvero si scrive un'entità in termini
+		di un'altra entità)
+3)Memorizzabili (se si può mettere in una variabile)
+
+Astrazione di procedura: 
+si utilizzano i comandi ovvero ciò che modifica lo stato del sistema.
+Anche le procedure hanno parametri ma non hanno tipo restituito (ovvero è void).
+
+E' quasi sempre di seconda classe.
+
+void procedura(parametro_formale_1_, void (*_nome_procedura_)(_parametro_1_, _parametro_2_, _parametro_3_))
+
+_nome_procedura_ non è obbligatorio nella segnatura, nella definizione un nome ci deve stare (come al solito
+nel c).
+
+Astrazione funzionale: comprende le tecniche di astrazione di funzione e di procedura.
+Un implementatore deve utilizzare le specifiche per realizzare le entità, che diventeranno una funzione o una
+procedura, ma è l'implementatore stesso a decidere se implementare una funzione o una procedura.
+Solitamente se non ha effetti collaterali si ha una funzione, in modo da essere corretti con l'astrazione di 
+funzione.
+
+Le astrazioni di controllo si applicano alle strutture di controllo, al livello più basso si ha solo
+sequenza (;) e jump (goto), il controllo di un linguaggio di alto livello sono chiamati, in alto livello
+non si scrivono i controlli.
+
+In c esiste il goto ma non si DEVE usare mai (sebbene tramite esso si possano scrivere strutture di controllo,
+ma è specifico per una determinata sequenza di azioni, non si può generalizzare perché non si possono
+passare i comandi come parametri).
+
+il controllo ha un nome, parametri formali (tra cui i comandi da eseguire) e definizione di cosa fa (l'ordine
+che impone sui comandi).
+
+Astrarre su un selettore vuol dire accedere ad un'area di memoria, strutturata oppure no.
+La più semplice astrazione di selettore è nelle variabili, perché si da un nome ad una locazione di memoria
+di grandezza pari alla grandezza del tipo della variabile.
+
+il selettore non è la parola record o struct o type, è tutto il blocco che lo definisce, nella slide 45, 
+da type ad end.
+
+Scrivere un selettore è diverso da scrivere la funzione per accedere al valore, per esempio le parentesi 
+quadre per gli array sono selettori, non funzioni.
+ 
+Chi permette di scrivere i selettori? c no, Pascal no, C++ si.
+
+il selettore è una funzione che deve restituire l'accesso all'area di memoria, non il valore, non l'indirizzo,
+in tal modo si può mettere un selettore a sinistra degli assegnamenti.
+
+I modelli concettuali sono presentati, talvolta con limiti ed anomalie, da un linguaggio.
+
+Le astrazioni sui tipi e sulle dichiarazioni servono per la scrittura degli oggetti.
+
+L'astrazione sui tipi è un'espressione del tipo di dato stesso. Esistono i tipi predefiniti, come int, float,
+double ecc. che sono a loro volta dati astratti, solo che è data l'implementazione.
+Come si implementa? con un tipo: insieme di valori ed insieme di operazioni ammissibili su quel valore.
+Come per le algebre si ha dominio ed operazioni.
+
+E' importante la trasversalità dei tipi, specie di quelli predefiniti, perché devono essere utilizzati ampliamente.
+Quando un tipo nuovo viene definito tramite dei costrutti linguistici deve essere possibile dare pari
+dignità a quel tipo rispetto ai tipi primitivi, quindi se con gli interi posso assegnare e posso fare
+le operazioni sugli interi, allo stesso modo devo poterlo fare con un nuovo tipo, quindi ci devono
+essere i costrutti per poterlo fare.
+
+Chi usa il tipo astratto non deve inventarsi nuove operazioni, deve poter utilizzare quel dato con le operazioni
+già dichiarate.
+
+Quello sopra descritto si chiama requisito di protezione (si manipola solo tramite le operazioni lecite).
+
+Il concetto di classe di oggetto è superiore al concetto di tipo astratto.
+
+Classe sintattica, come categoria sintattica.

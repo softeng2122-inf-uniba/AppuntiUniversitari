@@ -1,0 +1,204 @@
+% !TEX encoding = UTF-8
+% !TEX program = pdflatex
+% !TEX root = InformationRetrieval.tex
+% !TEX spellcheck = it-IT
+
+% 21 Ottobre 2016
+
+%\chapter{Modello di reperimento}
+%\subsection{Modello booleano}
+%\subsubsection{Espressione della esigenza informativa}
+
+\noindent Ad esempio con il nostro insieme di documento è possibile fare le seguenti query:
+
+\begin{itemize}
+	\item \textit{``pagine OR web''}: vengono forniti in risposta D1 e D3.
+	\item \textit{``pagine AND web''}: solo il documento D1.
+	\item \textit{``fasi AND web''}: nessun documento.
+	\item \textit{``web AND NOT pagine''}: solo il documento D3. 	
+\end{itemize}
+
+\noindent Da notare che i documenti non vengono forniti con un ordinamento particolare perché la funzione di reperimento non calcola uno score dei documenti ma associa l'interrogazione al sotto-insieme di documenti che la rendono vera.
+
+\subsection{Considerazioni sul modello booleano}
+
+Il modello booleano è molto efficace in ambienti controllati e se l'utente è consapevole di come funziona il sistema e se sa quello che vuole. Magari se l'utente non è esperto può essere aiutato da un intermediario, che può essere un software o una persona.
+
+Bisogna inoltre tenere conto che gli umanisti non conoscono la logica booleana e non sanno distinguere l'and dall'or.
+
+Un altro problema di questo modello è legato alla dimensione dell'output, sulla quale non si ha controllo e può capitare sia di non avere risultati, che di averne troppi. Questo perché non ci sono misure di similarità/pesatura.
+
+Il modello può inoltre essere esteso aggiungendo altri operatori, oltre a quelli booleani:
+
+\begin{itemize}
+	\item \textbf{operatori di prossimità}: per permettere la ricerca di frasi o di termini ad una certa distanza.
+	\item \textbf{operatori di relazione}: $>, <, =, \leq, \ldots$.
+	\item \textbf{operatori di troncamento dei descrittori}: per la ricerca utilizzando le radici dei termini.
+\end{itemize}
+
+\noindent Altri operatori possono essere quelli che fornisce Google: \url{https://support.google.com/websearch/answer/2466433?p=adv_operators\&hl=en\&rd=1}.
+
+\section{Ordinamento dei risultati in base alla rilevanza}
+
+Se il modello può fornire un ordinamento, quindi se si può effettuare il ranking dei documenti, si ha che i documenti formano una lista in cui a ciascun documento è assegnato un \textbf{rango} (o rank).
+
+Il primo documento della lista ha un \textbf{rango alto} che corrisponde al \textbf{minimo valore intero di posizione nella lista} (ovvero al primo elemento della lista). L'ultimo documento della lista ha un \textbf{rango basso} che corrisponde al \textbf{massimo valore intero di posizione nella lista} (ovvero all'ultimo elemento della lista).
+
+\subsection{Livello di coordinamento}
+
+Il livello di coordinamento è un metodo e tecnica accessoria che può essere utilizzata per ordinare i documenti.
+Più precisamente: il livello di coordinamento è una misura di quanto l'interrogazione è vera per un documento.
+
+Il livello di coordinamento più semplice è quello \textbf{binario}, che vale 1 quando il documento in esame rende vera l'interrogazione e 0 in caso contrario.
+
+\begin{figure}[ht]
+	\centering
+	\begin{minipage}[b]{0.45\linewidth}
+		\centering
+		\includegraphics[width=0.7\linewidth]{images/l8-set-1}
+		\caption{Livello di coordinamento binario con \textit{AND}}
+		
+	\end{minipage}
+	\quad
+	\begin{minipage}[b]{0.45\linewidth}
+		\centering
+		\includegraphics[width=0.7\linewidth]{images/l8-set-2}
+		\caption{Livello di coordinamento binario con \textit{OR}}
+	\end{minipage}
+\end{figure}
+
+Volendo si può uscire dalla logica booleana a due valori, introducendo un livello di coordinamento non binario, andando a considerare il numero di termini della query che sono in presenti nel documento.
+Si può quindi utilizzare questo livello per ordinare i documenti forniti in risposta (a volte detto anche \textbf{simple matching}).
+
+Ad esempio si consideri l'interrogazione \textit{``pagine AND web''} per il nostro insieme di documenti.
+
+Si può dire che l'interrogazione è ``più vera'' per D1, perché rende vere entrambe le proposizioni atomiche ``pagine'' e ``web'', che formano l'interrogazione, mentre D3 ne rende vera solo una e D2 nessuna.
+
+\textbf{Piccola nota}: l'AND non è proprio un AND, è una sorta di AND-rilassato, perché viene valutato positivamente anche un documento che non soddisfa tutti i termini. Questa notazione confusa deriva dal fatto che il livello di coordinamento è uguale al \textbf{simple matching coefficient}:
+
+$$
+\text{simple matching coefficient} = |\ D \cap Q \ |
+$$
+
+\noindent Ossia alla cardinalità dell'intersezione tra i termini della query $Q$ e quelli presenti nel documento $D$.
+
+Ad esempio, assumendo di avere i descrittori $A = \{d_1, d_2\}$, $B = \{d_2, d_3\}$, $C =\{d_3\}$ e considerando la query
+
+\begin{center}
+	$A$ AND ($B$ OR $C$)
+\end{center}
+
+\noindent si ha che con il modello booleano l'unico documento fornito in risposta è $d_2$, mentre utilizzando il livello di coordinamento si ha la sequenza
+\begin{enumerate}
+	\item $d_2$ con livello di coordinamento 2, perché rende vera sia $A$ che $C$ OR $B$.
+	\item $d_1$ con livello di coordinamento 1, perché rende vera $A$.
+	\item $d_3$ con livello di coordinamento 1, perché rende vera $C$ OR $B$.
+\end{enumerate}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.4\linewidth]{images/l8-cord-gen}
+	\caption{Rappresentazione grafica dell'esempio.}
+\end{figure}
+
+\section{Modello vettoriale}
+%pacchetto slide 8
+
+Questo modello assume che gli \textit{n} documenti e le interrogazioni appartengano ad uno spazio vettoriale composto da \textit{t} dimensioni, dove \textit{t} è il numero di termini indice (parole, frasi, $\ldots$).
+
+Di conseguenza il documento $D_i$ è rappresentato da un vettore
+
+$$
+D_i = (d_{i1},d_{i2},\ldots,d_{ij}, \ldots d_{it})
+$$
+
+\noindent dove l'elemento $d_{ij}$ rappresenta il peso del termine $j$-esimo nel documento $i$-esimo.
+
+Anche la query viene considerata come un documento e quindi anche ad essa viene associato un vettore $Q$ che ha come elementi i pesi dei termini che compaiono nella query.
+
+$$
+Q = (q_{1},q_{2},\ldots,q_{j}, \ldots q_{t})
+$$
+
+L'idea alla base di questo è che l'utente vorrebbe trovare un documento uguale alla query che sta scrivendo.
+
+Una collezione di $n$ documenti può quindi essere rappresentata come una matrice dove ogni riga rappresenta un documento e ogni colonna contiene i pesi che sono associati ad un termine in un determinato documento.
+
+$$
+\begin{matrix}
+& Term_1 & Term_2 & \ldots & Term_j & \ldots &Term_t \\ 
+Doc_1 & d_{11} & d_{12}& \ldots & d_{1j} & \ldots & d_{1t} \\ 
+Doc_2 & d_{21} & d_{22}& \ldots & d_{2j} & \ldots & d_{2t} \\ 
+\vdots & \vdots &\vdots  &  & \vdots && \vdots\\ 
+Doc_i & d_{i1} & d_{i2}& \ldots & d_{ij} & \ldots & d_{it} \\ 
+\vdots & \vdots &\vdots  &  & \vdots && \vdots\\ 
+Doc_n & d_{n1} & d_{n2}& \ldots & d_{nj} & \ldots & d_{nt} \\ 
+\end{matrix}
+$$
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.6\linewidth]{images/l8-mod-vet}
+	\caption{Nell'esempio viene utilizzato la frequenza della parola come peso del termine. Sono state inoltre rimosse le stop-word e viene fatto lo stemming dei plurali \textbf{NB:} la matrice riportata è trasposta rispetto a quella definita precedentemente.}
+\end{figure}
+
+\noindent Un'altra cosa carina del modello vettoriale è che in casi semplici può essere rappresentato in modo grafico.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.3\linewidth]{images/l8-vet}
+\end{figure}
+
+\subsubsection{Metodo di ordinamento}
+
+Data la rappresentazione vettoriale, i documenti possono essere riordinati utilizzando il risultato del calcolo della distanza fra il vettore di ciascuno documento e quello della query.
+
+La distanza viene calcolata con una \textbf{misura di similarità} che ha un valore maggiore nel caso il documento sia simile alla query.
+La misura più comune è la \textbf{cosine correlation} che calcola il coseno dell'angolo tra i due vettori.
+La cosa interessante di questa misura è che quando i vettori sono normalizzati (hanno lunghezza uguale):
+
+\begin{itemize}
+	\item Il coseno dell'angolo $\alpha$ tra due vettori identici vale 1.
+	\item Il coseno dell'angolo $\alpha$ tra due vettori che non condividono nessun termine o caratteristica vale 0.
+\end{itemize} 
+
+$$
+Cosine(D_i, Q) = \frac{\sum\limits_j (d_{i,j} \cdot q_j)}{\sqrt{\sum\limits_j d_{i,j}^2} \cdot \sqrt{\sum\limits_j q_{j}^2}}
+$$
+
+\noindent con $j$ che varia da 1 a $t$.
+
+\`E importante precisare che non ci sono ragioni teoriche che fanno preferire questa misura, si è semplicemente visto che funziona bene.
+
+Ad esempio, per i documenti $D_1 = (0.5, 0.8, 0.3)$ e $D_2 = (0.9, 0.4, 0.2)$ e per la query $Q = (1.5, 1, 0)$ si ottengono le similarità:
+
+\begin{align*}
+	Cosine(D_1,Q) &= \frac{0.5 \cdot 1.5 + 0.8 \cdot 1 + 0.3 \cdot 0}{\sqrt{0.25+0.64+0.09}\cdot \sqrt{2.25+1+0}} = \frac{1.55}{1.78} = 0.87 \\
+	Cosine(D_2, Q) &= \frac{0.9\cdot 1.5 + 0.4 \cdot 1 + 0.2 \cdot 0}{\sqrt{0.81 + 0.16 + 0.04}\cdot \sqrt{2.25 + 1 +0}} = \frac{1.75}{1.81} = 0.97
+\end{align*}
+
+\textbf{{\color{Red} Possibile esercizio:}} Dati due documenti ed una query, calcolare la similarità coseno.
+
+\subsection{Pesatura dei termini}
+
+Rimane comunque da definire degli schemi di pesatura per i vari termini.
+
+La maggior parte degli schemi si basano sul \textbf{TF-IDF}, dove \textbf{TF} è la frequenza normalizzata del termine all'interno del documento:
+
+$$
+tf_{i,k} = \frac{f_{i,k}}{\sum\limits_j f_{i,j}}
+$$
+
+\noindent dove $k$ è il termine d'interesse, $f_{i,j}$ è la frequenza del termine $j$ nel documento $i$.
+
+Tuttavia, così facendo viene dato molto peso ai termini molto frequenti nel documento e si è visto che a livello pratico utilizzare il logaritmo produce risultati migliori.
+
+$$
+tf_{i,k} = \frac{\log (f_{i,k}+1)}{\sum\limits_j \log (f_{i,j} +1)}
+$$
+
+Anche se tipicamente viene omesso il denominatore, calcolando \textit{tf} con
+
+$$
+tf_{i,k} = \log (f_{i,k}+1)
+$$

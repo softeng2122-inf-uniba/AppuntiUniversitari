@@ -1,0 +1,7 @@
+1 0 184 0 0 1
+1 0 29  0 0 1
+1 0 31  0 0 1
+
+queryid num_x_qualsiasi docid_documento rank_documento score nome_run
+
+http://trec.nist.gov/trec_eval/index.html

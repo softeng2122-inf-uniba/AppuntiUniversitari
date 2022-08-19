@@ -1,0 +1,24 @@
+
+1) Aprire il prompt dei comandi
+
+2) digitare mysql -u root (se non funziona, è perché non è stata aggiunta la variabile d'ambiente durante l'install)
+
+3) copiare tutta la query presente nel file nomedatabase.sql, ed eseguirla nel prompt
+
+4) Aprire eclipse, creare un file .java, e copiarci il testo del file template.java
+
+5) Configurare jdbc (mettere il file mysql-connector.apk in una cartella del progetto, ed aggiungerlo alle librerie)
+(altrimenti la riga <<new com.mysql.jdbc.Driver();>> dà errore)
+
+6) Al template.java, nella riga: <<connessione = DriverManager.getConnection();>>
+Dare un input valido al metodo getConnection, esempio:
+connessione = DriverManager.getConnection("jdbc:mysql://localhost/HenrysBooksDB20150204", "root", "");
+
+7) Dichiarare le varie variabili sparse nel codice (esempio: ok, num, ...)
+
+8) Inserire le query dei vari esercizi nelle variabili stringa1, stringa2, ...
+
+9) Gestire l'output in console.
+Ad esempio, se una query è una select, l'output della select viene salvato in un oggetto "risultato" di tipo ResultSet.
+Poi bisogna ciclare (nel while) fra le varie tuple contenute nell'oggetto ResultSet.
+Si fa tipo System.out.println("Titolo: " + risultato.getString("Titolo_libro"));

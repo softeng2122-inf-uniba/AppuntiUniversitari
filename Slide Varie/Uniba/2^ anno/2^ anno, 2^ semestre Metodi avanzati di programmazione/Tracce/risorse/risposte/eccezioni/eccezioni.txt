@@ -1,0 +1,58 @@
+Nel linguaggio C la gestione degli errori era a carico del programmatore.
+
+In Java, invece, esiste un sistema di controllo delle eccezioni che semplifica
+la scrittura del codice. Un eccezione è un evento inaspettato per il programma,
+che se non gestita causa la terminazione del programma stesso. E' necessario
+un meccanismo per riconoscere l'eccezione ed eseguire una serie di istruzioni
+per permettere al programma di proseguire. In linguaggi come in C++ e Java al
+verificarsi di una eccezione non si riprende da dove il programma si era
+fermato, ma si va alla ricerca di un gestore delle eccezioni.
+
+Esistono due tipi di eccezioni: controllate e non controllate.
+Le eccezioni controllate sono quelle che devono essere obbligatoriamente
+gestite dal programmatore, mentre le eccezioni non controllate sono quelle per
+cui il programmatore non è obbligato a gestire. Un blocco try è un blocco
+(detta guarded-zone) di istruzioni in cui è possibile che si verifichi
+una eccezione. E' obbligatorio ad ogni blocco try inserire uno o più blocchi
+catch che compiono il ruolo di gestori delle eccezioni.
+
+La parola chiave catch prende in input una eccezione. Quando un' eccezione si
+verifica nella guarded-zone viene creato e lanciato un oggetto eccezione
+e l'interprete va alla ricerca di un gestore delle eccezioni il cui tipo
+del parametro in input sia corrispondente (oppure una sua superclasse per
+sostituibilità) al tipo dell'eccezione lanciata. Se non viene individuato
+un gestore delle eccezioni appropriato l'oggetto eccezione viene espulso
+dal contesto corrente alla ricerca di un gestore delle eccezioni appropriato.
+Se non vi è alcun gestore delle eccezioni allora si risale fino al main e
+allora il programma termina.
+
+L'istruzione finally, che si può inserire opzionalmente alla fine
+dei blocchi catch (dei gestori delle eccezioni) permette di inserire un
+blocco di istruzioni che verrà eseguito a prescindere se nella guarded-zone
+si sia verificato una eccezione oppure no. Al termine dell'esecuzione del
+blocco catch verrà eseguito il blocco di istruzioni del finally. Se invece
+si esce dal contesto corrente verrà comunque eseguito il blocco di istruzioni
+del finally. Il finally è molto utile per far si che si liberino le risorse
+a prescindere se si sia verificata una eccezione oppure no.
+
+La parola chiame throws la si usa, alla fine della dichiarazione di un
+metodo (prima del suo blocco delle istruzioni) per comunicare al programmatore
+che una eventuale eccezione non è gestita all'interno di quel metodo e che
+quindi dovrà essere gestita in un altro metodo. Ad esempio se si scrive
+`throws CustomException` (che estende Exception) nella dichiarazione di un
+metodo allora nel blocco di istruzioni di questo metodo non si avrà
+l'obbligo di gestire l'eccezione CustomException. Quindi se si verificasse
+una eccezione del genere allora l'oggetto eccezione sarà lanciato fuori
+dal contesto e sarà gestita nel metodo chiamante (oppure in un altro
+metodo nella gerarchia).
+
+Il programmatore può creare nuove classi eccezioni semplicemente dichiarando
+una classe che estende la classe nel package java.lang Exception. Tutte le
+classi che estendono la classe Exception sono eccezioni controllate, per cui
+è obbligatorio inserire il codice che può lanciare una estensione in un
+blocco try-catch. Se invece il programmatore estende una classe
+RuntimeException allora la nuova classe eccezione è una eccezione non
+controllata. Un esempio di eccezione non controllata è la
+NullPointerException. Questa eccezione è non controllata perchè può capitare
+molto spesso (ogni volta che si accede ad un oggetto) e pertanto sarebbe
+ridondante includere ogni accesso ad un oggetto in un blocco try-catch.

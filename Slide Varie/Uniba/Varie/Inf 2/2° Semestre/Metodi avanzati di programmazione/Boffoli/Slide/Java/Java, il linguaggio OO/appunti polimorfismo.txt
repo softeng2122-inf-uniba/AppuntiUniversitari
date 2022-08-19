@@ -1,0 +1,6 @@
+APPUNTI POLIMORFISMO
+
+-invocare metodi ridefinibili in un costruttore di una classe base può causare comportamenti non voluti, a causa del fatto che il costruttore della classe base viene invocato automaticamente dal costruttore di una classe derivata, e in quel caso il metodo ridefinibile, se è ridefinito nella classe derivata, sarà invocato con il corpo ridefinito e prima del costruttore della classe derivata
+
+-nel caso di composizone non serve usare finalize(), invece nel caso di ereditarietà (se è necessario) sì
+(cos'è finalize?)

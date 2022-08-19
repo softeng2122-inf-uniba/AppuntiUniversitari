@@ -1,0 +1,25 @@
+
+==== Stream del server/client con caratteri ====
+
+PrintWriter out = new PrintWriter(
+			new BufferedWriter(
+				new OutputStreamReader(socket.getOutputStream())), true);
+
+BufferedReader in = new BufferedReader(
+			new InputStreamReader(socket.getInputStream()));
+
+* uso *
+
+out.println(stringa);
+String stringa = in.readLine();
+
+==== Stream del server/client con oggetti ====
+
+ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+
+ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+
+* uso *
+
+out.writeObject(oggetto);
+(Pecora) p = (Pecora) in.readObject();

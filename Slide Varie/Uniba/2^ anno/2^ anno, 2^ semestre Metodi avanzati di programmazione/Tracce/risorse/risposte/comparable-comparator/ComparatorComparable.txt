@@ -1,0 +1,70 @@
+Comparable<T> è una interfaccia generica di parametro T.
+Le classi che implementano Comparable<T> devono implementare il metodo
+	int compareTo(T other)
+che ritorna 1 se l'oggetto è maggiore di other, -1 se l'oggetto è minore
+di other, 0 altrimenti (se quindi sono uguali).
+
+Comparator<T> è una interfaccia generica di parametro T.
+Le classi che implementano Comparator<T> devono implementare il metodo
+	int compare(T first, T second)
+che compara gli oggetti first e second. Esso ritorna 1 se first è maggiore
+di second, -1 se first è minore di second, 0 se sono uguali. Può anche essere
+necessario implementare il metodo astratto equals definito come astratto in
+Comparator. Quest'ultimo metodo server per stabilire se due comparator sono
+uguali.
+
+Se si vuole comparare un oggetto con un'altra allora la classe di quell'oggetto
+deve implementare l'interfaccia Comparable. Si consiglia di passare come
+parametro alla generic la classe stessa, così da evitare il cast nel metodo
+compareTo(). Dopodichè la classe deve implementare il metodo compareTo() come
+da specifica. Ad esempio la classe Fruit implementa l'interfaccia
+Comparable<Fruit>, pertanto implementa il metodo int compareTo(Fruit f).
+Se si dichiara una lista di Fruit come segue:
+	List<Fruit> fruits = new ArrayList<Fruit>();
+e si ordina la lista come segue:
+	Collections.sort(fruits);
+allora fruits sarà ordinato secondo la relazione d'ordine indicata dal metodo
+int compareTo(Fruit f). Per ordinare in maniera differente basterà modificare
+quest'ultimo metodo. Si noti che Collections.sort() esegue il downcast da Object
+a Comparable. Se la classe Fruit non implementasse l'interfaccia Comparable
+allora verrebbe lanciata una ClassCastException.
+
+Si supponga ora di voler ordinare sempre una List<Fruit> secondo un comparatore
+definito. Si definisce una classe FruitComparator che implementa l'interfaccia
+Comparator<Fruit> e che definisce il metodo int compare(Fruit a, Fruit b). Si
+può passare un istanza del comparatore al metodo Collections.sort come segue:
+	Collections.sort(fruits, new FruitComparator());
+Pertanto il metodo Collections.sort() chiama il metodo compare() definita
+dal comparator per ordinare gli oggetti presenti in fruits.
+
+Si supponga ora di lavorare con Java senza l'utilizzo delle Generics.
+Supponiamo di avere un Fruit[] fruits e di voler cercare il massimo usando il
+comparator. Si sa che la classe Fruit implementa l'interfaccia Comparable. Il
+metodo per la ricerca del massimo sarà il seguente:
+
+Object maximum(Object[] array) {
+	Object max = null;
+	for (Object o : array) {
+		if (o == null) continue;
+
+		if (max == null || ((Comparable)o).compareTo(o) == 1) {
+			max = o;
+		}
+	}
+	return max;
+}
+
+Se invece si vuole cercare il massimo utilizzando un comparatore specifico
+allora il metodo diventa:
+
+Object maximum(Object[] array, Comparator cmp) {
+	Object max = null;
+	for (Object o : array) {
+		if (o == null) continue;
+
+		if (max == null || cmp.compare(o, max) == 1) {
+			max = o:
+		}
+	}
+	return max;
+}

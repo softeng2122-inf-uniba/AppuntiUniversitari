@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1562835530 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\code\nodo.cpp
+	"Nodo.h"
+	<iostream>
+	<stdlib.h>
+
+1562779098 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\code\nodo.h
+
+1562836366 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\code\coda.cpp
+	"Nodo.h"
+	"Coda.h"
+	<iostream>
+	<stdlib.h>
+
+1562836209 c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\code\coda.h
+	"Nodo.h"
+
+1562836607 source:c:\users\fedca\onedrive\desktop\università\2^ anno\2^ anno, 1^ semestre algoritmi e strutture dati\asd\strutture federico\code\main.cpp
+	<iostream>
+	<stdlib.h>
+	"Nodo.h"
+	"Coda.h"
+

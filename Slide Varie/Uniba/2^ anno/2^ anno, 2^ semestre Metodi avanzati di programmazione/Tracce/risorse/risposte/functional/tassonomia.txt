@@ -1,0 +1,6 @@
+Interfacce Funzionali |       Metodi      | Metodi stream |
+----------------------|-------------------|---------------|
+    Predicate<T>      |  bool test(T o)   |   .filter()   |
+   Function<T, U>     |   U apply(T o)    |    .map()     |
+    Consumer<T>       |  void accept(T o) |   .forEach()  |
+----------------------|-------------------|---------------|

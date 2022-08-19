@@ -1,0 +1,4 @@
+A001 Soleto 5 30 50.000000 
+A002 Galatina 3 30 75.500000 
+A005 Melpignano 4 30 30.000000 
+A004 Gallipoli 3 15 30.000000 
