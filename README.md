@@ -13,4 +13,7 @@ I will active the sponsor for this repo. To cover all the maintenance costs of t
 The actual costs of this repo:
 ![Costs](./costi.PNG)
 
+On 07/09/2022 we have expired all the data quota for upload and download. To upgrade this quota, that is a monthly cost, I ask you to support this project, pls.
+![CostsUP](./upcosti.PNG)
+
 If you want to contact me, please visit [my website](https://federicocalo.it).
